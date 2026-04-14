@@ -85,9 +85,9 @@
       color: #f8fafc;
     }
 
-    .headline em {
-      font-style: italic;
+    .headline .amber-word {
       color: var(--amber);
+      font-style: normal;
     }
 
     .amber-badge {
@@ -272,7 +272,6 @@
     }
 
     .price-tag {
-      font-family: 'Playfair Display', serif;
       font-size: clamp(2.8rem, 5vw, 4rem);
       font-weight: 700;
       color: var(--amber);
@@ -447,10 +446,8 @@
     .ohnohoney { position: absolute; left: -9999px; opacity: 0; height: 0; width: 0; overflow: hidden; }
 
     @media (max-width: 768px) {
-      .hero-grid { grid-template-columns: 1fr !important; }
       .responsive-grid { grid-template-columns: 1fr !important; }
       .two-col-grid { grid-template-columns: 1fr !important; }
-      .hero-player-wrap { margin-top: 40px; }
     }
   </style>
 </head>
@@ -499,114 +496,50 @@
   <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(148,163,184,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.03) 1px, transparent 1px); background-size:60px 60px; pointer-events:none;"></div>
 
   <div class="max-w-6xl mx-auto px-6 py-24 w-full relative z-10">
-    <div class="hero-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;">
+    <div class="max-w-3xl" style="margin:0 auto; text-align:center;">
 
-      <!-- Left: Text -->
-      <div>
-        <div class="fade-up mb-8">
-          <span class="amber-badge">
-            <span style="width:6px; height:6px; border-radius:50%; background:var(--amber); display:inline-block; animation: pulse 2s infinite;"></span>
-            Now Accepting New Authors
-          </span>
-        </div>
-
-        <h1 class="headline fade-up-delay-1">
-          Your Story, <em>Heard.</em><br>
-          <span style="font-size:clamp(1.4rem, 3vw, 2.4rem); color:#f8fafc;">Full Audiobook in <em>One Week</em></span>
-        </h1>
-
-        <p class="fade-up-delay-2" style="font-size:1.05rem; color:var(--slate-400); line-height:1.75; margin-top:24px; max-width:480px;">
-          Professional indie narration at the speed of AI.<br>
-          A fraction of the cost. <span style="color:#f8fafc; font-weight:500;">100% of the impact.</span><br>
-          <span style="color:var(--amber); font-weight:500;">Now available in English &amp; Spanish.</span>
-        </p>
-
-        <div class="fade-up-delay-3" style="display:flex; flex-wrap:wrap; gap:14px; margin-top:32px;">
-          <a href="#contact" class="btn-primary">
-            Start Your Journey
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
-          </a>
-        </div>
-
-        <!-- Mini stats -->
-        <div style="display:flex; flex-wrap:wrap; gap:32px; margin-top:48px; padding-top:32px; border-top:1px solid rgba(148,163,184,0.08);" class="fade-up-delay-3">
-          <div>
-            <div style="font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:#f8fafc;">7<span style="color:var(--amber);">d</span></div>
-            <div style="font-size:0.78rem; color:var(--slate-400); letter-spacing:0.06em; text-transform:uppercase; margin-top:2px;">Avg. Turnaround</div>
-          </div>
-          <div style="width:1px; background:rgba(148,163,184,0.1);"></div>
-          <div>
-            <div style="font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:#f8fafc;">$<span style="color:var(--amber);">50</span></div>
-            <div style="font-size:0.78rem; color:var(--slate-400); letter-spacing:0.06em; text-transform:uppercase; margin-top:2px;">Per Finished Hour</div>
-          </div>
-          <div style="width:1px; background:rgba(148,163,184,0.1);"></div>
-          <div>
-            <div style="font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:#f8fafc;"><span style="color:var(--amber);">HD</span></div>
-            <div style="font-size:0.78rem; color:var(--slate-400); letter-spacing:0.06em; text-transform:uppercase; margin-top:2px;">Studio-Quality Audio</div>
-          </div>
-        </div>
+      <div class="fade-up mb-8">
+        <span class="amber-badge">
+          <span style="width:6px; height:6px; border-radius:50%; background:var(--amber); display:inline-block; animation: pulse 2s infinite;"></span>
+          Now Accepting New Authors
+        </span>
       </div>
 
-      <!-- Right: Starwater Sample Player -->
-      <div class="hero-player-wrap fade-up-delay-2">
-        <div class="player-card">
-          <!-- Cover Art + Info -->
-          <div style="display:flex; gap:16px; margin-bottom:20px; align-items:flex-start;">
-            <!-- Cover Art -->
-            <div id="coverArt" style="width:120px; height:170px; border-radius:10px; overflow:hidden; flex-shrink:0; background:linear-gradient(135deg, #0f172a, #1e293b); border:1px solid rgba(245,158,11,0.2); display:flex; align-items:center; justify-content:center; position:relative;">
-              <!-- Replace this div with <img src="starwater-cover.jpg"> when you have the file -->
-              <img src="starwater-cover.jpg" alt="Starwater: Superstorm by David Cline" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'text-align:center; padding:12px;\'><div style=\'font-family:Playfair Display,serif; font-size:0.85rem; font-weight:700; color:#f8fafc; line-height:1.2;\'>STAR<br>WATER</div><div style=\'font-size:0.55rem; color:var(--amber); margin-top:6px; letter-spacing:0.08em; text-transform:uppercase;\'>Superstorm</div><div style=\'font-size:0.5rem; color:var(--slate-400); margin-top:8px;\'>David Cline</div></div>'">
-            </div>
-            <div style="flex:1; min-width:0;">
-              <div style="font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:600; color:#f8fafc; margin-bottom:4px;">
-                Starwater
-              </div>
-              <div style="font-size:0.75rem; color:var(--slate-400); letter-spacing:0.04em; margin-bottom:12px;">
-                Original Fiction &middot; Chapter 1 &middot; Voice Demo
-              </div>
-              <span style="display:inline-flex; align-items:center; gap:6px; background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.2); color:var(--amber); font-size:0.65rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; padding:4px 10px; border-radius:6px;">
-                <span style="width:5px;height:5px;border-radius:50%;background:var(--amber);animation:pulse 2s infinite;display:inline-block;"></span>
-                HD &middot; 48kHz
-              </span>
-            </div>
-          </div>
+      <h1 class="headline fade-up-delay-1">
+        Your Story, <span class="amber-word">Heard.</span><br>
+        <span style="font-size:clamp(1.4rem, 3vw, 2.4rem); color:#f8fafc;">Full Audiobook in <span class="amber-word">One Week</span></span>
+      </h1>
 
-          <!-- Play + Progress -->
-          <div style="display:flex; align-items:center; gap:12px; margin-bottom:4px;">
-            <button class="play-btn" id="heroPlayBtn" onclick="toggleHeroPlay()" title="Play / Pause">
-              <svg id="heroPlayIcon" class="play-icon" width="18" height="18" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-              <svg id="heroPauseIcon" class="pause-icon" width="16" height="16" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
-            </button>
-            <div style="flex:1;">
-              <div class="progress-bar-track" id="heroProgressTrack" onclick="heroSeek(event)">
-                <div class="progress-bar-fill" id="heroProgressFill" style="width:0%;"></div>
-                <div class="progress-thumb" id="heroProgressThumb" style="left:0%;"></div>
-              </div>
-              <div style="display:flex; justify-content:space-between;">
-                <span id="heroCurrentTime" style="font-size:0.72rem; color:var(--slate-400); font-variant-numeric:tabular-nums;">0:00</span>
-                <span id="heroTotalTime" style="font-size:0.72rem; color:var(--slate-400);">0:00</span>
-              </div>
-            </div>
-          </div>
+      <p class="fade-up-delay-2" style="font-size:1.1rem; color:var(--slate-400); line-height:1.75; margin-top:24px; max-width:540px; margin-left:auto; margin-right:auto;">
+        Professional indie narration at the speed of AI.<br>
+        A fraction of the cost. <span style="color:#f8fafc; font-weight:500;">100% of the impact.</span><br>
+        <span style="color:var(--amber); font-weight:500;">Now available in English &amp; Spanish.</span>
+      </p>
 
-          <!-- Divider -->
-          <div style="height:1px; background:rgba(148,163,184,0.08); margin:16px 0;"></div>
-
-          <!-- Spotify CTA -->
-          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
-            <p style="font-size:0.78rem; color:var(--slate-400);">
-              Narrated Fan Fiction on Spotify
-            </p>
-            <a href="https://open.spotify.com/episode/7oXBifuL20ET9SLOjLdt1j?si=bcc95920e2c7406c" target="_blank" rel="noopener noreferrer" class="spotify-btn">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path>
-              </svg>
-              Listen on Spotify
-            </a>
-          </div>
-        </div>
+      <div class="fade-up-delay-3" style="display:flex; flex-wrap:wrap; gap:14px; margin-top:36px; justify-content:center;">
+        <a href="#contact" class="btn-primary">
+          Start Your Journey
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+        </a>
       </div>
 
+      <!-- Mini stats -->
+      <div style="display:flex; flex-wrap:wrap; gap:32px; margin-top:56px; padding-top:40px; border-top:1px solid rgba(148,163,184,0.08); justify-content:center;" class="fade-up-delay-3">
+        <div>
+          <div style="font-size:2rem; font-weight:700; color:#f8fafc;">7<span style="color:var(--amber);">d</span></div>
+          <div style="font-size:0.78rem; color:var(--slate-400); letter-spacing:0.06em; text-transform:uppercase; margin-top:2px;">Avg. Turnaround</div>
+        </div>
+        <div style="width:1px; background:rgba(148,163,184,0.1);"></div>
+        <div>
+          <div style="font-size:2rem; font-weight:700; color:#f8fafc;"><span style="color:var(--amber);">$50</span></div>
+          <div style="font-size:0.78rem; color:var(--slate-400); letter-spacing:0.06em; text-transform:uppercase; margin-top:2px;">Per Finished Hour</div>
+        </div>
+        <div style="width:1px; background:rgba(148,163,184,0.1);"></div>
+        <div>
+          <div style="font-size:2rem; font-weight:700; color:#f8fafc;"><span style="color:var(--amber);">HD</span></div>
+          <div style="font-size:0.78rem; color:var(--slate-400); letter-spacing:0.06em; text-transform:uppercase; margin-top:2px;">Studio-Quality Audio</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -647,7 +580,88 @@
 </div>
 
 
-<!-- MEET THE VOICES (now before Built for Indie Author) -->
+<!-- AUDIO SAMPLE SECTION -->
+<section id="sample" style="padding:100px 0; position:relative;">
+  <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:600px; height:600px; background:radial-gradient(circle, rgba(245,158,11,0.05) 0%, transparent 70%); pointer-events:none;"></div>
+
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center" style="margin-bottom:56px;">
+      <div class="section-label">Listen First</div>
+      <h2 class="section-title">Hear the Difference</h2>
+      <p style="color:var(--slate-400); margin-top:16px; font-size:0.95rem; max-width:500px; margin-left:auto; margin-right:auto; line-height:1.7;">
+        High-fidelity AI narration that breathes life into every sentence.
+        No robotic tones. No compromises.
+      </p>
+    </div>
+
+    <div class="max-w-2xl mx-auto">
+      <div class="player-card" style="padding:32px;">
+
+        <!-- Header with cover art -->
+        <div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:28px; flex-wrap:wrap;">
+          <div style="width:100px; height:140px; border-radius:10px; overflow:hidden; flex-shrink:0; border:1px solid rgba(245,158,11,0.2);">
+            <img src="starwater-cover.jpg" alt="Starwater: Superstorm" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <div style="flex:1; min-width:160px;">
+            <div style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:#f8fafc; margin-bottom:4px;">
+              Starwater
+            </div>
+            <div style="font-size:0.8rem; color:var(--slate-400); letter-spacing:0.04em; margin-bottom:14px;">
+              Original Fiction &middot; Chapter 1 &middot; Voice Demo
+            </div>
+            <span style="display:inline-flex; align-items:center; gap:6px; background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.2); color:var(--amber); font-size:0.68rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; padding:5px 10px; border-radius:6px;">
+              <span style="width:5px;height:5px;border-radius:50%;background:var(--amber);animation:pulse 2s infinite;display:inline-block;"></span>
+              HD &middot; 48kHz
+            </span>
+          </div>
+        </div>
+
+        <!-- Play + Progress -->
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:4px;">
+          <button class="play-btn" id="heroPlayBtn" onclick="toggleHeroPlay()" title="Play / Pause" style="width:52px; height:52px;">
+            <svg id="heroPlayIcon" class="play-icon" width="22" height="22" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <svg id="heroPauseIcon" class="pause-icon" width="20" height="20" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          </button>
+          <div style="flex:1;">
+            <div class="progress-bar-track" id="heroProgressTrack" onclick="heroSeek(event)" style="margin:0 0 8px;">
+              <div class="progress-bar-fill" id="heroProgressFill" style="width:0%;"></div>
+              <div class="progress-thumb" id="heroProgressThumb" style="left:0%;"></div>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span id="heroCurrentTime" style="font-size:0.8rem; color:var(--slate-400); font-variant-numeric:tabular-nums;">0:00</span>
+              <span id="heroTotalTime" style="font-size:0.8rem; color:var(--slate-400);">0:00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Volume -->
+        <div style="display:flex; align-items:center; justify-content:flex-end; gap:10px; margin-top:8px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--slate-400)" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+          <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.8" style="width:80px; accent-color:var(--amber); cursor:pointer; height:4px;" oninput="heroAudio.volume=parseFloat(this.value)">
+        </div>
+
+        <!-- Divider -->
+        <div style="height:1px; background:rgba(148,163,184,0.08); margin:24px 0;"></div>
+
+        <!-- Spotify CTA -->
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;">
+          <p style="font-size:0.82rem; color:var(--slate-400);">
+            Narrated Fan Fiction on Spotify
+          </p>
+          <a href="https://open.spotify.com/episode/7oXBifuL20ET9SLOjLdt1j?si=bcc95920e2c7406c" target="_blank" rel="noopener noreferrer" class="spotify-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path>
+            </svg>
+            Listen on Spotify
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- MEET THE VOICES -->
 <section id="voices" style="padding:100px 0; background:linear-gradient(180deg, rgba(15,23,42,0.4) 0%, transparent 100%);">
   <div class="max-w-6xl mx-auto px-6">
 
@@ -762,7 +776,7 @@
           <strong style="color:#f8fafc;">7 days</strong>. No waiting months in a queue. No delays. Your story reaches listeners while it's still hot.
         </p>
         <div style="margin-top:24px; padding-top:20px; border-top:1px solid rgba(148,163,184,0.08);">
-          <span style="font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:var(--amber);">7</span>
+          <span style="font-size:2rem; font-weight:700; color:var(--amber);">7</span>
           <span style="font-size:0.8rem; color:var(--slate-400); margin-left:4px; letter-spacing:0.06em; text-transform:uppercase;">Day Guarantee</span>
         </div>
       </div>
@@ -781,7 +795,7 @@
           <strong style="color:#f8fafc;">$50 per finished hour</strong>. That's roughly $500 for a full novel — the same quality as a $3,000+ studio production. No hidden fees, no royalty splits, no surprises.
         </p>
         <div style="margin-top:24px; padding-top:20px; border-top:1px solid rgba(148,163,184,0.08);">
-          <span style="font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:var(--amber);">$50</span>
+          <span style="font-size:2rem; font-weight:700; color:var(--amber);">$50</span>
           <span style="font-size:0.8rem; color:var(--slate-400); margin-left:4px; letter-spacing:0.06em; text-transform:uppercase;">Per Finished Hour</span>
         </div>
       </div>
@@ -841,7 +855,7 @@
         </div>
         <div style="background:rgba(245,158,11,0.06); border:1px solid rgba(245,158,11,0.12); border-radius:12px; padding:20px; text-align:center; margin-bottom:28px;">
           <div style="font-size:0.78rem; color:var(--slate-400); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:6px;">Average Novel</div>
-          <div style="font-family:'Playfair Display',serif; font-size:2.2rem; font-weight:700; color:#f8fafc;">~$500</div>
+          <div style="font-size:2.2rem; font-weight:700; color:#f8fafc;">~$500</div>
           <div style="font-size:0.78rem; color:var(--slate-400); margin-top:4px;">80,000 words &middot; ~10 hrs audio</div>
         </div>
         <a href="#contact" class="btn-primary" style="width:100%; justify-content:center;">
