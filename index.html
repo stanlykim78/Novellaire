@@ -3,7 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Novellaire — Your Story, Heard.</title>
+  <title>Novellaire — AI Audiobook Production with Studio-Grade Quality</title>
+  <meta name="description" content="AI audiobook narration with the editorial standards of a real studio. Multi-layer validation catches errors. Indie tier from $40/hr, Studio tier with full revisions from $80/hr. First chapter free.">
+  <meta name="author" content="Novellaire">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Novellaire — AI Audiobook Production with Studio-Grade Quality">
+  <meta property="og:description" content="AI narration with the editorial standards of a real studio. Indie $40/hr, Studio $80/hr. First chapter free.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://novellaire.com/">
+  <meta property="og:image" content="starwater-cover.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Novellaire — AI Audiobook Production">
+  <meta name="twitter:description" content="AI narration with the editorial standards of a real studio. First chapter free.">
+  <meta name="twitter:image" content="starwater-cover.jpg">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23020617'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='60' font-weight='700' text-anchor='middle' fill='%23f59e0b' font-style='italic'%3EN%3C/text%3E%3C/svg%3E">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -271,11 +289,205 @@
       margin-bottom: 24px;
     }
 
-    .price-tag {
-      font-size: clamp(2.8rem, 5vw, 4rem);
+    /* How it works steps */
+    .step-card {
+      background: var(--slate-900);
+      border: 1px solid rgba(148,163,184,0.08);
+      border-radius: 16px;
+      padding: 28px 24px;
+      position: relative;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .step-card:hover {
+      border-color: rgba(245,158,11,0.25);
+      transform: translateY(-3px);
+    }
+    .step-number {
+      position: absolute;
+      top: -16px;
+      left: 24px;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--amber);
+      color: var(--slate-950);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 16px rgba(245,158,11,0.35);
+    }
+
+    /* Tier cards */
+    .tier-card {
+      background: var(--slate-900);
+      border: 1px solid rgba(148,163,184,0.1);
+      border-radius: 20px;
+      padding: 40px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .tier-card.tier-featured {
+      border-color: rgba(245,158,11,0.4);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.4), 0 0 40px rgba(245,158,11,0.08);
+    }
+    .tier-card.tier-featured::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--amber), transparent);
+    }
+    .tier-badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--amber);
+      color: var(--slate-950);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 999px;
+      z-index: 2;
+    }
+    .tier-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 6px;
+    }
+    .tier-tagline {
+      font-size: 0.8rem;
+      color: var(--slate-400);
+      letter-spacing: 0.04em;
+      margin-bottom: 24px;
+    }
+    .tier-price {
+      font-size: clamp(2.4rem, 4vw, 3rem);
       font-weight: 700;
       color: var(--amber);
       line-height: 1;
+    }
+    .tier-price-sub {
+      font-size: 0.85rem;
+      color: var(--slate-400);
+      margin-top: 6px;
+    }
+    .tier-novel-est {
+      background: rgba(245,158,11,0.05);
+      border: 1px solid rgba(245,158,11,0.12);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 24px 0;
+      text-align: center;
+    }
+    .tier-novel-est-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+    .tier-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 28px;
+      flex: 1;
+    }
+    .tier-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.88rem;
+      color: var(--slate-300);
+      line-height: 1.5;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(148,163,184,0.06);
+    }
+    .tier-features li:last-child { border-bottom: none; }
+    .tier-features li.disabled {
+      color: var(--slate-700);
+      text-decoration: line-through;
+    }
+    .tier-features .check {
+      flex-shrink: 0;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: rgba(245,158,11,0.15);
+      border: 1px solid rgba(245,158,11,0.3);
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+    }
+    .tier-features .check.muted {
+      background: rgba(148,163,184,0.08);
+      border-color: rgba(148,163,184,0.15);
+    }
+
+    /* FAQ */
+    .faq-item {
+      background: var(--slate-900);
+      border: 1px solid rgba(148,163,184,0.08);
+      border-radius: 12px;
+      padding: 0;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .faq-item.open { border-color: rgba(245,158,11,0.25); }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 20px 24px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: #f8fafc;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .faq-question:hover { color: var(--amber); }
+    .faq-icon {
+      flex-shrink: 0;
+      transition: transform 0.25s;
+      color: var(--amber);
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      color: var(--slate-400);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+    .faq-answer-inner { padding: 0 24px 22px; }
+
+    /* Free chapter callout */
+    .free-chapter-card {
+      background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(245,158,11,0.02));
+      border: 1px solid rgba(245,158,11,0.25);
+      border-radius: 20px;
+      padding: clamp(32px, 5vw, 48px);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .free-chapter-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(245,158,11,0.1), transparent 60%);
+      pointer-events: none;
     }
 
     /* Voice card */
@@ -448,6 +660,8 @@
     @media (max-width: 768px) {
       .responsive-grid { grid-template-columns: 1fr !important; }
       .two-col-grid { grid-template-columns: 1fr !important; }
+      .tier-grid { grid-template-columns: 1fr !important; }
+      .steps-grid { grid-template-columns: 1fr !important; }
     }
   </style>
 </head>
@@ -463,13 +677,14 @@
       </span>
     </a>
     <div class="hidden md:flex items-center gap-8">
+      <a href="#how" class="nav-link">How It Works</a>
       <a href="#voices" class="nav-link">Voices</a>
-      <a href="#pillars" class="nav-link">What We Offer</a>
+      <a href="why-audio-wins.html" class="nav-link">Why Audio</a>
       <a href="#pricing" class="nav-link">Pricing</a>
       <a href="#contact" class="nav-link">Get Started</a>
     </div>
-    <a href="#contact" class="btn-primary hidden md:inline-flex" style="padding:10px 20px; font-size:0.78rem;">
-      Start Today
+    <a href="#free-chapter" class="btn-primary hidden md:inline-flex" style="padding:10px 20px; font-size:0.78rem;">
+      Free First Chapter
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
     </a>
     <button id="mobileMenuBtn" class="md:hidden" style="background:none; border:none; cursor:pointer; color:var(--slate-300); padding:4px;">
@@ -478,11 +693,12 @@
   </div>
   <div id="mobileMenu" class="md:hidden hidden" style="padding:16px 24px 20px; border-top:1px solid rgba(148,163,184,0.07);">
     <div class="flex flex-col gap-4">
+      <a href="#how" class="nav-link" onclick="closeMobile()">How It Works</a>
       <a href="#voices" class="nav-link" onclick="closeMobile()">Voices</a>
-      <a href="#pillars" class="nav-link" onclick="closeMobile()">What We Offer</a>
+      <a href="why-audio-wins.html" class="nav-link">Why Audio</a>
       <a href="#pricing" class="nav-link" onclick="closeMobile()">Pricing</a>
       <a href="#contact" class="nav-link" onclick="closeMobile()">Get Started</a>
-      <a href="#contact" class="btn-primary" style="padding:11px 20px; font-size:0.82rem; justify-content:center;" onclick="closeMobile()">Start Today</a>
+      <a href="#free-chapter" class="btn-primary" style="padding:11px 20px; font-size:0.82rem; justify-content:center;" onclick="closeMobile()">Free First Chapter</a>
     </div>
   </div>
 </nav>
@@ -506,38 +722,42 @@
       </div>
 
       <h1 class="headline fade-up-delay-1">
-        Your Story, <span class="amber-word">Heard.</span><br>
-        <span style="font-size:clamp(1.4rem, 3vw, 2.4rem); color:#f8fafc;">Full Audiobook in <span class="amber-word">One Week</span></span>
+        AI Narration. <span class="amber-word">Studio Standards.</span><br>
+        <span style="font-size:clamp(1.4rem, 3vw, 2.4rem); color:#f8fafc;">Your audiobook, ready in <span class="amber-word">days</span>.</span>
       </h1>
 
-      <p class="fade-up-delay-2" style="font-size:1.1rem; color:var(--slate-400); line-height:1.75; margin-top:24px; max-width:540px; margin-left:auto; margin-right:auto;">
-        Professional indie narration at the speed of AI.<br>
-        A fraction of the cost. <span style="color:#f8fafc; font-weight:500;">100% of the impact.</span><br>
-        <span style="color:var(--amber); font-weight:500;">Now available in English &amp; Spanish.</span>
+      <p class="fade-up-delay-2" style="font-size:1.1rem; color:var(--slate-400); line-height:1.75; margin-top:24px; max-width:600px; margin-left:auto; margin-right:auto;">
+        Most AI narration tools hand you raw output and call it done. We don't.
+        <span style="color:#f8fafc; font-weight:500;">Every chunk of your book is transcribed, verified against your manuscript, and re-rendered if it's wrong</span> — the same kind of quality control a real audio studio would catch.
+        <span style="color:var(--amber); font-weight:500;">English &amp; Spanish, Indie from $40/hr, Studio from $80/hr.</span>
       </p>
 
       <div class="fade-up-delay-3" style="display:flex; flex-wrap:wrap; gap:14px; margin-top:36px; justify-content:center;">
-        <a href="#contact" class="btn-primary">
-          Start Your Journey
+        <a href="#free-chapter" class="btn-primary">
+          Get My First Chapter Free
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+        </a>
+        <a href="#sample" class="btn-ghost">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Hear a Sample
         </a>
       </div>
 
       <!-- Mini stats -->
       <div style="display:flex; flex-wrap:wrap; gap:32px; margin-top:56px; padding-top:40px; border-top:1px solid rgba(148,163,184,0.08); justify-content:center;" class="fade-up-delay-3">
         <div>
-          <div style="font-size:2rem; font-weight:700; color:#f8fafc;">7<span style="color:var(--amber);">d</span></div>
-          <div style="font-size:0.78rem; color:var(--slate-400); letter-spacing:0.06em; text-transform:uppercase; margin-top:2px;">Avg. Turnaround</div>
+          <div style="font-size:2rem; font-weight:700; color:#f8fafc;"><span style="color:var(--amber);">3-7</span><span style="font-size:1.4rem;">d</span></div>
+          <div style="font-size:0.78rem; color:var(--slate-400); letter-spacing:0.06em; text-transform:uppercase; margin-top:2px;">Delivery</div>
         </div>
         <div style="width:1px; background:rgba(148,163,184,0.1);"></div>
         <div>
-          <div style="font-size:2rem; font-weight:700; color:#f8fafc;"><span style="color:var(--amber);">$50</span></div>
-          <div style="font-size:0.78rem; color:var(--slate-400); letter-spacing:0.06em; text-transform:uppercase; margin-top:2px;">Per Finished Hour</div>
+          <div style="font-size:2rem; font-weight:700; color:#f8fafc;"><span style="color:var(--amber);">100%</span></div>
+          <div style="font-size:0.78rem; color:var(--slate-400); letter-spacing:0.06em; text-transform:uppercase; margin-top:2px;">Validated Chunks</div>
         </div>
         <div style="width:1px; background:rgba(148,163,184,0.1);"></div>
         <div>
-          <div style="font-size:2rem; font-weight:700; color:#f8fafc;"><span style="color:var(--amber);">HD</span></div>
-          <div style="font-size:0.78rem; color:var(--slate-400); letter-spacing:0.06em; text-transform:uppercase; margin-top:2px;">Studio-Quality Audio</div>
+          <div style="font-size:2rem; font-weight:700; color:#f8fafc;"><span style="color:var(--amber);">You</span></div>
+          <div style="font-size:0.78rem; color:var(--slate-400); letter-spacing:0.06em; text-transform:uppercase; margin-top:2px;">Own The Audio</div>
         </div>
       </div>
     </div>
@@ -557,24 +777,26 @@
     <span class="marquee-item">Fantasy <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Romance <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Sci-Fi <span class="marquee-dot">&starf;</span></span>
+    <span class="marquee-item">LitRPG <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Thriller <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">YA <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Mystery <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Horror <span class="marquee-dot">&starf;</span></span>
-    <span class="marquee-item">Literary Fiction <span class="marquee-dot">&starf;</span></span>
-    <span class="marquee-item">Self-Help <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Cozy Fantasy <span class="marquee-dot">&starf;</span></span>
+    <span class="marquee-item">Memoir <span class="marquee-dot">&starf;</span></span>
+    <span class="marquee-item">Self-Help <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Spanish Narration <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Fantasy <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Romance <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Sci-Fi <span class="marquee-dot">&starf;</span></span>
+    <span class="marquee-item">LitRPG <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Thriller <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">YA <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Mystery <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Horror <span class="marquee-dot">&starf;</span></span>
-    <span class="marquee-item">Literary Fiction <span class="marquee-dot">&starf;</span></span>
-    <span class="marquee-item">Self-Help <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Cozy Fantasy <span class="marquee-dot">&starf;</span></span>
+    <span class="marquee-item">Memoir <span class="marquee-dot">&starf;</span></span>
+    <span class="marquee-item">Self-Help <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Spanish Narration <span class="marquee-dot">&starf;</span></span>
   </div>
 </div>
@@ -590,7 +812,7 @@
       <h2 class="section-title">Hear the Difference</h2>
       <p style="color:var(--slate-400); margin-top:16px; font-size:0.95rem; max-width:500px; margin-left:auto; margin-right:auto; line-height:1.7;">
         High-fidelity AI narration that breathes life into every sentence.
-        No robotic tones. No compromises.
+        No robotic tones. No skipped lines. No compromises.
       </p>
     </div>
 
@@ -646,7 +868,7 @@
         <!-- Spotify CTA -->
         <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;">
           <p style="font-size:0.82rem; color:var(--slate-400);">
-            Narrated Fan Fiction on Spotify
+            Hear a full chapter, narrated by us, on Spotify
           </p>
           <a href="https://open.spotify.com/episode/7oXBifuL20ET9SLOjLdt1j?si=bcc95920e2c7406c" target="_blank" rel="noopener noreferrer" class="spotify-btn">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -656,6 +878,112 @@
           </a>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- HOW IT WORKS -->
+<section id="how" style="padding:100px 0; background:linear-gradient(180deg, transparent 0%, rgba(15,23,42,0.4) 100%);">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <div class="text-center" style="margin-bottom:64px;">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">Manuscript to Mastered Audio in Four Steps</h2>
+      <p style="color:var(--slate-400); margin-top:16px; font-size:0.95rem; max-width:560px; margin-left:auto; margin-right:auto; line-height:1.7;">
+        No queues. No producers. No surprises. Send us your book, pick a voice, and we handle the rest.
+      </p>
+    </div>
+
+    <div class="steps-grid" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:24px;">
+
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div style="font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:600; color:#f8fafc; margin:8px 0 12px;">Send your manuscript</div>
+        <p style="font-size:0.88rem; color:var(--slate-400); line-height:1.65;">Upload your final manuscript via our form. We accept .docx, .epub, or plain text.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div style="font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:600; color:#f8fafc; margin:8px 0 12px;">Pick a narrator</div>
+        <p style="font-size:0.88rem; color:var(--slate-400); line-height:1.65;">Browse 12+ named voices. Each one is genre-tuned. Studio tier authors get a custom pronunciation guide.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div style="font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:600; color:#f8fafc; margin:8px 0 12px;">We render &amp; verify</div>
+        <p style="font-size:0.88rem; color:var(--slate-400); line-height:1.65;">Every chunk is transcribed and checked against your text. Errors get re-rolled automatically. No raw output ships.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div style="font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:600; color:#f8fafc; margin:8px 0 12px;">Receive your audiobook</div>
+        <p style="font-size:0.88rem; color:var(--slate-400); line-height:1.65;">Mastered chapter files, ready to upload to ACX, Audible, Spotify, or anywhere. You own everything.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- THE QC MOAT - WHY NOVELLAIRE -->
+<section id="pillars" style="padding:100px 0;">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <div class="text-center" style="margin-bottom:64px;">
+      <div class="section-label">Why Novellaire</div>
+      <h2 class="section-title">The Editorial Standards of a Real Studio</h2>
+      <p style="color:var(--slate-400); margin-top:16px; font-size:0.95rem; max-width:600px; margin-left:auto; margin-right:auto; line-height:1.7;">
+        AI narration tools are easy to find. AI narration that's been <em>quality-controlled</em> the way a professional audio studio would do it — that's harder. Three things every Novellaire production includes:
+      </p>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:24px;">
+
+      <!-- Pillar 1: Multi-Layer Validation -->
+      <div class="pillar-card">
+        <div class="pillar-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        <div style="font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; color:#f8fafc; margin-bottom:12px;">Multi-Layer Validation</div>
+        <div class="amber-divider"></div>
+        <p style="color:var(--slate-400); line-height:1.8; font-size:0.9rem;">
+          Every chunk of audio is automatically transcribed and compared against your manuscript. Hallucinations, skipped lines, repeated phrases — all caught and re-rendered before you ever hear them. Most AI tools ship raw output. <strong style="color:#f8fafc;">We don't.</strong>
+        </p>
+      </div>
+
+      <!-- Pillar 2: Studio-Grade Splicing -->
+      <div class="pillar-card">
+        <div class="pillar-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2">
+            <path d="M3 12h2l3-9 6 18 3-9h4"></path>
+          </svg>
+        </div>
+        <div style="font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; color:#f8fafc; margin-bottom:12px;">Studio-Grade Splicing</div>
+        <div class="amber-divider"></div>
+        <p style="color:var(--slate-400); line-height:1.8; font-size:0.9rem;">
+          When a chunk needs to be patched, we don't just glue it on. We find the lowest-energy moment of natural silence between sentences and splice with a 30ms crossfade. <strong style="color:#f8fafc;">The result is inaudible</strong> — even on studio monitors.
+        </p>
+      </div>
+
+      <!-- Pillar 3: Elastic Production -->
+      <div class="pillar-card">
+        <div class="pillar-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+          </svg>
+        </div>
+        <div style="font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; color:#f8fafc; margin-bottom:12px;">Elastic Production</div>
+        <div class="amber-divider"></div>
+        <p style="color:var(--slate-400); line-height:1.8; font-size:0.9rem;">
+          When a chunk fails repeatedly on our primary engine, we automatically fall back to a premium model — same voice, different render path — and patch it in. Authors don't manage retries. <strong style="color:#f8fafc;">The book just works.</strong>
+        </p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -676,7 +1004,7 @@
     <!-- 4 Featured Voice Cards -->
     <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:20px; margin-bottom:48px;">
 
-      <!-- Voice 1: Alaric Stone (HP narrator) -->
+      <!-- Voice 1: Alaric Stone -->
       <div class="voice-card">
         <div style="width:72px; height:72px; border-radius:50%; background:rgba(245,158,11,0.1); border:2px solid rgba(245,158,11,0.25); margin:0 auto 20px; display:flex; align-items:center; justify-content:center;">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
@@ -689,7 +1017,7 @@
         </button>
       </div>
 
-      <!-- Voice 2: Sebastian Hale (British Male 2 / voice-edward.mp3) -->
+      <!-- Voice 2: Sebastian Hale -->
       <div class="voice-card">
         <div style="width:72px; height:72px; border-radius:50%; background:rgba(245,158,11,0.1); border:2px solid rgba(245,158,11,0.25); margin:0 auto 20px; display:flex; align-items:center; justify-content:center;">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
@@ -702,7 +1030,7 @@
         </button>
       </div>
 
-      <!-- Voice 3: Mateo Rios (Spanish voice / voice-calen-voss.mp3) -->
+      <!-- Voice 3: Mateo Rios -->
       <div class="voice-card">
         <div style="width:72px; height:72px; border-radius:50%; background:rgba(245,158,11,0.1); border:2px solid rgba(245,158,11,0.25); margin:0 auto 20px; display:flex; align-items:center; justify-content:center;">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
@@ -715,7 +1043,7 @@
         </button>
       </div>
 
-      <!-- Voice 4: Evangeline Frost (Woman / voice-arabella.mp3) -->
+      <!-- Voice 4: Evangeline Frost -->
       <div class="voice-card">
         <div style="width:72px; height:72px; border-radius:50%; background:rgba(245,158,11,0.1); border:2px solid rgba(245,158,11,0.25); margin:0 auto 20px; display:flex; align-items:center; justify-content:center;">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
@@ -734,7 +1062,7 @@
     <div class="text-center">
       <a href="voices.html" class="btn-ghost" style="padding:14px 32px;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
-        More Voices
+        See All 12 Voices
       </a>
     </div>
 
@@ -748,121 +1076,205 @@
 <audio id="audio-voice-arabella" preload="none" src="audio/voice-arabella.mp3"></audio>
 
 
-<!-- BUILT FOR INDIE AUTHOR (moved after Voices) -->
-<section id="pillars" style="padding:100px 0; background:linear-gradient(180deg, transparent 0%, rgba(15,23,42,0.5) 100%);">
+<!-- PRICING SECTION -->
+<section id="pricing" style="padding:100px 0;">
   <div class="max-w-6xl mx-auto px-6">
 
-    <div class="text-center" style="margin-bottom:64px;">
-      <div class="section-label">Why Novellaire</div>
-      <h2 class="section-title">Built for the Indie Author</h2>
-      <p style="color:var(--slate-400); margin-top:16px; font-size:0.95rem; max-width:480px; margin-left:auto; margin-right:auto; line-height:1.7;">
-        Three core promises that set us apart from every other audiobook service on the market.
+    <div class="text-center" style="margin-bottom:56px;">
+      <div class="section-label">Transparent Pricing</div>
+      <h2 class="section-title">Two Tiers. Your Choice.</h2>
+      <p style="color:var(--slate-400); margin-top:16px; font-size:0.95rem; max-width:600px; margin-left:auto; margin-right:auto; line-height:1.7;">
+        Traditional studio narration costs $200&ndash;$400 per finished hour and takes months. We deliver in days, with the same editorial discipline. Pick the level of polish your book deserves.
       </p>
     </div>
 
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:32px; max-width:800px; margin:0 auto;">
+    <div class="tier-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:28px; max-width:920px; margin:0 auto;">
 
-      <!-- Pillar 1: Swift -->
-      <div class="pillar-card">
-        <div class="pillar-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
+      <!-- Indie Tier -->
+      <div class="tier-card">
+        <div class="tier-name">Indie</div>
+        <div class="tier-tagline">For first audiobooks &amp; budget-conscious launches</div>
+
+        <div>
+          <span class="tier-price">$40</span>
+          <div class="tier-price-sub">per finished hour &middot; or $0.006/word</div>
         </div>
-        <div style="font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; color:#f8fafc; margin-bottom:12px;">Swift Delivery</div>
-        <div class="amber-divider"></div>
-        <p style="color:var(--slate-400); line-height:1.8; font-size:0.9rem;">
-          Your complete novel — narrated, mastered, and delivered — in just
-          <strong style="color:#f8fafc;">7 days</strong>. No waiting months in a queue. No delays. Your story reaches listeners while it's still hot.
-        </p>
-        <div style="margin-top:24px; padding-top:20px; border-top:1px solid rgba(148,163,184,0.08);">
-          <span style="font-size:2rem; font-weight:700; color:var(--amber);">7</span>
-          <span style="font-size:0.8rem; color:var(--slate-400); margin-left:4px; letter-spacing:0.06em; text-transform:uppercase;">Day Guarantee</span>
+
+        <div class="tier-novel-est">
+          <div style="font-size:0.72rem; color:var(--slate-400); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:4px;">Avg. 80k-word novel</div>
+          <div class="tier-novel-est-num">~$400</div>
+          <div style="font-size:0.75rem; color:var(--slate-400); margin-top:2px;">~10 hrs of audio</div>
         </div>
+
+        <ul class="tier-features">
+          <li><span class="check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span>Multi-layer validation pipeline</span></li>
+          <li><span class="check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span>Choice of any voice in our catalog</span></li>
+          <li><span class="check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span>HD 48kHz mastered audio</span></li>
+          <li><span class="check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span><strong style="color:#f8fafc;">7-day delivery</strong></span></li>
+          <li><span class="check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span>First chapter free</span></li>
+          <li><span class="check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span>Full ownership &mdash; no royalties, ever</span></li>
+        </ul>
+
+        <a href="#contact" class="btn-ghost" style="width:100%; justify-content:center; padding:14px;">
+          Start an Indie Quote
+        </a>
       </div>
 
-      <!-- Pillar 2: Indie Pricing -->
-      <div class="pillar-card" style="border-color:rgba(245,158,11,0.2);">
-        <div style="position:absolute; top:20px; right:20px; background:var(--amber); color:var(--slate-950); font-size:0.62rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:4px 10px; border-radius:999px; z-index:2;">Most Popular</div>
-        <div class="pillar-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2">
-            <line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-          </svg>
+      <!-- Studio Tier -->
+      <div class="tier-card tier-featured">
+        <div class="tier-badge">Most Popular</div>
+        <div class="tier-name">Studio</div>
+        <div class="tier-tagline">For serious launches, series, and pronunciation-heavy fiction</div>
+
+        <div>
+          <span class="tier-price">$80</span>
+          <div class="tier-price-sub">per finished hour &middot; or $0.012/word</div>
         </div>
-        <div style="font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; color:#f8fafc; margin-bottom:12px;">Indie Pricing</div>
-        <div class="amber-divider"></div>
-        <p style="color:var(--slate-400); line-height:1.8; font-size:0.9rem;">
-          <strong style="color:#f8fafc;">$50 per finished hour</strong>. That's roughly $500 for a full novel — the same quality as a $3,000+ studio production. No hidden fees, no royalty splits, no surprises.
-        </p>
-        <div style="margin-top:24px; padding-top:20px; border-top:1px solid rgba(148,163,184,0.08);">
-          <span style="font-size:2rem; font-weight:700; color:var(--amber);">$50</span>
-          <span style="font-size:0.8rem; color:var(--slate-400); margin-left:4px; letter-spacing:0.06em; text-transform:uppercase;">Per Finished Hour</span>
+
+        <div class="tier-novel-est">
+          <div style="font-size:0.72rem; color:var(--slate-400); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:4px;">Avg. 80k-word novel</div>
+          <div class="tier-novel-est-num">~$800</div>
+          <div style="font-size:0.75rem; color:var(--slate-400); margin-top:2px;">~10 hrs of audio</div>
         </div>
+
+        <ul class="tier-features">
+          <li><span class="check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span><strong style="color:#f8fafc;">Premium AI render</strong> &mdash; most expressive voice models on the market</span></li>
+          <li><span class="check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span><strong style="color:#f8fafc;">3-day delivery</strong> (vs. 7 on Indie)</span></li>
+          <li><span class="check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span><strong style="color:#f8fafc;">Custom pronunciation guide</strong> &mdash; submit names &amp; places, we bake them in before rendering</span></li>
+          <li><span class="check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span><strong style="color:#f8fafc;">Whole-book search-and-fix</strong> &mdash; one wrong pronunciation? We re-render every instance, anywhere in the book</span></li>
+          <li><span class="check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span><strong style="color:#f8fafc;">2 rounds of revisions</strong> after delivery</span></li>
+          <li><span class="check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span><strong style="color:#f8fafc;">Emotional control tags</strong> &mdash; natural stutters, breath, emphasis</span></li>
+          <li><span class="check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span>Direct line for production questions</span></li>
+          <li><span class="check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span>Everything in Indie, plus full ownership</span></li>
+        </ul>
+
+        <a href="#contact" class="btn-primary" style="width:100%; justify-content:center; padding:14px;">
+          Start a Studio Quote
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+        </a>
       </div>
 
+    </div>
+
+    <p style="text-align:center; font-size:0.82rem; color:var(--slate-400); margin-top:32px;">
+      Per-word pricing available for non-fiction and short works. <a href="#contact" style="color:var(--amber); text-decoration:underline; text-underline-offset:3px;">Ask for a custom quote.</a>
+    </p>
+
+  </div>
+</section>
+
+
+<!-- FREE FIRST CHAPTER CTA -->
+<section id="free-chapter" style="padding:80px 0;">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="free-chapter-card">
+      <div style="position:relative; z-index:2;">
+        <div class="section-label" style="margin-bottom:8px;">No-Risk Trial</div>
+        <h2 class="section-title" style="margin-top:0; font-size:clamp(1.6rem, 3vw, 2.4rem);">Hear Your Own Words First.</h2>
+        <p style="color:var(--slate-300); margin-top:16px; font-size:1rem; max-width:560px; margin-left:auto; margin-right:auto; line-height:1.75;">
+          Send us your manuscript and we'll narrate your <strong style="color:#f8fafc;">first chapter, free</strong>. You hear the voice, the pacing, the production quality — <em>before</em> you commit to anything. If it's not the right fit, walk away. No follow-up, no upsell.
+        </p>
+        <div style="margin-top:32px;">
+          <a href="#contact" class="btn-primary">
+            Claim My Free Chapter
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
+        <p style="margin-top:16px; font-size:0.78rem; color:var(--slate-400);">Indie or Studio voice &middot; Delivered within 5 business days</p>
+      </div>
     </div>
   </div>
 </section>
 
 
-<!-- PRICING SECTION -->
-<section id="pricing" style="padding:100px 0;">
-  <div class="max-w-6xl mx-auto px-6">
-    <div class="responsive-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;">
+<!-- FAQ -->
+<section id="faq" style="padding:80px 0; background:linear-gradient(180deg, transparent 0%, rgba(15,23,42,0.4) 100%);">
+  <div class="max-w-4xl mx-auto px-6">
 
-      <div>
-        <div class="section-label">Transparent Pricing</div>
-        <h2 class="section-title" style="margin-top:12px;">No Surprises.<br>Just Stories.</h2>
-        <div class="amber-divider"></div>
-        <p style="color:var(--slate-400); line-height:1.8; font-size:0.95rem; margin-top:8px;">
-          Traditional audiobook narration costs between $200-$400 per finished hour. We do it for $50. Same high-fidelity output — delivered in a week, not months.
-        </p>
+    <div class="text-center" style="margin-bottom:48px;">
+      <div class="section-label">Common Questions</div>
+      <h2 class="section-title">Frequently Asked</h2>
+    </div>
 
-        <div style="margin-top:40px; display:flex; flex-direction:column; gap:16px;">
-          <div style="display:flex; align-items:center; gap:14px;">
-            <div style="width:20px; height:20px; border-radius:50%; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.3); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </div>
-            <span style="font-size:0.9rem; color:var(--slate-300);">Full novel narration from approx. <strong style="color:#f8fafc;">$500</strong></span>
-          </div>
-          <div style="display:flex; align-items:center; gap:14px;">
-            <div style="width:20px; height:20px; border-radius:50%; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.3); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </div>
-            <span style="font-size:0.9rem; color:var(--slate-300);">Delivered in <strong style="color:#f8fafc;">7 days</strong>, not 6 months</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:14px;">
-            <div style="width:20px; height:20px; border-radius:50%; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.3); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </div>
-            <span style="font-size:0.9rem; color:var(--slate-300);"><strong style="color:#f8fafc;">You own</strong> the audio. No royalties, ever.</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:14px;">
-            <div style="width:20px; height:20px; border-radius:50%; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.3); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </div>
-            <span style="font-size:0.9rem; color:var(--slate-300);"><strong style="color:#f8fafc;">Mastered &amp; ready</strong> to upload anywhere</span>
-          </div>
-        </div>
+    <div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          <span>What audio formats will I receive?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          You'll receive mastered chapter files in WAV (HD 48kHz) and MP3 (320kbps). Both formats are accepted by Audible/ACX, Spotify Audiobooks, Findaway Voices, Apple Books, and every other major platform. We can also provide a single concatenated file on request.
+        </div></div>
       </div>
 
-      <div style="background:var(--slate-900); border:1px solid rgba(245,158,11,0.2); border-radius:20px; padding:44px; position:relative; overflow:hidden;">
-        <div style="position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, var(--amber), transparent);"></div>
-        <div style="text-align:center; margin-bottom:32px;">
-          <div style="font-size:0.72rem; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:var(--amber); margin-bottom:12px;">Indie Author Rate</div>
-          <div class="price-tag">$50</div>
-          <div style="color:var(--slate-400); font-size:0.85rem; margin-top:8px;">per finished hour of audio</div>
-        </div>
-        <div style="background:rgba(245,158,11,0.06); border:1px solid rgba(245,158,11,0.12); border-radius:12px; padding:20px; text-align:center; margin-bottom:28px;">
-          <div style="font-size:0.78rem; color:var(--slate-400); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:6px;">Average Novel</div>
-          <div style="font-size:2.2rem; font-weight:700; color:#f8fafc;">~$500</div>
-          <div style="font-size:0.78rem; color:var(--slate-400); margin-top:4px;">80,000 words &middot; ~10 hrs audio</div>
-        </div>
-        <a href="#contact" class="btn-primary" style="width:100%; justify-content:center;">
-          Get a Free Quote
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
-        </a>
-        <p style="text-align:center; font-size:0.75rem; color:var(--slate-400); margin-top:14px;">No commitment required. Response within 24 hours.</p>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          <span>Who owns the rights to the audio?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          You do. Full ownership, no royalty splits, no licensing back to us, no time limits. Sell it, give it away, distribute it on whatever platform you want. We don't take a cut of your sales — ever.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          <span>Can I use this on Audible or ACX?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          Yes. Audible accepts AI-narrated audiobooks as long as they're disclosed as such — and as of 2024, Audible launched a dedicated AI narration program. Our files meet ACX technical requirements out of the box. Most authors upload directly without a single rejection.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          <span>What if a character's name is mispronounced?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          Studio tier authors get a custom pronunciation guide upfront — submit "Gisela = GEE-zell-ah" and we bake it in before rendering. After delivery, our whole-book search-and-fix tool can re-render every instance of any word across the entire book in minutes. Indie tier authors can purchase pronunciation fixes individually if needed.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          <span>How is this different from running ChatGPT or ElevenLabs myself?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          Both ChatGPT and ElevenLabs hand you raw output. We don't ship raw output. Every chunk is automatically transcribed, compared word-for-word against your manuscript, and re-rendered if it deviates. Splices are placed at natural silence with a 30ms crossfade so they're inaudible. That validation pipeline — not access to a model — is what authors are actually paying for.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          <span>What if I don't like the result?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          That's the whole point of the free first chapter. You hear the voice, pacing, and production quality before you commit. If you don't love it, you walk away — no follow-up, no charge. Studio tier also includes 2 rounds of revisions post-delivery, in case something only becomes obvious in context.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          <span>Can you clone my own voice or a specific person's voice?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          We can clone <em>your</em> voice if you provide a clean reference recording (about 25 seconds is enough). We do not clone third parties without verifiable written consent — that's a hard line for us, both ethically and legally.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          <span>What languages do you support?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          English (US, UK) and Spanish are fully supported and live in our voice catalog. Other languages are available on request — ask in the contact form and we'll let you know.
+        </div></div>
       </div>
     </div>
   </div>
@@ -876,9 +1288,9 @@
   <div class="max-w-6xl mx-auto px-6">
     <div class="text-center" style="margin-bottom:56px;">
       <div class="section-label">Let's Begin</div>
-      <h2 class="section-title">Start Your Journey</h2>
-      <p style="color:var(--slate-400); margin-top:16px; font-size:0.95rem; max-width:460px; margin-left:auto; margin-right:auto; line-height:1.7;">
-        Tell us about your book. We'll get back to you within 24 hours with a custom quote.
+      <h2 class="section-title">Start Your Project</h2>
+      <p style="color:var(--slate-400); margin-top:16px; font-size:0.95rem; max-width:520px; margin-left:auto; margin-right:auto; line-height:1.7;">
+        Tell us about your book. We respond within 24 hours with a custom quote — or your free first chapter.
       </p>
     </div>
 
@@ -894,6 +1306,18 @@
 
           <!-- Timestamp for bot detection -->
           <input type="hidden" name="_timestamp" id="formTimestamp">
+
+          <!-- Inquiry Type -->
+          <div style="margin-bottom:24px;">
+            <label class="form-label" for="inquiryType">What are you here for?</label>
+            <select class="form-input" id="inquiryType" name="inquiryType" required>
+              <option value="" disabled selected>Choose one...</option>
+              <option value="free-chapter">Free first chapter (no commitment)</option>
+              <option value="indie-quote">Indie tier quote ($40/hr)</option>
+              <option value="studio-quote">Studio tier quote ($80/hr)</option>
+              <option value="custom">Custom project / question</option>
+            </select>
+          </div>
 
           <!-- Author Name -->
           <div style="margin-bottom:24px;">
@@ -919,7 +1343,9 @@
                 <option>Thriller / Mystery</option>
                 <option>Horror</option>
                 <option>Young Adult</option>
+                <option>LitRPG / ProgFantasy</option>
                 <option>Literary Fiction</option>
+                <option>Memoir</option>
                 <option>Self-Help / Non-Fiction</option>
                 <option>Other</option>
               </select>
@@ -933,7 +1359,7 @@
           <!-- Message -->
           <div style="margin-bottom:28px;">
             <label class="form-label" for="message">Tell Us About Your Book <span style="color:var(--slate-700);">(optional)</span></label>
-            <textarea class="form-input" id="message" name="message" rows="4" placeholder="A quick summary, your vision for the narration, any special characters or tones..." style="resize:vertical; min-height:100px;"></textarea>
+            <textarea class="form-input" id="message" name="message" rows="4" placeholder="A quick summary, your vision for the narration, any tricky character names..." style="resize:vertical; min-height:100px;"></textarea>
           </div>
 
           <!-- Submit -->
@@ -967,18 +1393,20 @@
         <span style="font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; color:#f8fafc; letter-spacing:-0.01em;">
           Novel<em style="font-style:italic; color:var(--amber);">laire</em>
         </span>
-        <p style="color:var(--slate-400); font-size:0.82rem; margin-top:6px;">Your story, heard by the world.</p>
+        <p style="color:var(--slate-400); font-size:0.82rem; margin-top:6px;">AI narration with the editorial standards of a real studio.</p>
       </div>
-      <div style="display:flex; align-items:center; gap:20px;">
+      <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+        <a href="#how" class="nav-link">How It Works</a>
         <a href="#voices" class="nav-link">Voices</a>
-        <a href="#pillars" class="nav-link">Services</a>
+        <a href="why-audio-wins.html" class="nav-link">Why Audio</a>
         <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="#faq" class="nav-link">FAQ</a>
         <a href="#contact" class="nav-link">Contact</a>
       </div>
     </div>
     <div style="border-top:1px solid rgba(148,163,184,0.07); padding-top:24px; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px;">
       <p style="font-size:0.75rem; color:var(--slate-400);">&copy; 2026 Novellaire. All rights reserved.</p>
-      <p style="font-size:0.75rem; color:var(--slate-400);">Indie narration powered by AI. Built for storytellers.</p>
+      <p style="font-size:0.75rem; color:var(--slate-400);">Built for storytellers. Engineered for production.</p>
     </div>
   </div>
 </footer>
@@ -1054,7 +1482,6 @@
   }
 
   function toggleVoicePlay(voiceId, btn) {
-    // Stop hero player
     if (heroPlaying) {
       heroAudio.pause();
       heroPlaying = false;
@@ -1066,23 +1493,39 @@
     if (!audioEl) return;
 
     if (currentVoiceId === voiceId) {
-      // Toggle off
       stopAllVoices();
       return;
     }
 
-    // Stop any playing voice
     stopAllVoices();
-
-    // Play this one
     currentVoiceId = voiceId;
     currentVoiceBtn = btn;
     audioEl.play();
     btn.innerHTML = '<svg class="voice-play-icon" width="16" height="16" viewBox="0 0 24 24" style="fill:var(--amber);"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>';
 
-    audioEl.onended = () => {
-      stopAllVoices();
-    };
+    audioEl.onended = () => { stopAllVoices(); };
+  }
+
+  // ── FAQ accordion ──
+  function toggleFAQ(btn) {
+    const item = btn.parentElement;
+    const answer = item.querySelector('.faq-answer');
+    const isOpen = item.classList.contains('open');
+
+    document.querySelectorAll('.faq-item.open').forEach(openItem => {
+      if (openItem !== item) {
+        openItem.classList.remove('open');
+        openItem.querySelector('.faq-answer').style.maxHeight = '0';
+      }
+    });
+
+    if (isOpen) {
+      item.classList.remove('open');
+      answer.style.maxHeight = '0';
+    } else {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
   }
 
   // ── Format time ──
@@ -1093,18 +1536,15 @@
     return `${m}:${ss.toString().padStart(2, '0')}`;
   }
 
-  // ── Form submission (email hidden via JS, bot protection) ──
-  // Set timestamp when page loads (bots submit instantly)
+  // ── Form submission ──
   document.getElementById('formTimestamp').value = Date.now();
 
   function handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
 
-    // Bot detection: honeypot check
     if (form._honey && form._honey.value) return;
 
-    // Bot detection: time check (must be > 3 seconds since page load)
     const elapsed = Date.now() - parseInt(form._timestamp.value);
     if (elapsed < 3000) return;
 
@@ -1113,8 +1553,8 @@
     btn.textContent = 'Sending...';
     btn.style.opacity = '0.7';
 
-    // Construct the email data
     const data = {
+      inquiryType: form.inquiryType.value,
       authorName: form.authorName.value,
       authorEmail: form.authorEmail.value,
       genre: form.genre.value,
@@ -1122,15 +1562,22 @@
       message: form.message.value
     };
 
-    // Decode destination (obfuscated to prevent scraping)
     const _d = [99,108,105,110,101,106,101,102,102,101,114,115,111,110,64,103,109,97,105,108,46,99,111,109];
     const dest = _d.map(c => String.fromCharCode(c)).join('');
 
-    // Send via formsubmit.co (free email relay, no signup needed)
+    const subjectMap = {
+      'free-chapter': 'Free Chapter Request',
+      'indie-quote': 'Indie Tier Quote',
+      'studio-quote': 'Studio Tier Quote',
+      'custom': 'Custom Inquiry'
+    };
+    const subject = (subjectMap[data.inquiryType] || 'Inquiry') + ': ' + data.authorName;
+
     const formData = new FormData();
     formData.append('name', data.authorName);
     formData.append('email', data.authorEmail);
-    formData.append('_subject', 'Novellaire Inquiry: ' + data.authorName);
+    formData.append('_subject', 'Novellaire ' + subject);
+    formData.append('inquiryType', data.inquiryType);
     formData.append('genre', data.genre);
     formData.append('wordCount', data.wordCount);
     formData.append('message', data.message || '(no message)');
@@ -1171,6 +1618,14 @@
       }
     });
   });
+
+  // ── Pre-fill inquiry type based on URL hash or referrer ──
+  (function prefillInquiry() {
+    const hash = window.location.hash;
+    const select = document.getElementById('inquiryType');
+    if (!select) return;
+    if (hash === '#free-chapter') select.value = 'free-chapter';
+  })();
 </script>
 
 </body>
