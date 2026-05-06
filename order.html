@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Place Your Order | Novellaire</title>
+  <meta name="description" content="Configure your Novellaire audiobook order. Share your manuscript and pay only after you've handed it off.">
+  <meta name="robots" content="noindex">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23020617'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='60' font-weight='700' text-anchor='middle' fill='%23f59e0b' font-style='italic'%3EN%3C/text%3E%3C/svg%3E">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --amber: #f59e0b;
+      --amber-light: #fcd34d;
+      --amber-dark: #d97706;
+      --slate-950: #020617;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--slate-950);
+      color: var(--slate-300);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+    .nav-link { font-size:0.8rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--slate-400); text-decoration:none; transition:color 0.2s; }
+    .nav-link:hover { color: var(--amber); }
+    .section-label { font-size:0.7rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--amber); }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      color: #f8fafc;
+      line-height: 1.2;
+      margin-top: 12px;
+    }
+    .form-card {
+      background: var(--slate-900);
+      border: 1px solid rgba(148,163,184,0.1);
+      border-radius: 20px;
+      padding: clamp(28px, 5vw, 44px);
+    }
+    .form-input {
+      width: 100%;
+      background: var(--slate-800);
+      border: 1px solid rgba(148,163,184,0.15);
+      border-radius: 10px;
+      padding: 14px 18px;
+      color: #f8fafc;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-input:focus {
+      border-color: var(--amber);
+      box-shadow: 0 0 0 3px rgba(245,158,11,0.12);
+    }
+    .form-input::placeholder { color: var(--slate-400); }
+    .form-label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--slate-400);
+      margin-bottom: 8px;
+    }
+    .tier-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .tier-toggle button {
+      background: var(--slate-800);
+      border: 1px solid rgba(148,163,184,0.15);
+      border-radius: 12px;
+      padding: 18px 16px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      text-align: left;
+    }
+    .tier-toggle button:hover {
+      border-color: rgba(245,158,11,0.4);
+    }
+    .tier-toggle button.active {
+      background: rgba(245,158,11,0.1);
+      border-color: var(--amber);
+      box-shadow: 0 0 24px rgba(245,158,11,0.12);
+    }
+    .tier-toggle .tier-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+    .tier-toggle .tier-rate {
+      font-size: 0.8rem;
+      color: var(--slate-400);
+      margin-top: 4px;
+    }
+    .tier-toggle button.active .tier-rate {
+      color: var(--amber);
+    }
+    .price-card {
+      background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(245,158,11,0.02));
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .price-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 4px;
+    }
+    .price-amount {
+      font-family: 'Inter', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #f8fafc;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .price-sub {
+      font-size: 0.82rem;
+      color: var(--slate-400);
+      margin-top: 6px;
+    }
+    .btn-pay {
+      width: 100%;
+      padding: 18px;
+      background: var(--amber);
+      color: var(--slate-950);
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 0 30px rgba(245,158,11,0.28);
+    }
+    .btn-pay:hover:not(:disabled) {
+      background: var(--amber-light);
+      transform: translateY(-2px);
+      box-shadow: 0 0 50px rgba(245,158,11,0.4);
+    }
+    .btn-pay:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    .footer-glow { background: radial-gradient(ellipse at 50% 100%, rgba(245,158,11,0.06) 0%, transparent 70%); }
+    .help-text {
+      font-size: 0.74rem;
+      color: var(--slate-400);
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+    .help-text a { color: var(--amber); text-decoration:underline; text-underline-offset:3px; }
+    .step-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 12px 0;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: rgba(245,158,11,0.12);
+      border: 1px solid rgba(245,158,11,0.3);
+      color: var(--amber);
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+    }
+    .step-text { font-size: 0.88rem; color: var(--slate-300); line-height: 1.6; }
+    .step-text strong { color: #f8fafc; }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: var(--slate-700);
+      border-radius: 3px;
+      accent-color: var(--amber);
+      cursor: pointer;
+    }
+
+    .error-msg {
+      margin-top:12px;
+      font-size:0.85rem;
+      color:#f87171;
+      display:none;
+      padding:10px 14px;
+      background:rgba(239,68,68,0.08);
+      border:1px solid rgba(239,68,68,0.2);
+      border-radius:8px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav class="fixed top-0 left-0 right-0 z-50" style="background: rgba(2,6,23,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(148,163,184,0.07);">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="index.html" style="text-decoration:none;">
+      <span style="font-family:'Cormorant Garamond',serif; font-size:1.7rem; font-weight:600; color:var(--amber); letter-spacing:0.01em;">
+        <em style="font-style:italic;">Novellaire</em>
+      </span>
+    </a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="index.html#how" class="nav-link">How It Works</a>
+      <a href="voices.html" class="nav-link">Voices</a>
+      <a href="why-audio-wins.html" class="nav-link">Why Audio</a>
+      <a href="index.html#pricing" class="nav-link">Pricing</a>
+      <a href="index.html#contact" class="nav-link">Contact</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ORDER PAGE -->
+<section style="min-height:100vh; padding:140px 0 80px;">
+  <div class="max-w-3xl mx-auto px-6">
+
+    <div class="text-center" style="margin-bottom:48px;">
+      <div class="section-label">Place Your Order</div>
+      <h1 class="section-title">Configure your audiobook.</h1>
+      <p style="color:var(--slate-300); margin-top:18px; font-size:1rem; line-height:1.7; max-width:540px; margin-left:auto; margin-right:auto;">
+        Share your manuscript, pick a narrator, and confirm your tier. <strong style="color:#f8fafc;">You'll only pay after we've received everything.</strong> Stripe handles the secure payment.
+      </p>
+    </div>
+
+    <!-- How it goes -->
+    <div style="background:var(--slate-900); border:1px solid rgba(148,163,184,0.08); border-radius:14px; padding:20px 28px; margin-bottom:32px;">
+      <div class="step-row">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Fill in this form</strong> &mdash; your details, manuscript link, narrator choice, word count.</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Pay via Stripe</strong> &mdash; secure, one-time charge for the tier you select.</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>We render &amp; deliver</strong> &mdash; free first chapter within 5 business days, full book in 3&ndash;7 days after.</div>
+      </div>
+    </div>
+
+    <form id="orderForm" class="form-card">
+
+      <!-- Tier toggle -->
+      <div style="margin-bottom:28px;">
+        <label class="form-label">Production Tier</label>
+        <div class="tier-toggle" id="tierToggle">
+          <button type="button" data-tier="indie" class="tier-btn">
+            <div class="tier-name">Indie</div>
+            <div class="tier-rate">$40 per finished hour</div>
+          </button>
+          <button type="button" data-tier="studio" class="tier-btn active">
+            <div class="tier-name">Studio</div>
+            <div class="tier-rate">$80 per finished hour &middot; Most Popular</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Word count -->
+      <div style="margin-bottom:28px;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:12px;">
+          <label class="form-label" for="wcSlider" style="margin-bottom:0;">Manuscript Word Count</label>
+          <span id="wcDisplay" style="font-family:'Inter',sans-serif; font-size:1.1rem; font-weight:700; color:var(--amber); font-variant-numeric:tabular-nums; letter-spacing:-0.01em;">50,000 words</span>
+        </div>
+        <input type="range" id="wcSlider" min="20000" max="200000" step="1000" value="50000">
+        <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:var(--slate-400); letter-spacing:0.06em; margin-top:6px;">
+          <span>20k</span><span>200k</span>
+        </div>
+        <p class="help-text">Open your manuscript in Word, Scrivener, Vellum, or Pages &mdash; word count is in the status bar. We'll verify within &plusmn;10% on our end. If your manuscript runs significantly over, we'll send a top-up invoice before rendering.</p>
+      </div>
+
+      <!-- Author Name -->
+      <div style="margin-bottom:24px;">
+        <label class="form-label" for="authorName">Author Name</label>
+        <input class="form-input" type="text" id="authorName" name="authorName" placeholder="Your pen name or real name" required>
+      </div>
+
+      <!-- Email -->
+      <div style="margin-bottom:24px;">
+        <label class="form-label" for="authorEmail">Email Address</label>
+        <input class="form-input" type="email" id="authorEmail" name="authorEmail" placeholder="you@example.com" required>
+        <p class="help-text">We'll send your audiobook files here.</p>
+      </div>
+
+      <!-- Book Title -->
+      <div style="margin-bottom:24px;">
+        <label class="form-label" for="bookTitle">Book Title</label>
+        <input class="form-input" type="text" id="bookTitle" name="bookTitle" placeholder="The title of the book we're producing" required>
+      </div>
+
+      <!-- Manuscript link -->
+      <div style="margin-bottom:24px;">
+        <label class="form-label" for="manuscriptLink">Manuscript Share Link</label>
+        <input class="form-input" type="url" id="manuscriptLink" name="manuscriptLink" placeholder="https://drive.google.com/... or https://www.dropbox.com/..." required>
+        <p class="help-text">Upload your manuscript (.docx, .pdf, .epub, or .txt) to <a href="https://www.dropbox.com" target="_blank" rel="noopener">Dropbox</a>, <a href="https://drive.google.com" target="_blank" rel="noopener">Google Drive</a>, or <a href="https://wetransfer.com" target="_blank" rel="noopener">WeTransfer</a>, then paste the share link here. Make sure the link is set to "anyone with the link can view."</p>
+      </div>
+
+      <!-- Narrator -->
+      <div style="margin-bottom:24px;">
+        <label class="form-label" for="narratorChoice">Preferred Narrator</label>
+        <select class="form-input" id="narratorChoice" name="narratorChoice" required>
+          <option value="" disabled selected>Choose from our catalog...</option>
+          <option value="hugh-atherton">Hugh Atherton &mdash; Male, Deep British (flagship)</option>
+          <option value="alaric-stone">Alaric Stone &mdash; Male, Dramatic (epic fantasy)</option>
+          <option value="sebastian-hale">Sebastian Hale &mdash; Male, British (literary, brooding)</option>
+          <option value="evangeline-frost">Evangeline Frost &mdash; Female, Emotive (romance, Gothic)</option>
+          <option value="celeste-wren">Celeste Wren &mdash; Female, Warm (memoir, cozy)</option>
+          <option value="vivienne-lark">Vivienne Lark &mdash; Female, Polished (contemporary)</option>
+          <option value="rosalind-hayes">Rosalind Hayes &mdash; Female, Comforting (YA, children's)</option>
+          <option value="isolde-quinn">Isolde Quinn &mdash; Female, Intense (epic, dark romance)</option>
+          <option value="aldric-thorne">Aldric Thorne &mdash; Male, Authoritative (non-fiction)</option>
+          <option value="cormac-ash">Cormac Ash &mdash; Male, Rugged (dark fantasy, folklore)</option>
+          <option value="dashiell-knox">Dashiell Knox &mdash; Male, Gritty (noir, westerns)</option>
+          <option value="theron-vale">Theron Vale &mdash; Male, Dynamic (LitRPG, prog-fantasy)</option>
+          <option value="mateo-rios">Mateo Rios &mdash; Male, Spanish (bilingual)</option>
+          <option value="undecided">Help me decide &mdash; I'd like recommendations</option>
+        </select>
+      </div>
+
+      <!-- Notes -->
+      <div style="margin-bottom:32px;">
+        <label class="form-label" for="notes">Production Notes <span style="color:var(--slate-700);">(optional)</span></label>
+        <textarea class="form-input" id="notes" name="notes" rows="4" placeholder="Pronunciation guides for unusual names, character voice notes, accent preferences, anything we should know..." style="resize:vertical; min-height:100px;"></textarea>
+      </div>
+
+      <!-- Price summary -->
+      <div class="price-card">
+        <div>
+          <div class="price-label">Your Order</div>
+          <div class="price-amount" id="priceDisplay">$430</div>
+          <div class="price-sub">
+            <span id="tierSummary">Studio tier</span> &middot; <span id="hoursSummary">~5.5 hrs</span> of audio
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-pay" id="payBtn" style="margin-top:20px;">
+        Pay <span id="payAmount">$430</span> &amp; Place Order
+      </button>
+
+      <p style="text-align:center; margin-top:14px; font-size:0.78rem; color:var(--slate-400); line-height:1.6;">
+        Secure payment by Stripe. Card details never touch our servers.
+      </p>
+
+      <div class="error-msg" id="orderError"></div>
+
+    </form>
+
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="footer-glow" style="border-top:1px solid rgba(148,163,184,0.08); padding:48px 0 32px;">
+  <div class="max-w-6xl mx-auto px-6">
+    <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:24px;">
+      <div>
+        <a href="index.html" style="text-decoration:none;">
+          <span style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:600; color:var(--amber); letter-spacing:0.01em;">
+            <em style="font-style:italic;">Novellaire</em>
+          </span>
+        </a>
+        <p style="color:var(--slate-400); font-size:0.82rem; margin-top:6px;">Audio for indie authors who don't have time to wait.</p>
+      </div>
+      <p style="font-size:0.75rem; color:var(--slate-400);">&copy; 2026 Novellaire. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  // ── State ──
+  let currentTier = 'studio';
+  const wcSlider = document.getElementById('wcSlider');
+  const wcDisplay = document.getElementById('wcDisplay');
+  const priceDisplay = document.getElementById('priceDisplay');
+  const payAmount = document.getElementById('payAmount');
+  const tierSummary = document.getElementById('tierSummary');
+  const hoursSummary = document.getElementById('hoursSummary');
+  const errorBox = document.getElementById('orderError');
+
+  function calcPrice(tier, wc) {
+    const hourly = tier === 'studio' ? 80 : 40;
+    const hours = wc / 9300;
+    const raw = hours * hourly;
+    return { price: Math.round(raw / 5) * 5, hours };
+  }
+
+  function fmtHours(h) {
+    if (h < 1) return h.toFixed(1) + ' hr';
+    return (Math.round(h * 2) / 2).toFixed(1).replace(/\.0$/, '') + ' hrs';
+  }
+
+  function updateView() {
+    const wc = parseInt(wcSlider.value, 10) || 50000;
+    wcDisplay.textContent = wc.toLocaleString() + ' words';
+    const { price, hours } = calcPrice(currentTier, wc);
+    priceDisplay.textContent = '$' + price.toLocaleString();
+    payAmount.textContent = '$' + price.toLocaleString();
+    tierSummary.textContent = currentTier === 'studio' ? 'Studio tier' : 'Indie tier';
+    hoursSummary.textContent = '~' + fmtHours(hours);
+  }
+
+  // ── Tier toggle ──
+  document.querySelectorAll('#tierToggle .tier-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentTier = btn.dataset.tier;
+      document.querySelectorAll('#tierToggle .tier-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.tier === currentTier);
+      });
+      updateView();
+    });
+  });
+
+  // ── Word count slider ──
+  wcSlider.addEventListener('input', updateView);
+
+  // ── URL param init ──
+  (function initFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const tierP = params.get('tier');
+    const wcP = parseInt(params.get('wc'), 10);
+    if (tierP === 'indie' || tierP === 'studio') {
+      currentTier = tierP;
+      document.querySelectorAll('#tierToggle .tier-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.tier === currentTier);
+      });
+    }
+    if (Number.isFinite(wcP) && wcP >= 20000 && wcP <= 200000) {
+      wcSlider.value = wcP;
+    }
+    updateView();
+  })();
+
+  // ── Submit handler ──
+  document.getElementById('orderForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorBox.style.display = 'none';
+    errorBox.textContent = '';
+
+    const wc = parseInt(wcSlider.value, 10) || 0;
+    if (wc < 5000) {
+      errorBox.textContent = 'Word count must be at least 5,000.';
+      errorBox.style.display = 'block';
+      return;
+    }
+
+    const payload = {
+      tier: currentTier,
+      wordCount: wc,
+      authorName: document.getElementById('authorName').value.trim(),
+      authorEmail: document.getElementById('authorEmail').value.trim(),
+      bookTitle: document.getElementById('bookTitle').value.trim(),
+      manuscriptLink: document.getElementById('manuscriptLink').value.trim(),
+      narratorChoice: document.getElementById('narratorChoice').value,
+      notes: document.getElementById('notes').value.trim(),
+    };
+
+    const btn = document.getElementById('payBtn');
+    btn.disabled = true;
+    const origText = btn.innerHTML;
+    btn.innerHTML = 'Creating order &mdash; redirecting to Stripe...';
+
+    try {
+      const resp = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await resp.json();
+      if (!resp.ok || !data.url) {
+        throw new Error(data.error || 'Could not create order. Please try again.');
+      }
+      window.location.href = data.url;
+    } catch (err) {
+      btn.disabled = false;
+      btn.innerHTML = origText;
+      errorBox.textContent = (err && err.message) || 'Something went wrong. Please try again.';
+      errorBox.style.display = 'block';
+    }
+  });
+</script>
+
+</body>
+</html>

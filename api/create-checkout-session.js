@@ -31,7 +31,16 @@ module.exports = async (req, res) => {
   }
   body = body || {};
 
-  const { tier, wordCount, authorName, authorEmail } = body;
+  const {
+    tier,
+    wordCount,
+    authorName,
+    authorEmail,
+    bookTitle,
+    manuscriptLink,
+    narratorChoice,
+    notes,
+  } = body;
 
   // Validate tier
   if (tier !== 'indie' && tier !== 'studio') {
@@ -84,13 +93,17 @@ module.exports = async (req, res) => {
         },
         quantity: 1,
       }],
-      success_url: `${origin}/order-confirmed.html?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${origin}/order-confirmed.html?session_id={CHECKOUT_SESSION_ID}&tier=${encodeURIComponent(tier)}&amount=${priceUsd}&wc=${wc}&hours=${encodeURIComponent(audioHrs)}`,
       cancel_url: `${origin}/#pricing`,
       metadata: {
         tier,
         word_count: String(wc),
         declared_audio_hours: audioHrs,
-        author_name: authorName || '',
+        author_name: (authorName || '').slice(0, 480),
+        book_title: (bookTitle || '').slice(0, 480),
+        manuscript_link: (manuscriptLink || '').slice(0, 480),
+        narrator_choice: (narratorChoice || '').slice(0, 100),
+        production_notes: (notes || '').slice(0, 480),
       },
     });
 

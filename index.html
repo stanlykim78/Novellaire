@@ -2134,44 +2134,21 @@
   }
   if (document.getElementById('estWordCount')) updateEstimate();
 
-  // ── Direct-pay: create Stripe Checkout session and redirect ──
-  async function orderTier(tier) {
+  // ── Order flow: navigate to order.html with tier + word count pre-filled ──
+  function orderTier(tier) {
     const errEl = document.getElementById('orderError');
     if (errEl) { errEl.style.display = 'none'; errEl.textContent = ''; }
-    const wc = parseInt(document.getElementById('estWordCount').value) || 0;
+    const wc = parseInt(document.getElementById('estWordCount').value) || 50000;
     if (wc < 5000) {
       if (errEl) {
         errEl.textContent = 'Set your word count to at least 5,000 above.';
         errEl.style.display = 'block';
       }
-      // Scroll to estimator
       const est = document.getElementById('estWordCount');
       if (est) est.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
-
-    // Disable all order buttons during request
-    const btns = document.querySelectorAll('.order-btn');
-    btns.forEach(b => { b.disabled = true; b.style.opacity = '0.65'; b.style.cursor = 'wait'; });
-
-    try {
-      const resp = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tier, wordCount: wc }),
-      });
-      const data = await resp.json();
-      if (!resp.ok || !data.url) {
-        throw new Error(data.error || 'Could not start checkout');
-      }
-      window.location.href = data.url;
-    } catch (err) {
-      if (errEl) {
-        errEl.textContent = (err && err.message) || 'Something went wrong. Please try again or use the contact form.';
-        errEl.style.display = 'block';
-      }
-      btns.forEach(b => { b.disabled = false; b.style.opacity = '1'; b.style.cursor = 'pointer'; });
-    }
+    window.location.href = '/order.html?tier=' + encodeURIComponent(tier) + '&wc=' + wc;
   }
 
   // ── Form submission ──
