@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmed — Upload Your Manuscript | Novellaire</title>
+  <meta name="description" content="Your Novellaire audiobook order is confirmed. Upload your manuscript to begin production.">
+  <meta name="robots" content="noindex">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23020617'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='60' font-weight='700' text-anchor='middle' fill='%23f59e0b' font-style='italic'%3EN%3C/text%3E%3C/svg%3E">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --amber: #f59e0b;
+      --amber-light: #fcd34d;
+      --amber-dark: #d97706;
+      --slate-950: #020617;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--slate-950);
+      color: var(--slate-300);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+    .nav-link {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--slate-400);
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+    .nav-link:hover { color: var(--amber); }
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      color: #f8fafc;
+      line-height: 1.2;
+      margin-top: 12px;
+    }
+    .form-card {
+      background: var(--slate-900);
+      border: 1px solid rgba(148,163,184,0.1);
+      border-radius: 20px;
+      padding: clamp(28px, 5vw, 48px);
+    }
+    .form-input {
+      width: 100%;
+      background: var(--slate-800);
+      border: 1px solid rgba(148,163,184,0.15);
+      border-radius: 10px;
+      padding: 14px 18px;
+      color: #f8fafc;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-input:focus {
+      border-color: var(--amber);
+      box-shadow: 0 0 0 3px rgba(245,158,11,0.12);
+    }
+    .form-input::placeholder { color: var(--slate-400); }
+    input[type="file"].form-input { padding: 12px 16px; }
+    .form-label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--slate-400);
+      margin-bottom: 8px;
+    }
+    .btn-submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--amber);
+      color: var(--slate-950);
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 0 30px rgba(245,158,11,0.25);
+    }
+    .btn-submit:hover {
+      background: var(--amber-light);
+      transform: translateY(-2px);
+      box-shadow: 0 0 50px rgba(245,158,11,0.4);
+    }
+    .footer-glow {
+      background: radial-gradient(ellipse at 50% 100%, rgba(245,158,11,0.06) 0%, transparent 70%);
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav class="fixed top-0 left-0 right-0 z-50" style="background: rgba(2,6,23,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(148,163,184,0.07);">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2" style="text-decoration:none;">
+      <span style="font-family:'Cormorant Garamond',serif; font-size:1.7rem; font-weight:600; color:var(--amber); letter-spacing:0.01em;">
+        <em style="font-style:italic;">Novellaire</em>
+      </span>
+    </a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="index.html#how" class="nav-link">How It Works</a>
+      <a href="voices.html" class="nav-link">Voices</a>
+      <a href="why-audio-wins.html" class="nav-link">Why Audio</a>
+      <a href="index.html#pricing" class="nav-link">Pricing</a>
+      <a href="index.html#contact" class="nav-link">Contact</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- CONFIRMATION + UPLOAD -->
+<section style="min-height:100vh; padding:140px 0 80px; position:relative;">
+  <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); width:800px; height:400px; background:radial-gradient(circle, rgba(245,158,11,0.06) 0%, transparent 70%); pointer-events:none;"></div>
+
+  <div class="max-w-2xl mx-auto px-6 relative z-10">
+
+    <!-- Confirmation block -->
+    <div class="text-center" style="margin-bottom:48px;">
+      <div style="width:88px; height:88px; border-radius:50%; background:rgba(245,158,11,0.12); border:2px solid rgba(245,158,11,0.4); display:inline-flex; align-items:center; justify-content:center; margin-bottom:24px;">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.5">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <div class="section-label">Order Confirmed</div>
+      <h1 class="section-title">Thank you. Now let's build your audiobook.</h1>
+      <p style="color:var(--slate-300); margin-top:18px; font-size:1.05rem; line-height:1.7;">
+        Your payment has been received. Upload your manuscript below and we'll begin rendering. You'll receive your free first chapter within 5 business days, with the full book to follow in 3&ndash;7 days after that.
+      </p>
+    </div>
+
+    <!-- Upload form -->
+    <div class="form-card">
+      <form action="https://formsubmit.co/clinejefferson@gmail.com" method="POST" enctype="multipart/form-data" id="uploadForm">
+
+        <input type="hidden" name="_subject" value="Novellaire Manuscript Upload">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" id="nextRedirect" value="">
+        <input type="hidden" name="stripe_session_id" id="sessionIdField" value="">
+
+        <div style="margin-bottom:24px;">
+          <label class="form-label" for="authorName">Author Name</label>
+          <input class="form-input" type="text" id="authorName" name="authorName" placeholder="Your pen name or real name" required>
+        </div>
+
+        <div style="margin-bottom:24px;">
+          <label class="form-label" for="authorEmail">Email Address</label>
+          <input class="form-input" type="email" id="authorEmail" name="authorEmail" placeholder="you@example.com" required>
+          <p style="font-size:0.72rem; color:var(--slate-400); margin-top:6px; line-height:1.5;">Use the same email as your Stripe receipt so we can match the upload to your order.</p>
+        </div>
+
+        <div style="margin-bottom:24px;">
+          <label class="form-label" for="bookTitle">Book Title</label>
+          <input class="form-input" type="text" id="bookTitle" name="bookTitle" placeholder="The title of the book we're producing" required>
+        </div>
+
+        <div style="margin-bottom:24px;">
+          <label class="form-label" for="manuscript">Manuscript File</label>
+          <input class="form-input" type="file" id="manuscript" name="manuscript" accept=".docx,.doc,.pdf,.epub,.txt" required>
+          <p style="font-size:0.72rem; color:var(--slate-400); margin-top:6px; line-height:1.5;">.docx, .pdf, .epub, or .txt. Up to 25MB. We'll convert to plain text on our end &mdash; you don't need to.</p>
+        </div>
+
+        <div style="margin-bottom:24px;">
+          <label class="form-label" for="narratorChoice">Preferred Narrator</label>
+          <select class="form-input" id="narratorChoice" name="narratorChoice" required>
+            <option value="" disabled selected>Choose from our catalog...</option>
+            <option value="hugh-atherton">Hugh Atherton — Male, Deep British (flagship)</option>
+            <option value="alaric-stone">Alaric Stone — Male, Dramatic (epic fantasy)</option>
+            <option value="sebastian-hale">Sebastian Hale — Male, British (literary, brooding)</option>
+            <option value="evangeline-frost">Evangeline Frost — Female, Emotive (romance, Gothic)</option>
+            <option value="celeste-wren">Celeste Wren — Female, Warm (memoir, cozy)</option>
+            <option value="vivienne-lark">Vivienne Lark — Female, Polished (contemporary)</option>
+            <option value="rosalind-hayes">Rosalind Hayes — Female, Comforting (YA, children's)</option>
+            <option value="isolde-quinn">Isolde Quinn — Female, Intense (epic, dark romance)</option>
+            <option value="aldric-thorne">Aldric Thorne — Male, Authoritative (non-fiction)</option>
+            <option value="cormac-ash">Cormac Ash — Male, Rugged (dark fantasy, folklore)</option>
+            <option value="dashiell-knox">Dashiell Knox — Male, Gritty (noir, westerns)</option>
+            <option value="theron-vale">Theron Vale — Male, Dynamic (LitRPG, prog-fantasy)</option>
+            <option value="mateo-rios">Mateo Rios — Male, Spanish (bilingual)</option>
+            <option value="undecided">Help me decide — I'd like recommendations</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom:28px;">
+          <label class="form-label" for="notes">Notes for Production <span style="color:var(--slate-700);">(optional)</span></label>
+          <textarea class="form-input" id="notes" name="notes" rows="4" placeholder="Pronunciation guides for unusual names, character voice notes, accent preferences, anything we should know..." style="resize:vertical; min-height:100px;"></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit" id="submitBtn">Send Manuscript &amp; Start Production</button>
+
+      </form>
+    </div>
+
+    <p style="text-align:center; margin-top:32px; font-size:0.82rem; color:var(--slate-400); line-height:1.7;">
+      Questions about your order? Reply to your Stripe receipt email or contact <a href="mailto:clinejefferson@gmail.com" style="color:var(--amber); text-decoration:underline; text-underline-offset:3px;">clinejefferson@gmail.com</a> with your order ID.
+    </p>
+
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="footer-glow" style="border-top:1px solid rgba(148,163,184,0.08); padding:48px 0 32px;">
+  <div class="max-w-6xl mx-auto px-6">
+    <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:24px;">
+      <div>
+        <a href="index.html" style="text-decoration:none;">
+          <span style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:600; color:var(--amber); letter-spacing:0.01em;">
+            <em style="font-style:italic;">Novellaire</em>
+          </span>
+        </a>
+        <p style="color:var(--slate-400); font-size:0.82rem; margin-top:6px;">Audio for indie authors who don't have time to wait.</p>
+      </div>
+      <p style="font-size:0.75rem; color:var(--slate-400);">&copy; 2026 Novellaire. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  // Pull session_id from URL → form hidden field; set redirect target
+  (function(){
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get('session_id') || '';
+    document.getElementById('sessionIdField').value = sessionId;
+    document.getElementById('nextRedirect').value = window.location.origin + '/upload-received.html';
+  })();
+</script>
+
+</body>
+</html>

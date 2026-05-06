@@ -25,7 +25,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -388,10 +388,12 @@
       text-align: center;
     }
     .tier-novel-est-num {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Inter', sans-serif;
       font-size: 1.5rem;
       font-weight: 700;
       color: #f8fafc;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
     }
     .tier-features {
       list-style: none;
@@ -598,25 +600,103 @@
       background: radial-gradient(ellipse at 50% 100%, rgba(245,158,11,0.06) 0%, transparent 70%);
     }
 
-    .spotify-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #1DB954;
-      color: #fff;
-      font-weight: 600;
-      font-size: 0.78rem;
-      letter-spacing: 0.05em;
-      padding: 8px 16px;
-      border-radius: 999px;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 4px 20px rgba(29,185,84,0.2);
+    /* Sample carousel — peek + fade + drag */
+    .carousel-viewport {
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+      padding: 16px 0;
     }
-    .spotify-btn:hover {
-      background: #1ed760;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(29,185,84,0.35);
+    .carousel-viewport::before,
+    .carousel-viewport::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 14%;
+      z-index: 5;
+      pointer-events: none;
+    }
+    .carousel-viewport::before {
+      left: 0;
+      background: linear-gradient(90deg, var(--slate-950) 0%, rgba(2,6,23,0.85) 40%, transparent 100%);
+    }
+    .carousel-viewport::after {
+      right: 0;
+      background: linear-gradient(-90deg, var(--slate-950) 0%, rgba(2,6,23,0.85) 40%, transparent 100%);
+    }
+    .carousel-track {
+      display: flex;
+      align-items: stretch;
+      gap: 24px;
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: grab;
+      will-change: transform;
+    }
+    .carousel-track.dragging {
+      cursor: grabbing;
+      transition: none;
+    }
+    .sample-slide {
+      flex: 0 0 480px;
+      max-width: 480px;
+      opacity: 0.35;
+      transform: scale(0.92);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+      pointer-events: none;
+    }
+    .sample-slide.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+    .sample-slide:not(.active):hover {
+      opacity: 0.6;
+      cursor: pointer;
+    }
+    @media (max-width: 700px) {
+      .sample-slide { flex-basis: calc(100vw - 80px); max-width: calc(100vw - 80px); }
+      .carousel-viewport::before, .carousel-viewport::after { width: 6%; }
+    }
+
+    .carousel-arrow {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.25);
+      color: var(--amber);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, transform 0.15s, color 0.2s;
+    }
+    .carousel-arrow:hover {
+      background: var(--amber);
+      color: var(--slate-950);
+      transform: scale(1.05);
+    }
+    .carousel-arrow:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+    .carousel-arrow:disabled:hover {
+      background: rgba(245,158,11,0.1);
+      color: var(--amber);
+      transform: none;
+    }
+    .carousel-dot {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: rgba(148,163,184,0.25);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.2s, width 0.2s;
+    }
+    .carousel-dot:hover { background: rgba(245,158,11,0.5); }
+    .carousel-dot.active {
+      background: var(--amber);
+      width: 28px;
+      border-radius: 5px;
     }
 
     /* Marquee */
@@ -672,8 +752,8 @@
 <nav class="fixed top-0 left-0 right-0 z-50" style="background: rgba(2,6,23,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(148,163,184,0.07);">
   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
     <a href="#" class="flex items-center gap-2" style="text-decoration:none;">
-      <span style="font-family:'Playfair Display',serif; font-size:1.35rem; font-weight:700; color:#f8fafc; letter-spacing:-0.01em;">
-        Novel<em style="font-style:italic; color:var(--amber);">laire</em>
+      <span style="font-family:'Cormorant Garamond',serif; font-size:1.7rem; font-weight:600; color:var(--amber); letter-spacing:0.01em;">
+        <em style="font-style:italic;">Novellaire</em>
       </span>
     </a>
     <div class="hidden md:flex items-center gap-8">
@@ -717,18 +797,17 @@
       <div class="fade-up mb-8">
         <span class="amber-badge">
           <span style="width:6px; height:6px; border-radius:50%; background:var(--amber); display:inline-block; animation: pulse 2s infinite;"></span>
-          Now Accepting New Authors
+          Now Booking Authors
         </span>
       </div>
 
       <h1 class="headline fade-up-delay-1">
-        AI narration with the<br>
-        editorial standards<br>
-        of a <span class="amber-word">real studio</span>.
+        From manuscript to mastered audio.<br>
+        <span class="amber-word">In days, not months.</span>
       </h1>
 
-      <p class="fade-up-delay-2" style="font-size:1.15rem; color:var(--slate-300); line-height:1.7; margin-top:36px; max-width:520px; margin-left:auto; margin-right:auto;">
-        Every chunk of your book validated against your manuscript &mdash; errors caught before delivery. <span style="color:var(--amber); font-weight:600;">First chapter free</span>, so you hear it before you commit.
+      <p class="fade-up-delay-2" style="font-size:1.15rem; color:var(--slate-300); line-height:1.7; margin-top:36px; max-width:580px; margin-left:auto; margin-right:auto;">
+        Studio-grade AI narration with multi-layer validation against your manuscript. Indie pricing, full ownership, no royalties. <span style="color:var(--amber); font-weight:600;">First chapter free</span>, so you hear it before you commit.
       </p>
 
       <div class="fade-up-delay-3" style="display:flex; flex-wrap:wrap; gap:14px; margin-top:36px; justify-content:center;">
@@ -743,65 +822,60 @@
       </div>
 
       <!-- Mini stats -->
-      <div style="display:flex; flex-wrap:wrap; gap:32px; margin-top:56px; padding-top:40px; border-top:1px solid rgba(148,163,184,0.08); justify-content:center;" class="fade-up-delay-3">
-        <div>
-          <div style="font-size:2rem; font-weight:700; color:#f8fafc;"><span style="color:var(--amber);">3-7</span><span style="font-size:1.4rem;">d</span></div>
-          <div style="font-size:0.78rem; color:var(--slate-400); letter-spacing:0.06em; text-transform:uppercase; margin-top:2px;">Delivery</div>
+      <div style="display:flex; flex-wrap:wrap; gap:48px; margin-top:56px; padding-top:40px; border-top:1px solid rgba(148,163,184,0.08); justify-content:center; align-items:flex-start;" class="fade-up-delay-3">
+        <div style="text-align:center;">
+          <div style="font-size:1.4rem; font-weight:700; color:var(--amber); line-height:1.2;">3&ndash;7 Days</div>
+          <div style="font-size:0.74rem; color:var(--slate-400); letter-spacing:0.1em; text-transform:uppercase; margin-top:6px;">Delivery</div>
         </div>
-        <div style="width:1px; background:rgba(148,163,184,0.1);"></div>
-        <div>
-          <div style="font-size:2rem; font-weight:700; color:#f8fafc;"><span style="color:var(--amber);">100%</span></div>
-          <div style="font-size:0.78rem; color:var(--slate-400); letter-spacing:0.06em; text-transform:uppercase; margin-top:2px;">Validated Chunks</div>
+        <div style="width:1px; background:rgba(148,163,184,0.1); align-self:stretch;"></div>
+        <div style="text-align:center;">
+          <div style="font-size:1.4rem; font-weight:700; color:var(--amber); line-height:1.2;">First Chapter</div>
+          <div style="font-size:0.74rem; color:var(--slate-400); letter-spacing:0.1em; text-transform:uppercase; margin-top:6px;">Free</div>
         </div>
-        <div style="width:1px; background:rgba(148,163,184,0.1);"></div>
-        <div>
-          <div style="font-size:2rem; font-weight:700; color:#f8fafc;"><span style="color:var(--amber);">You</span></div>
-          <div style="font-size:0.78rem; color:var(--slate-400); letter-spacing:0.06em; text-transform:uppercase; margin-top:2px;">Own The Audio</div>
+        <div style="width:1px; background:rgba(148,163,184,0.1); align-self:stretch;"></div>
+        <div style="text-align:center;">
+          <div style="font-size:1.4rem; font-weight:700; color:var(--amber); line-height:1.2;">Yours Forever</div>
+          <div style="font-size:0.74rem; color:var(--slate-400); letter-spacing:0.1em; text-transform:uppercase; margin-top:6px;">Full Ownership</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Scroll indicator -->
-  <div style="position:absolute; bottom:32px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0.4;">
-    <span style="font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--slate-400);">Scroll</span>
-    <div style="width:1px; height:40px; background:linear-gradient(180deg, var(--slate-400), transparent);"></div>
-  </div>
 </section>
 
 
 <!-- MARQUEE TICKER -->
 <div style="overflow:hidden; padding:16px 0; background:rgba(245,158,11,0.04); border-top:1px solid rgba(245,158,11,0.1); border-bottom:1px solid rgba(245,158,11,0.1);">
   <div class="marquee-track">
+    <span class="marquee-item">Romantasy <span class="marquee-dot">&starf;</span></span>
+    <span class="marquee-item">Dark Romance <span class="marquee-dot">&starf;</span></span>
+    <span class="marquee-item">Contemporary Romance <span class="marquee-dot">&starf;</span></span>
+    <span class="marquee-item">Paranormal Romance <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Fantasy <span class="marquee-dot">&starf;</span></span>
-    <span class="marquee-item">Romance <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Sci-Fi <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">LitRPG <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Thriller <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">YA <span class="marquee-dot">&starf;</span></span>
-    <span class="marquee-item">Mystery <span class="marquee-dot">&starf;</span></span>
-    <span class="marquee-item">Horror <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Cozy Fantasy <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Memoir <span class="marquee-dot">&starf;</span></span>
-    <span class="marquee-item">Self-Help <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Spanish Narration <span class="marquee-dot">&starf;</span></span>
+    <span class="marquee-item">Romantasy <span class="marquee-dot">&starf;</span></span>
+    <span class="marquee-item">Dark Romance <span class="marquee-dot">&starf;</span></span>
+    <span class="marquee-item">Contemporary Romance <span class="marquee-dot">&starf;</span></span>
+    <span class="marquee-item">Paranormal Romance <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Fantasy <span class="marquee-dot">&starf;</span></span>
-    <span class="marquee-item">Romance <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Sci-Fi <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">LitRPG <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Thriller <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">YA <span class="marquee-dot">&starf;</span></span>
-    <span class="marquee-item">Mystery <span class="marquee-dot">&starf;</span></span>
-    <span class="marquee-item">Horror <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Cozy Fantasy <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Memoir <span class="marquee-dot">&starf;</span></span>
-    <span class="marquee-item">Self-Help <span class="marquee-dot">&starf;</span></span>
     <span class="marquee-item">Spanish Narration <span class="marquee-dot">&starf;</span></span>
   </div>
 </div>
 
 
-<!-- AUDIO SAMPLE SECTION -->
+<!-- AUDIO SAMPLE SECTION (CAROUSEL) -->
 <section id="sample" style="padding:100px 0; position:relative;">
   <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:600px; height:600px; background:radial-gradient(circle, rgba(245,158,11,0.05) 0%, transparent 70%); pointer-events:none;"></div>
 
@@ -809,75 +883,182 @@
     <div class="text-center" style="margin-bottom:56px;">
       <div class="section-label">Listen First</div>
       <h2 class="section-title">Hear the Difference</h2>
-      <p style="color:var(--slate-400); margin-top:16px; font-size:0.95rem; max-width:500px; margin-left:auto; margin-right:auto; line-height:1.7;">
-        High-fidelity AI narration that breathes life into every sentence.
-        No robotic tones. No skipped lines. No compromises.
+      <p style="color:var(--slate-400); margin-top:16px; font-size:0.95rem; max-width:540px; margin-left:auto; margin-right:auto; line-height:1.7;">
+        Sample real books from our catalog. Each narrator chosen to match the story &mdash; swipe through to hear different voices.
       </p>
     </div>
 
-    <div class="max-w-2xl mx-auto">
-      <div class="player-card" style="padding:32px;">
+    <div class="max-w-5xl mx-auto" id="sampleCarousel">
 
-        <!-- Header with cover art -->
-        <div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:28px; flex-wrap:wrap;">
-          <div style="width:100px; height:140px; border-radius:10px; overflow:hidden; flex-shrink:0; border:1px solid rgba(245,158,11,0.2);">
-            <img src="starwater-cover.jpg" alt="Starwater: Superstorm" style="width:100%; height:100%; object-fit:cover;">
-          </div>
-          <div style="flex:1; min-width:160px;">
-            <div style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:#f8fafc; margin-bottom:4px;">
-              Starwater
-            </div>
-            <div style="font-size:0.8rem; color:var(--slate-400); letter-spacing:0.04em; margin-bottom:14px;">
-              Original Fiction &middot; Chapter 1 &middot; Voice Demo
-            </div>
-            <span style="display:inline-flex; align-items:center; gap:6px; background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.2); color:var(--amber); font-size:0.68rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; padding:5px 10px; border-radius:6px;">
-              <span style="width:5px;height:5px;border-radius:50%;background:var(--amber);animation:pulse 2s infinite;display:inline-block;"></span>
-              HD &middot; 48kHz
-            </span>
-          </div>
-        </div>
+     <div class="carousel-viewport" id="carouselViewport">
+      <div class="carousel-track" id="carouselTrack">
 
-        <!-- Play + Progress -->
-        <div style="display:flex; align-items:center; gap:16px; margin-bottom:4px;">
-          <button class="play-btn" id="heroPlayBtn" onclick="toggleHeroPlay()" title="Play / Pause" style="width:52px; height:52px;">
-            <svg id="heroPlayIcon" class="play-icon" width="22" height="22" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-            <svg id="heroPauseIcon" class="pause-icon" width="20" height="20" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
-          </button>
-          <div style="flex:1;">
-            <div class="progress-bar-track" id="heroProgressTrack" onclick="heroSeek(event)" style="margin:0 0 8px;">
-              <div class="progress-bar-fill" id="heroProgressFill" style="width:0%;"></div>
-              <div class="progress-thumb" id="heroProgressThumb" style="left:0%;"></div>
+      <!-- SLIDE 1: Starwater -->
+      <div class="sample-slide active" data-idx="0">
+        <div class="player-card" style="padding:32px;">
+          <div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:28px; flex-wrap:wrap;">
+            <div style="width:100px; height:140px; border-radius:10px; overflow:hidden; flex-shrink:0; border:1px solid rgba(245,158,11,0.2);">
+              <img src="starwater-cover.jpg" alt="Starwater" style="width:100%; height:100%; object-fit:cover;">
             </div>
-            <div style="display:flex; justify-content:space-between;">
-              <span id="heroCurrentTime" style="font-size:0.8rem; color:var(--slate-400); font-variant-numeric:tabular-nums;">0:00</span>
-              <span id="heroTotalTime" style="font-size:0.8rem; color:var(--slate-400);">0:00</span>
+            <div style="flex:1; min-width:160px;">
+              <div style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:#f8fafc; margin-bottom:4px;">Starwater</div>
+              <div style="font-size:0.8rem; color:var(--slate-400); letter-spacing:0.04em; margin-bottom:14px;">Original Fiction &middot; Narrated by Sebastian Hale</div>
+              <span style="display:inline-flex; align-items:center; gap:6px; background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.2); color:var(--amber); font-size:0.68rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; padding:5px 10px; border-radius:6px;">
+                <span style="width:5px;height:5px;border-radius:50%;background:var(--amber);animation:pulse 2s infinite;display:inline-block;"></span>
+                HD &middot; 48kHz
+              </span>
             </div>
           </div>
-        </div>
-
-        <!-- Volume -->
-        <div style="display:flex; align-items:center; justify-content:flex-end; gap:10px; margin-top:8px;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--slate-400)" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
-          <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.8" style="width:80px; accent-color:var(--amber); cursor:pointer; height:4px;" oninput="heroAudio.volume=parseFloat(this.value)">
-        </div>
-
-        <!-- Divider -->
-        <div style="height:1px; background:rgba(148,163,184,0.08); margin:24px 0;"></div>
-
-        <!-- Spotify CTA -->
-        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;">
-          <p style="font-size:0.82rem; color:var(--slate-400);">
-            Hear a full chapter, narrated by us, on Spotify
-          </p>
-          <a href="https://open.spotify.com/episode/7oXBifuL20ET9SLOjLdt1j?si=bcc95920e2c7406c" target="_blank" rel="noopener noreferrer" class="spotify-btn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path>
-            </svg>
-            Listen on Spotify
-          </a>
+          <div style="display:flex; align-items:center; gap:16px;">
+            <button class="play-btn sample-play-btn" onclick="toggleSamplePlay(0)" title="Play / Pause" style="width:52px; height:52px;">
+              <svg class="play-icon sample-play-icon" width="22" height="22" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              <svg class="pause-icon sample-pause-icon" width="20" height="20" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+            </button>
+            <div style="flex:1;">
+              <div class="progress-bar-track sample-progress-track" onclick="sampleSeek(0, event)" style="margin:0 0 8px;">
+                <div class="progress-bar-fill sample-progress-fill" style="width:0%;"></div>
+                <div class="progress-thumb sample-progress-thumb" style="left:0%;"></div>
+              </div>
+              <div style="display:flex; justify-content:space-between;">
+                <span class="sample-current-time" style="font-size:0.8rem; color:var(--slate-400); font-variant-numeric:tabular-nums;">0:00</span>
+                <span class="sample-total-time" style="font-size:0.8rem; color:var(--slate-400);">2:00</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <!-- SLIDE 2: The Changeling -->
+      <div class="sample-slide" data-idx="1">
+        <div class="player-card" style="padding:32px;">
+          <div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:28px; flex-wrap:wrap;">
+            <div style="width:100px; height:140px; border-radius:10px; overflow:hidden; flex-shrink:0; border:1px solid rgba(245,158,11,0.2);">
+              <img src="the-changeling-cover.png" alt="The Changeling" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+            <div style="flex:1; min-width:160px;">
+              <div style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:#f8fafc; margin-bottom:4px;">The Changeling</div>
+              <div style="font-size:0.8rem; color:var(--slate-400); letter-spacing:0.04em; margin-bottom:14px;">Fanfiction &middot; Narrated by Evangeline Frost</div>
+              <span style="display:inline-flex; align-items:center; gap:6px; background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.2); color:var(--amber); font-size:0.68rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; padding:5px 10px; border-radius:6px;">
+                <span style="width:5px;height:5px;border-radius:50%;background:var(--amber);animation:pulse 2s infinite;display:inline-block;"></span>
+                HD &middot; 48kHz
+              </span>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:16px;">
+            <button class="play-btn sample-play-btn" onclick="toggleSamplePlay(1)" title="Play / Pause" style="width:52px; height:52px;">
+              <svg class="play-icon sample-play-icon" width="22" height="22" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              <svg class="pause-icon sample-pause-icon" width="20" height="20" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+            </button>
+            <div style="flex:1;">
+              <div class="progress-bar-track sample-progress-track" onclick="sampleSeek(1, event)" style="margin:0 0 8px;">
+                <div class="progress-bar-fill sample-progress-fill" style="width:0%;"></div>
+                <div class="progress-thumb sample-progress-thumb" style="left:0%;"></div>
+              </div>
+              <div style="display:flex; justify-content:space-between;">
+                <span class="sample-current-time" style="font-size:0.8rem; color:var(--slate-400); font-variant-numeric:tabular-nums;">0:00</span>
+                <span class="sample-total-time" style="font-size:0.8rem; color:var(--slate-400);">2:00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: TSH Year 2 -->
+      <div class="sample-slide" data-idx="2">
+        <div class="player-card" style="padding:32px;">
+          <div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:28px; flex-wrap:wrap;">
+            <div style="width:100px; height:140px; border-radius:10px; overflow:hidden; flex-shrink:0; border:1px solid rgba(245,158,11,0.2);">
+              <img src="tshy2-cover.png" alt="They Shook Hands: Year 2" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+            <div style="flex:1; min-width:160px;">
+              <div style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:#f8fafc; margin-bottom:4px;">They Shook Hands: Year 2</div>
+              <div style="font-size:0.8rem; color:var(--slate-400); letter-spacing:0.04em; margin-bottom:14px;">Fanfiction &middot; Narrated by Alaric Stone</div>
+              <span style="display:inline-flex; align-items:center; gap:6px; background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.2); color:var(--amber); font-size:0.68rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; padding:5px 10px; border-radius:6px;">
+                <span style="width:5px;height:5px;border-radius:50%;background:var(--amber);animation:pulse 2s infinite;display:inline-block;"></span>
+                HD &middot; 48kHz
+              </span>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:16px;">
+            <button class="play-btn sample-play-btn" onclick="toggleSamplePlay(2)" title="Play / Pause" style="width:52px; height:52px;">
+              <svg class="play-icon sample-play-icon" width="22" height="22" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              <svg class="pause-icon sample-pause-icon" width="20" height="20" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+            </button>
+            <div style="flex:1;">
+              <div class="progress-bar-track sample-progress-track" onclick="sampleSeek(2, event)" style="margin:0 0 8px;">
+                <div class="progress-bar-fill sample-progress-fill" style="width:0%;"></div>
+                <div class="progress-thumb sample-progress-thumb" style="left:0%;"></div>
+              </div>
+              <div style="display:flex; justify-content:space-between;">
+                <span class="sample-current-time" style="font-size:0.8rem; color:var(--slate-400); font-variant-numeric:tabular-nums;">0:00</span>
+                <span class="sample-total-time" style="font-size:0.8rem; color:var(--slate-400);">2:00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: TSH Year 1 (Hugh Atherton / Deep British) -->
+      <div class="sample-slide" data-idx="3">
+        <div class="player-card" style="padding:32px;">
+          <div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:28px; flex-wrap:wrap;">
+            <div style="width:100px; height:140px; border-radius:10px; overflow:hidden; flex-shrink:0; border:1px solid rgba(245,158,11,0.2);">
+              <img src="tshy1-cover.png" alt="They Shook Hands: Year 1" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+            <div style="flex:1; min-width:160px;">
+              <div style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:#f8fafc; margin-bottom:4px;">They Shook Hands: Year 1</div>
+              <div style="font-size:0.8rem; color:var(--slate-400); letter-spacing:0.04em; margin-bottom:14px;">Fanfiction &middot; Narrated by Hugh Atherton</div>
+              <span style="display:inline-flex; align-items:center; gap:6px; background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.2); color:var(--amber); font-size:0.68rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; padding:5px 10px; border-radius:6px;">
+                <span style="width:5px;height:5px;border-radius:50%;background:var(--amber);animation:pulse 2s infinite;display:inline-block;"></span>
+                HD &middot; 48kHz
+              </span>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:16px;">
+            <button class="play-btn sample-play-btn" onclick="toggleSamplePlay(3)" title="Play / Pause" style="width:52px; height:52px;">
+              <svg class="play-icon sample-play-icon" width="22" height="22" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              <svg class="pause-icon sample-pause-icon" width="20" height="20" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+            </button>
+            <div style="flex:1;">
+              <div class="progress-bar-track sample-progress-track" onclick="sampleSeek(3, event)" style="margin:0 0 8px;">
+                <div class="progress-bar-fill sample-progress-fill" style="width:0%;"></div>
+                <div class="progress-thumb sample-progress-thumb" style="left:0%;"></div>
+              </div>
+              <div style="display:flex; justify-content:space-between;">
+                <span class="sample-current-time" style="font-size:0.8rem; color:var(--slate-400); font-variant-numeric:tabular-nums;">0:00</span>
+                <span class="sample-total-time" style="font-size:0.8rem; color:var(--slate-400);">2:00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      </div><!-- /carousel-track -->
+     </div><!-- /carousel-viewport -->
+
+      <!-- Carousel nav -->
+      <div class="max-w-2xl mx-auto" style="display:flex; align-items:center; justify-content:center; gap:24px; margin-top:32px;">
+        <button class="carousel-arrow" onclick="carouselPrev()" aria-label="Previous sample">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+        </button>
+        <div style="display:flex; gap:10px;" id="carouselDots">
+          <button class="carousel-dot active" onclick="carouselGo(0)" aria-label="Sample 1"></button>
+          <button class="carousel-dot" onclick="carouselGo(1)" aria-label="Sample 2"></button>
+          <button class="carousel-dot" onclick="carouselGo(2)" aria-label="Sample 3"></button>
+          <button class="carousel-dot" onclick="carouselGo(3)" aria-label="Sample 4"></button>
+        </div>
+        <button class="carousel-arrow" onclick="carouselNext()" aria-label="Next sample">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+        </button>
+      </div>
+
     </div>
+
+    <!-- Hidden audio elements (one per slide) -->
+    <audio id="audio-sample-0" preload="none" src="audio/starwater-sample.mp3"></audio>
+    <audio id="audio-sample-1" preload="none" src="audio/the-changeling-sample.mp3"></audio>
+    <audio id="audio-sample-2" preload="none" src="audio/tshy2-sample.mp3"></audio>
+    <audio id="audio-sample-3" preload="none" src="audio/tshy1-sample.mp3"></audio>
   </div>
 </section>
 
@@ -898,25 +1079,25 @@
 
       <div class="step-card">
         <div class="step-number">1</div>
-        <div style="font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:600; color:#f8fafc; margin:8px 0 12px;">Send your manuscript</div>
+        <div style="font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:600; color:#f8fafc; margin:8px 0 12px;">Send Your Manuscript</div>
         <p style="font-size:0.88rem; color:var(--slate-400); line-height:1.65;">Upload your final manuscript via our form. We accept .docx, .epub, or plain text.</p>
       </div>
 
       <div class="step-card">
         <div class="step-number">2</div>
-        <div style="font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:600; color:#f8fafc; margin:8px 0 12px;">Pick a narrator</div>
+        <div style="font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:600; color:#f8fafc; margin:8px 0 12px;">Pick a Narrator</div>
         <p style="font-size:0.88rem; color:var(--slate-400); line-height:1.65;">Browse 12+ named voices. Each one is genre-tuned. Studio tier authors get a custom pronunciation guide.</p>
       </div>
 
       <div class="step-card">
         <div class="step-number">3</div>
-        <div style="font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:600; color:#f8fafc; margin:8px 0 12px;">We render &amp; verify</div>
+        <div style="font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:600; color:#f8fafc; margin:8px 0 12px;">We Render &amp; Verify</div>
         <p style="font-size:0.88rem; color:var(--slate-400); line-height:1.65;">Every chunk is transcribed and checked against your text. Errors get re-rolled automatically. No raw output ships.</p>
       </div>
 
       <div class="step-card">
         <div class="step-number">4</div>
-        <div style="font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:600; color:#f8fafc; margin:8px 0 12px;">Receive your audiobook</div>
+        <div style="font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:600; color:#f8fafc; margin:8px 0 12px;">Receive Your Audiobook</div>
         <p style="font-size:0.88rem; color:var(--slate-400); line-height:1.65;">Mastered chapter files, ready to upload to ACX, Audible, Spotify, or anywhere. You own everything.</p>
       </div>
 
@@ -964,7 +1145,7 @@
         <div style="font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; color:#f8fafc; margin-bottom:12px;">Studio-Grade Splicing</div>
         <div class="amber-divider"></div>
         <p style="color:var(--slate-400); line-height:1.8; font-size:0.9rem;">
-          When a chunk needs to be patched, we don't just glue it on. We find the lowest-energy moment of natural silence between sentences and splice with a 30ms crossfade. <strong style="color:#f8fafc;">The result is inaudible</strong> — even on studio monitors.
+          When a chunk needs to be patched, we don't just glue it on. We find a natural pause between sentences and splice with a soft crossfade. <strong style="color:#f8fafc;">The result is inaudible</strong> — even on studio monitors.
         </p>
       </div>
 
@@ -986,6 +1167,83 @@
     </div>
   </div>
 </section>
+
+
+<!-- WHY AUDIO TEASER -->
+<section style="padding:80px 0 80px; position:relative;">
+  <!-- subtle radial glow behind the card -->
+  <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:700px; height:300px; background:radial-gradient(ellipse, rgba(245,158,11,0.06) 0%, transparent 70%); pointer-events:none; z-index:0;"></div>
+
+  <div class="max-w-4xl mx-auto px-6" style="position:relative; z-index:1;">
+    <a href="why-audio-wins.html" id="whyAudioTeaser" style="display:block; text-decoration:none;">
+      <div style="
+        background:linear-gradient(135deg, rgba(245,158,11,0.10), rgba(245,158,11,0.025));
+        border:1px solid rgba(245,158,11,0.32);
+        border-radius:20px;
+        padding:48px clamp(28px, 5vw, 56px);
+        display:flex;
+        flex-wrap:wrap;
+        align-items:center;
+        justify-content:space-between;
+        gap:32px;
+        position:relative;
+        overflow:hidden;
+        box-shadow:0 24px 60px rgba(0,0,0,0.35), 0 0 40px rgba(245,158,11,0.08);
+        transition:border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      ">
+        <!-- corner accent gradient -->
+        <div style="position:absolute; top:-40%; right:-10%; width:420px; height:420px; background:radial-gradient(circle, rgba(245,158,11,0.14) 0%, transparent 65%); pointer-events:none;"></div>
+
+        <div style="flex:1; min-width:280px; position:relative; z-index:2;">
+          <div class="section-label" style="margin-bottom:12px; display:inline-flex; align-items:center; gap:8px;">
+            <span style="display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--amber); animation:pulse 2s infinite;"></span>
+            Why Audio Is Exploding
+          </div>
+          <h3 style="font-family:'Playfair Display',serif; font-size:clamp(1.4rem, 2.4vw, 1.75rem); font-weight:700; color:#f8fafc; line-height:1.25; margin-bottom:12px;">
+            51% of Americans listened to an audiobook last year &mdash; up from 14% twelve years ago.
+          </h3>
+          <p style="font-size:1rem; color:var(--slate-300); line-height:1.7;">
+            Audio is the fastest-growing format in publishing. The indie authors who skip it are leaving readers, revenue, and discoverability on the table.
+          </p>
+        </div>
+
+        <span class="why-audio-cta" style="
+          display:inline-flex;
+          align-items:center;
+          gap:10px;
+          background:var(--amber);
+          color:var(--slate-950);
+          font-weight:700;
+          font-size:0.86rem;
+          letter-spacing:0.05em;
+          text-transform:uppercase;
+          padding:16px 26px;
+          border-radius:10px;
+          flex-shrink:0;
+          position:relative;
+          z-index:2;
+          box-shadow:0 0 30px rgba(245,158,11,0.35);
+          transition:background 0.2s, transform 0.15s, box-shadow 0.2s;
+        ">
+          See the Data
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+        </span>
+      </div>
+    </a>
+  </div>
+</section>
+<style>
+  #whyAudioTeaser:hover > div {
+    border-color:rgba(245,158,11,0.5) !important;
+    transform:translateY(-3px);
+    box-shadow:0 32px 80px rgba(0,0,0,0.4), 0 0 50px rgba(245,158,11,0.15) !important;
+  }
+  #whyAudioTeaser:hover .why-audio-cta {
+    background:var(--amber-light);
+    transform:translateX(4px);
+    box-shadow:0 0 50px rgba(245,158,11,0.5);
+  }
+</style>
 
 
 <!-- MEET THE VOICES -->
@@ -1029,15 +1287,15 @@
         </button>
       </div>
 
-      <!-- Voice 3: Mateo Rios -->
+      <!-- Voice 3: Hugh Atherton (flagship) -->
       <div class="voice-card">
         <div style="width:72px; height:72px; border-radius:50%; background:rgba(245,158,11,0.1); border:2px solid rgba(245,158,11,0.25); margin:0 auto 20px; display:flex; align-items:center; justify-content:center;">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
         </div>
-        <div style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:600; color:#f8fafc; margin-bottom:6px;">Mateo Rios</div>
-        <div style="font-size:0.7rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--amber); margin-bottom:12px;">Male &middot; Spanish</div>
-        <p style="font-size:0.83rem; color:var(--slate-400); line-height:1.7; position:relative; z-index:2;">Warm and resonant with a Latin depth. Perfect for magical realism, literary fiction, and bilingual narration.</p>
-        <button class="voice-play-btn" onclick="toggleVoicePlay('voice-spanish-male', this)" title="Play sample">
+        <div style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:600; color:#f8fafc; margin-bottom:6px;">Hugh Atherton</div>
+        <div style="font-size:0.7rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--amber); margin-bottom:12px;">Male &middot; Deep British</div>
+        <p style="font-size:0.83rem; color:var(--slate-400); line-height:1.7; position:relative; z-index:2;">Deep, resonant, and timeless. The voice of long-form fantasy and storied fiction &mdash; built for series with weight and a reader who wants to settle in.</p>
+        <button class="voice-play-btn" onclick="toggleVoicePlay('voice-deep-british', this)" title="Play sample">
           <svg class="voice-play-icon" width="16" height="16" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
         </button>
       </div>
@@ -1061,7 +1319,7 @@
     <div class="text-center">
       <a href="voices.html" class="btn-ghost" style="padding:14px 32px;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
-        See All 12 Voices
+        See All 13 Voices
       </a>
     </div>
 
@@ -1071,7 +1329,7 @@
 <!-- Hidden audio elements for voice previews -->
 <audio id="audio-voice-hp-narrator" preload="none" src="audio/voice-hp-narrator.mp3"></audio>
 <audio id="audio-voice-edward" preload="none" src="audio/voice-edward.mp3"></audio>
-<audio id="audio-voice-spanish-male" preload="none" src="audio/voice-spanish-male.mp3"></audio>
+<audio id="audio-voice-deep-british" preload="none" src="audio/voice-deep-british.mp3"></audio>
 <audio id="audio-voice-arabella" preload="none" src="audio/voice-arabella.mp3"></audio>
 
 
@@ -1096,7 +1354,7 @@
 
         <div>
           <span class="tier-price">$40</span>
-          <div class="tier-price-sub">per finished hour &middot; or $0.006/word</div>
+          <div class="tier-price-sub">per finished hour</div>
         </div>
 
         <div class="tier-novel-est">
@@ -1114,9 +1372,9 @@
           <li><span class="check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span>Full ownership &mdash; no royalties, ever</span></li>
         </ul>
 
-        <a href="#contact" class="btn-ghost" style="width:100%; justify-content:center; padding:14px;">
-          Start an Indie Quote
-        </a>
+        <button type="button" class="btn-ghost order-btn" onclick="orderTier('indie')" style="width:100%; justify-content:center; padding:14px; cursor:pointer; font-weight:600;">
+          Order Indie &mdash; <span id="tierCardIndiePrice" style="font-variant-numeric:tabular-nums; margin-left:4px;">$215</span>
+        </button>
       </div>
 
       <!-- Studio Tier -->
@@ -1127,7 +1385,7 @@
 
         <div>
           <span class="tier-price">$80</span>
-          <div class="tier-price-sub">per finished hour &middot; or $0.012/word</div>
+          <div class="tier-price-sub">per finished hour</div>
         </div>
 
         <div class="tier-novel-est">
@@ -1147,17 +1405,77 @@
           <li><span class="check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span>Everything in Indie, plus full ownership</span></li>
         </ul>
 
-        <a href="#contact" class="btn-primary" style="width:100%; justify-content:center; padding:14px;">
-          Start a Studio Quote
+        <button type="button" class="btn-primary order-btn" onclick="orderTier('studio')" style="width:100%; justify-content:center; padding:14px; cursor:pointer;">
+          Order Studio &mdash; <span id="tierCardStudioPrice" style="font-variant-numeric:tabular-nums; margin-left:4px;">$430</span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
-        </a>
+        </button>
       </div>
 
     </div>
 
-    <p style="text-align:center; font-size:0.82rem; color:var(--slate-400); margin-top:32px;">
-      Per-word pricing available for non-fiction and short works. <a href="#contact" style="color:var(--amber); text-decoration:underline; text-underline-offset:3px;">Ask for a custom quote.</a>
+    <!-- Series-author note -->
+    <p style="text-align:center; font-size:0.85rem; color:var(--slate-300); margin-top:36px; max-width:600px; margin-left:auto; margin-right:auto;">
+      <strong style="color:var(--amber);">Series authors:</strong> backlists are rendered in publication order so your audiobook editions release in sequence. Ask about queue priority on your inquiry.
     </p>
+
+    <!-- COST ESTIMATOR -->
+    <div style="max-width:680px; margin:48px auto 0;">
+      <div style="background:var(--slate-900); border:1px solid rgba(245,158,11,0.18); border-radius:18px; padding:32px clamp(20px, 4vw, 36px); position:relative; overflow:hidden;">
+        <div style="position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg, transparent, rgba(245,158,11,0.5), transparent);"></div>
+        <div style="text-align:center; margin-bottom:24px;">
+          <div class="section-label" style="margin-bottom:8px;">Estimate Your Project</div>
+          <div style="font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; color:#f8fafc;">How much will my audiobook cost?</div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div style="display:flex; justify-content:space-between; align-items:baseline;">
+            <label for="estWordCount" style="font-size:0.78rem; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; color:var(--slate-400);">Manuscript Word Count</label>
+            <span id="estWordCountDisplay" style="font-family:'Inter',sans-serif; font-size:1.1rem; font-weight:700; color:var(--amber); font-variant-numeric:tabular-nums; letter-spacing:-0.01em;">50,000 words</span>
+          </div>
+          <input id="estWordCount" type="range" min="20000" max="200000" step="1000" value="50000" oninput="updateEstimate()" style="width:100%; accent-color:var(--amber); cursor:pointer; height:6px;">
+          <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:var(--slate-400); letter-spacing:0.06em;">
+            <span>20k</span>
+            <span>200k</span>
+          </div>
+        </div>
+
+        <div id="estResults" style="margin-top:24px; padding:20px; background:var(--slate-800); border:1px solid rgba(148,163,184,0.08); border-radius:12px;">
+          <div style="display:flex; flex-wrap:wrap; gap:18px; justify-content:space-around; text-align:center;">
+            <div>
+              <div style="font-size:0.7rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--slate-400); margin-bottom:8px;">Audio Length</div>
+              <div id="estHours" style="font-family:'Inter',sans-serif; font-size:1.5rem; font-weight:700; color:#f8fafc; font-variant-numeric:tabular-nums; letter-spacing:-0.01em;">&mdash;</div>
+            </div>
+            <div style="width:1px; background:rgba(148,163,184,0.1); align-self:stretch;"></div>
+            <div>
+              <div style="font-size:0.7rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--slate-400); margin-bottom:8px;">Indie Tier</div>
+              <div id="estIndie" style="font-family:'Inter',sans-serif; font-size:1.5rem; font-weight:700; color:#f8fafc; font-variant-numeric:tabular-nums; letter-spacing:-0.01em;">&mdash;</div>
+            </div>
+            <div style="width:1px; background:rgba(148,163,184,0.1); align-self:stretch;"></div>
+            <div>
+              <div style="font-size:0.7rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--amber); margin-bottom:8px;">Studio Tier</div>
+              <div id="estStudio" style="font-family:'Inter',sans-serif; font-size:1.5rem; font-weight:700; color:var(--amber); font-variant-numeric:tabular-nums; letter-spacing:-0.01em;">&mdash;</div>
+            </div>
+          </div>
+          <p style="font-size:0.74rem; color:var(--slate-400); text-align:center; margin-top:14px; line-height:1.6;">
+            Based on ~9,300 finished words per audio hour. Word count verified within &plusmn;10% of your declared total &mdash; if your manuscript runs significantly over, we'll send a top-up invoice before rendering.
+          </p>
+        </div>
+
+        <!-- Order Now buttons -->
+        <div style="margin-top:24px; display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+          <button type="button" class="btn-ghost order-btn" onclick="orderTier('indie')" style="justify-content:center; padding:16px; cursor:pointer; font-weight:600;">
+            Order Indie &mdash; <span id="orderIndiePrice" style="font-variant-numeric:tabular-nums; margin-left:4px;">&mdash;</span>
+          </button>
+          <button type="button" class="btn-primary order-btn" onclick="orderTier('studio')" style="justify-content:center; padding:16px; cursor:pointer;">
+            Order Studio &mdash; <span id="orderStudioPrice" style="font-variant-numeric:tabular-nums; margin-left:4px;">&mdash;</span>
+          </button>
+        </div>
+        <p style="margin-top:14px; text-align:center; font-size:0.78rem; color:var(--slate-400); line-height:1.6;">
+          Or <a href="#contact" style="color:var(--amber); text-decoration:underline; text-underline-offset:3px;">request your free first chapter</a> before you commit.
+        </p>
+        <p id="orderError" style="margin-top:12px; text-align:center; font-size:0.82rem; color:#f87171; display:none;"></p>
+      </div>
+    </div>
 
   </div>
 </section>
@@ -1179,7 +1497,7 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
           </a>
         </div>
-        <p style="margin-top:16px; font-size:0.78rem; color:var(--slate-400);">Indie or Studio voice &middot; Delivered within 5 business days</p>
+        <p style="margin-top:16px; font-size:0.78rem; color:var(--slate-400);">Rendered at Indie tier &middot; Delivered within 5 business days &middot; Studio quality available with full project quote</p>
       </div>
     </div>
   </div>
@@ -1318,6 +1636,18 @@
             </select>
           </div>
 
+          <!-- Tier preference (for free chapters and undecided authors) -->
+          <div style="margin-bottom:24px;">
+            <label class="form-label" for="tierPreference">Tier preference</label>
+            <select class="form-input" id="tierPreference" name="tierPreference" required>
+              <option value="" disabled selected>Which level of polish?</option>
+              <option value="indie">Indie quality ($40/hr) &mdash; great for first audiobooks</option>
+              <option value="studio" selected>Studio quality ($80/hr) &mdash; recommended for series & launches</option>
+              <option value="undecided">Help me decide</option>
+            </select>
+            <p style="font-size:0.72rem; color:var(--slate-400); margin-top:6px; line-height:1.5;">Free chapters are rendered at Indie quality. This selection tells us what to quote for your full project.</p>
+          </div>
+
           <!-- Author Name -->
           <div style="margin-bottom:24px;">
             <label class="form-label" for="authorName">Author Name</label>
@@ -1389,8 +1719,8 @@
   <div class="max-w-6xl mx-auto px-6">
     <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:24px; margin-bottom:36px;">
       <div>
-        <span style="font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; color:#f8fafc; letter-spacing:-0.01em;">
-          Novel<em style="font-style:italic; color:var(--amber);">laire</em>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:600; color:var(--amber); letter-spacing:0.01em;">
+          <em style="font-style:italic;">Novellaire</em>
         </span>
         <p style="color:var(--slate-400); font-size:0.82rem; margin-top:6px;">AI narration with the editorial standards of a real studio.</p>
       </div>
@@ -1405,7 +1735,7 @@
     </div>
     <div style="border-top:1px solid rgba(148,163,184,0.07); padding-top:24px; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px;">
       <p style="font-size:0.75rem; color:var(--slate-400);">&copy; 2026 Novellaire. All rights reserved.</p>
-      <p style="font-size:0.75rem; color:var(--slate-400);">Built for storytellers. Engineered for production.</p>
+      <p style="font-size:0.75rem; color:var(--slate-400);">Audio for indie authors who don't have time to wait.</p>
     </div>
   </div>
 </footer>
@@ -1419,49 +1749,288 @@
   });
   function closeMobile() { document.getElementById('mobileMenu').classList.add('hidden'); }
 
-  // ── Hero audio player ──
-  const heroAudio = new Audio('audio/starwater-sample.mp3');
-  heroAudio.preload = 'metadata';
-  let heroPlaying = false;
+  // ── Sample carousel (infinite wheel via cloned slides) ──
+  let sampleIdx = 0;            // logical index 0..N-1
+  let physicalIdx = 1;          // physical position in track (0 = clone-of-last, 1..N = real, N+1 = clone-of-first)
+  const totalSampleSlides = 4;
+  let carouselBaseTransform = 0;
+  let carouselDragStart = 0;
+  let carouselDragOffset = 0;
+  let carouselIsDragging = false;
+  let carouselDragMoved = false;
+  let carouselWrapTimer = null;
 
-  heroAudio.addEventListener('loadedmetadata', () => {
-    document.getElementById('heroTotalTime').textContent = formatTime(heroAudio.duration);
-  });
+  function initCarouselClones() {
+    const track = document.getElementById('carouselTrack');
+    if (!track) return;
+    if (track.querySelector('.sample-slide.clone')) return; // already cloned
+    const realSlides = Array.from(track.querySelectorAll('.sample-slide'));
+    if (realSlides.length === 0) return;
+    // Clone last → prepend; clone first → append. Audio elements live outside
+    // the track so cloned slides share IDs but never get queried for IDs.
+    const cloneOfLast = realSlides[realSlides.length - 1].cloneNode(true);
+    cloneOfLast.classList.add('clone');
+    cloneOfLast.classList.remove('active');
+    track.insertBefore(cloneOfLast, realSlides[0]);
+    const cloneOfFirst = realSlides[0].cloneNode(true);
+    cloneOfFirst.classList.add('clone');
+    cloneOfFirst.classList.remove('active');
+    track.appendChild(cloneOfFirst);
+  }
 
-  heroAudio.addEventListener('timeupdate', () => {
-    if (!heroAudio.duration) return;
-    const pct = (heroAudio.currentTime / heroAudio.duration * 100).toFixed(2);
-    document.getElementById('heroProgressFill').style.width = pct + '%';
-    document.getElementById('heroProgressThumb').style.left = pct + '%';
-    document.getElementById('heroCurrentTime').textContent = formatTime(heroAudio.currentTime);
-  });
+  function stopAllSamples() {
+    for (let i = 0; i < totalSampleSlides; i++) {
+      const a = document.getElementById('audio-sample-' + i);
+      if (a) { a.pause(); a.currentTime = 0; }
+    }
+    document.querySelectorAll('.sample-slide').forEach(slide => {
+      const pi = slide.querySelector('.sample-play-icon');
+      const ai = slide.querySelector('.sample-pause-icon');
+      const fill = slide.querySelector('.sample-progress-fill');
+      const thumb = slide.querySelector('.sample-progress-thumb');
+      const cur = slide.querySelector('.sample-current-time');
+      if (pi) pi.style.display = 'block';
+      if (ai) ai.style.display = 'none';
+      if (fill) fill.style.width = '0%';
+      if (thumb) thumb.style.left = '0%';
+      if (cur) cur.textContent = '0:00';
+    });
+  }
 
-  heroAudio.addEventListener('ended', () => {
-    heroPlaying = false;
-    document.getElementById('heroPlayIcon').style.display = 'block';
-    document.getElementById('heroPauseIcon').style.display = 'none';
-  });
-
-  function toggleHeroPlay() {
-    stopAllVoices();
-    if (heroPlaying) {
-      heroAudio.pause();
-      heroPlaying = false;
-      document.getElementById('heroPlayIcon').style.display = 'block';
-      document.getElementById('heroPauseIcon').style.display = 'none';
+  function setTrackTransform(physical, animate) {
+    const track = document.getElementById('carouselTrack');
+    const viewport = document.getElementById('carouselViewport');
+    if (!track || !viewport) return;
+    const slides = track.querySelectorAll('.sample-slide');
+    if (!slides.length) return;
+    const slideWidth = slides[0].getBoundingClientRect().width;
+    const gap = 24;
+    const stride = slideWidth + gap;
+    const offset = (viewport.clientWidth - slideWidth) / 2 - physical * stride;
+    carouselBaseTransform = offset;
+    if (!animate) {
+      track.style.transition = 'none';
+      track.style.transform = 'translateX(' + offset + 'px)';
+      track.offsetHeight; // force reflow
+      track.style.transition = '';
     } else {
-      heroAudio.play();
-      heroPlaying = true;
-      document.getElementById('heroPlayIcon').style.display = 'none';
-      document.getElementById('heroPauseIcon').style.display = 'block';
+      track.style.transform = 'translateX(' + offset + 'px)';
     }
   }
 
-  function heroSeek(e) {
-    const track = document.getElementById('heroProgressTrack');
+  function updateCarouselClasses() {
+    // Active class on every slide whose data-idx matches current sampleIdx (covers real + clone twins)
+    document.querySelectorAll('.carousel-track .sample-slide').forEach((s) => {
+      const idx = parseInt(s.getAttribute('data-idx'), 10);
+      s.classList.toggle('active', idx === sampleIdx);
+    });
+    document.querySelectorAll('.carousel-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === sampleIdx);
+    });
+  }
+
+  function positionCarousel(animate) {
+    setTrackTransform(physicalIdx, animate);
+    updateCarouselClasses();
+  }
+
+  // Move forward by 1 with wheel-style wrap
+  function carouselNext() {
+    if (carouselWrapTimer) return; // mid-snap, ignore
+    stopAllSamples();
+    physicalIdx++;
+    sampleIdx = (sampleIdx + 1) % totalSampleSlides;
+    setTrackTransform(physicalIdx, true);
+    updateCarouselClasses();
+    if (physicalIdx === totalSampleSlides + 1) {
+      // Animated to clone-of-first; after transition, snap silently to real first
+      carouselWrapTimer = setTimeout(() => {
+        physicalIdx = 1;
+        setTrackTransform(physicalIdx, false);
+        carouselWrapTimer = null;
+      }, 470);
+    }
+  }
+
+  // Move backward by 1 with wheel-style wrap
+  function carouselPrev() {
+    if (carouselWrapTimer) return;
+    stopAllSamples();
+    physicalIdx--;
+    sampleIdx = (sampleIdx - 1 + totalSampleSlides) % totalSampleSlides;
+    setTrackTransform(physicalIdx, true);
+    updateCarouselClasses();
+    if (physicalIdx === 0) {
+      carouselWrapTimer = setTimeout(() => {
+        physicalIdx = totalSampleSlides;
+        setTrackTransform(physicalIdx, false);
+        carouselWrapTimer = null;
+      }, 470);
+    }
+  }
+
+  // Direct nav (dot clicks, peek clicks) — chooses shortest path
+  function carouselGo(idx) {
+    if (carouselWrapTimer) return;
+    const target = ((idx % totalSampleSlides) + totalSampleSlides) % totalSampleSlides;
+    if (target === sampleIdx) return;
+    // Decide forward vs backward based on shortest path through the loop
+    const forwardSteps = (target - sampleIdx + totalSampleSlides) % totalSampleSlides;
+    const backwardSteps = (sampleIdx - target + totalSampleSlides) % totalSampleSlides;
+    if (forwardSteps <= backwardSteps) {
+      // Step forward `forwardSteps` times, animating
+      stepCarousel(forwardSteps, +1);
+    } else {
+      stepCarousel(backwardSteps, -1);
+    }
+  }
+
+  function stepCarousel(stepsRemaining, dir) {
+    if (stepsRemaining <= 0) return;
+    if (dir > 0) carouselNext(); else carouselPrev();
+    if (stepsRemaining > 1) {
+      setTimeout(() => stepCarousel(stepsRemaining - 1, dir), 120);
+    }
+  }
+
+  // Click on a peeked slide to advance one step toward it
+  function setupSlideClicks() {
+    const track = document.getElementById('carouselTrack');
+    if (!track) return;
+    Array.from(track.querySelectorAll('.sample-slide')).forEach((slide, physical) => {
+      slide.addEventListener('click', (e) => {
+        if (carouselDragMoved) return;
+        if (physical === physicalIdx) return; // active slide click = no-op
+        e.preventDefault();
+        e.stopPropagation();
+        if (physical > physicalIdx) carouselNext();
+        else carouselPrev();
+      }, true);
+    });
+  }
+
+  // Drag handlers (mouse + touch)
+  function carouselPointerDown(e) {
+    if (carouselWrapTimer) return;
+    const isTouch = e.type === 'touchstart';
+    const x = isTouch ? e.touches[0].clientX : e.clientX;
+    carouselIsDragging = true;
+    carouselDragMoved = false;
+    carouselDragStart = x;
+    carouselDragOffset = 0;
+    const track = document.getElementById('carouselTrack');
+    if (track) track.classList.add('dragging');
+  }
+
+  function carouselPointerMove(e) {
+    if (!carouselIsDragging) return;
+    const isTouch = e.type === 'touchmove';
+    const x = isTouch ? e.touches[0].clientX : e.clientX;
+    carouselDragOffset = x - carouselDragStart;
+    if (Math.abs(carouselDragOffset) > 6) carouselDragMoved = true;
+    const track = document.getElementById('carouselTrack');
+    if (track) track.style.transform = 'translateX(' + (carouselBaseTransform + carouselDragOffset) + 'px)';
+  }
+
+  function carouselPointerUp() {
+    if (!carouselIsDragging) return;
+    carouselIsDragging = false;
+    const track = document.getElementById('carouselTrack');
+    if (track) track.classList.remove('dragging');
+    const threshold = 80;
+    if (carouselDragOffset < -threshold) {
+      carouselNext();
+    } else if (carouselDragOffset > threshold) {
+      carouselPrev();
+    } else {
+      setTrackTransform(physicalIdx, true);
+    }
+    carouselDragOffset = 0;
+    setTimeout(() => { carouselDragMoved = false; }, 50);
+  }
+
+  // Init on load + on resize
+  window.addEventListener('load', () => {
+    initCarouselClones();
+    physicalIdx = 1; // start at real slide 0 (which is at physical position 1)
+    sampleIdx = 0;
+    setTrackTransform(physicalIdx, false);
+    updateCarouselClasses();
+    setupSlideClicks();
+    const viewport = document.getElementById('carouselViewport');
+    if (viewport) {
+      viewport.addEventListener('mousedown', carouselPointerDown);
+      window.addEventListener('mousemove', carouselPointerMove);
+      window.addEventListener('mouseup', carouselPointerUp);
+      viewport.addEventListener('touchstart', carouselPointerDown, { passive: true });
+      viewport.addEventListener('touchmove', carouselPointerMove, { passive: true });
+      viewport.addEventListener('touchend', carouselPointerUp);
+      viewport.querySelectorAll('img').forEach(img => img.draggable = false);
+    }
+  });
+  let _carouselResizeT;
+  window.addEventListener('resize', () => {
+    clearTimeout(_carouselResizeT);
+    _carouselResizeT = setTimeout(() => setTrackTransform(physicalIdx, false), 100);
+  });
+
+  function toggleSamplePlay(idx) {
+    const audio = document.getElementById('audio-sample-' + idx);
+    if (!audio) return;
+    // Update ALL slide instances with this data-idx (real + clone twin)
+    const slides = document.querySelectorAll('.sample-slide[data-idx="' + idx + '"]');
+    if (!slides.length) return;
+    const setIcons = (showPlay) => {
+      slides.forEach(slide => {
+        const pi = slide.querySelector('.sample-play-icon');
+        const ai = slide.querySelector('.sample-pause-icon');
+        if (pi) pi.style.display = showPlay ? 'block' : 'none';
+        if (ai) ai.style.display = showPlay ? 'none' : 'block';
+      });
+    };
+
+    if (!audio.paused) {
+      audio.pause();
+      setIcons(true);
+      return;
+    }
+
+    stopAllSamples();
+    if (typeof stopAllVoices === 'function') stopAllVoices();
+
+    audio.play();
+    setIcons(false);
+
+    audio.ontimeupdate = () => {
+      if (!audio.duration) return;
+      const pct = (audio.currentTime / audio.duration * 100).toFixed(2);
+      slides.forEach(slide => {
+        slide.querySelector('.sample-progress-fill').style.width = pct + '%';
+        slide.querySelector('.sample-progress-thumb').style.left = pct + '%';
+        slide.querySelector('.sample-current-time').textContent = formatTime(audio.currentTime);
+      });
+    };
+    audio.onloadedmetadata = () => {
+      slides.forEach(slide => {
+        slide.querySelector('.sample-total-time').textContent = formatTime(audio.duration);
+      });
+    };
+    audio.onended = () => {
+      setIcons(true);
+      audio.currentTime = 0;
+      slides.forEach(slide => {
+        slide.querySelector('.sample-progress-fill').style.width = '0%';
+        slide.querySelector('.sample-progress-thumb').style.left = '0%';
+      });
+    };
+  }
+
+  function sampleSeek(idx, e) {
+    const audio = document.getElementById('audio-sample-' + idx);
+    const track = e.currentTarget;
     const rect = track.getBoundingClientRect();
     const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-    if (heroAudio.duration) heroAudio.currentTime = pct * heroAudio.duration;
+    if (audio && audio.duration) audio.currentTime = pct * audio.duration;
   }
 
   // ── Voice preview players ──
@@ -1481,12 +2050,8 @@
   }
 
   function toggleVoicePlay(voiceId, btn) {
-    if (heroPlaying) {
-      heroAudio.pause();
-      heroPlaying = false;
-      document.getElementById('heroPlayIcon').style.display = 'block';
-      document.getElementById('heroPauseIcon').style.display = 'none';
-    }
+    // Stop any sample carousel audio that might be playing
+    if (typeof stopAllSamples === 'function') stopAllSamples();
 
     const audioEl = document.getElementById('audio-' + voiceId);
     if (!audioEl) return;
@@ -1535,6 +2100,80 @@
     return `${m}:${ss.toString().padStart(2, '0')}`;
   }
 
+  // ── Cost estimator ──
+  let _currentIndiePrice = 0, _currentStudioPrice = 0;
+
+  function updateEstimate() {
+    const wc = parseInt(document.getElementById('estWordCount').value) || 50000;
+    document.getElementById('estWordCountDisplay').textContent = wc.toLocaleString() + ' words';
+    const hours = wc / 9300;
+    const indieRaw = hours * 40;
+    const studioRaw = hours * 80;
+    // round to nearest $5
+    const round5 = n => Math.round(n / 5) * 5;
+    const indiePrice = round5(indieRaw);
+    const studioPrice = round5(studioRaw);
+    _currentIndiePrice = indiePrice;
+    _currentStudioPrice = studioPrice;
+    const fmtHours = hours < 1
+      ? hours.toFixed(1) + ' hr'
+      : (Math.round(hours * 2) / 2).toFixed(1).replace(/\.0$/, '') + ' hrs';
+    document.getElementById('estHours').textContent = fmtHours;
+    document.getElementById('estIndie').textContent = '$' + indiePrice.toLocaleString();
+    document.getElementById('estStudio').textContent = '$' + studioPrice.toLocaleString();
+    // Update order buttons too
+    const oi = document.getElementById('orderIndiePrice');
+    const os = document.getElementById('orderStudioPrice');
+    if (oi) oi.textContent = '$' + indiePrice.toLocaleString();
+    if (os) os.textContent = '$' + studioPrice.toLocaleString();
+    // And the in-card tier buttons
+    const tcI = document.getElementById('tierCardIndiePrice');
+    const tcS = document.getElementById('tierCardStudioPrice');
+    if (tcI) tcI.textContent = '$' + indiePrice.toLocaleString();
+    if (tcS) tcS.textContent = '$' + studioPrice.toLocaleString();
+  }
+  if (document.getElementById('estWordCount')) updateEstimate();
+
+  // ── Direct-pay: create Stripe Checkout session and redirect ──
+  async function orderTier(tier) {
+    const errEl = document.getElementById('orderError');
+    if (errEl) { errEl.style.display = 'none'; errEl.textContent = ''; }
+    const wc = parseInt(document.getElementById('estWordCount').value) || 0;
+    if (wc < 5000) {
+      if (errEl) {
+        errEl.textContent = 'Set your word count to at least 5,000 above.';
+        errEl.style.display = 'block';
+      }
+      // Scroll to estimator
+      const est = document.getElementById('estWordCount');
+      if (est) est.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    // Disable all order buttons during request
+    const btns = document.querySelectorAll('.order-btn');
+    btns.forEach(b => { b.disabled = true; b.style.opacity = '0.65'; b.style.cursor = 'wait'; });
+
+    try {
+      const resp = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tier, wordCount: wc }),
+      });
+      const data = await resp.json();
+      if (!resp.ok || !data.url) {
+        throw new Error(data.error || 'Could not start checkout');
+      }
+      window.location.href = data.url;
+    } catch (err) {
+      if (errEl) {
+        errEl.textContent = (err && err.message) || 'Something went wrong. Please try again or use the contact form.';
+        errEl.style.display = 'block';
+      }
+      btns.forEach(b => { b.disabled = false; b.style.opacity = '1'; b.style.cursor = 'pointer'; });
+    }
+  }
+
   // ── Form submission ──
   document.getElementById('formTimestamp').value = Date.now();
 
@@ -1554,6 +2193,7 @@
 
     const data = {
       inquiryType: form.inquiryType.value,
+      tierPreference: form.tierPreference.value,
       authorName: form.authorName.value,
       authorEmail: form.authorEmail.value,
       genre: form.genre.value,
@@ -1577,6 +2217,7 @@
     formData.append('email', data.authorEmail);
     formData.append('_subject', 'Novellaire ' + subject);
     formData.append('inquiryType', data.inquiryType);
+    formData.append('tierPreference', data.tierPreference);
     formData.append('genre', data.genre);
     formData.append('wordCount', data.wordCount);
     formData.append('message', data.message || '(no message)');

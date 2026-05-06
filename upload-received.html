@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manuscript Received | Novellaire</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23020617'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='60' font-weight='700' text-anchor='middle' fill='%23f59e0b' font-style='italic'%3EN%3C/text%3E%3C/svg%3E">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --amber: #f59e0b;
+      --amber-light: #fcd34d;
+      --slate-950: #020617;
+      --slate-900: #0f172a;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--slate-950);
+      color: var(--slate-300);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .nav-link { font-size:0.8rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--slate-400); text-decoration:none; transition:color 0.2s; }
+    .nav-link:hover { color: var(--amber); }
+    .section-label { font-size:0.7rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--amber); }
+    .section-title { font-family:'Playfair Display',serif; font-size:clamp(1.8rem, 3.5vw, 2.6rem); font-weight:700; color:#f8fafc; line-height:1.2; margin-top:12px; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--amber); color: var(--slate-950);
+      font-weight: 600; font-size: 0.875rem; letter-spacing: 0.04em;
+      padding: 14px 28px; border-radius: 8px; border: none;
+      cursor: pointer; text-decoration: none;
+      box-shadow: 0 0 30px rgba(245,158,11,0.25);
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { background: var(--amber-light); transform: translateY(-2px); }
+  </style>
+</head>
+
+<body>
+
+<nav class="fixed top-0 left-0 right-0 z-50" style="background: rgba(2,6,23,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(148,163,184,0.07);">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="index.html" style="text-decoration:none;">
+      <span style="font-family:'Cormorant Garamond',serif; font-size:1.7rem; font-weight:600; color:var(--amber); letter-spacing:0.01em;">
+        <em style="font-style:italic;">Novellaire</em>
+      </span>
+    </a>
+  </div>
+</nav>
+
+<section style="min-height:100vh; padding:140px 0 80px; display:flex; align-items:center;">
+  <div class="max-w-2xl mx-auto px-6 text-center">
+
+    <div style="width:88px; height:88px; border-radius:50%; background:rgba(245,158,11,0.12); border:2px solid rgba(245,158,11,0.4); display:inline-flex; align-items:center; justify-content:center; margin-bottom:24px;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.5">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+
+    <div class="section-label">Manuscript Received</div>
+    <h1 class="section-title">We've got it. Your audiobook is in the queue.</h1>
+
+    <p style="color:var(--slate-300); margin-top:24px; font-size:1.05rem; line-height:1.75;">
+      You'll receive your free first chapter within <strong style="color:#f8fafc;">5 business days</strong>. The full audiobook follows in <strong style="color:#f8fafc;">3&ndash;7 days</strong> after that &mdash; mastered chapter MP3 files, ready for ACX, Audible, Spotify, or anywhere you distribute.
+    </p>
+
+    <p style="color:var(--slate-400); margin-top:18px; font-size:0.95rem; line-height:1.7;">
+      Watch your email (the address you provided) for delivery. If anything is unclear or you have additions to make, reply to your Stripe receipt or email <a href="mailto:clinejefferson@gmail.com" style="color:var(--amber); text-decoration:underline; text-underline-offset:3px;">clinejefferson@gmail.com</a>.
+    </p>
+
+    <div style="margin-top:40px;">
+      <a href="index.html" class="btn-primary">
+        Back to Home
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>

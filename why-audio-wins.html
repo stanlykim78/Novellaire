@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Why Audio Wins — The Audiobook Opportunity for Indie Authors | Novellaire</title>
-  <meta name="description" content="Audio is the fastest-growing format in publishing. 53% of Americans listened to an audiobook last year. Here's the data behind why every indie author should publish in audio.">
+  <meta name="description" content="Audio is the fastest-growing format in publishing. 51% of Americans listened to an audiobook last year. Here's the data behind why every indie author should publish in audio.">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Why Audio Wins — The Audiobook Opportunity for Indie Authors">
@@ -18,7 +18,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -122,14 +122,16 @@
 
     .hero-stat {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(6rem, 22vw, 18rem);
+      font-size: clamp(4.5rem, 16vw, 12rem);
       font-weight: 900;
-      line-height: 0.85;
+      line-height: 1;
       letter-spacing: -0.04em;
       background: linear-gradient(180deg, #f8fafc 0%, var(--amber) 50%, var(--amber-dark) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      padding: 0.08em 0;
+      display: inline-block;
     }
 
     .hero-headline {
@@ -155,9 +157,8 @@
     .lede {
       font-family: 'Playfair Display', serif;
       font-size: clamp(1.2rem, 2vw, 1.5rem);
-      font-style: italic;
-      font-weight: 400;
-      color: #cbd5e1;
+      font-weight: 500;
+      color: #f8fafc;
       line-height: 1.5;
       letter-spacing: 0.005em;
     }
@@ -169,7 +170,7 @@
     }
     .body-prose p { margin-bottom: 22px; }
     .body-prose strong { color: #f8fafc; font-weight: 600; }
-    .body-prose em { color: var(--amber); font-style: italic; }
+    .body-prose em { color: var(--amber); font-style: normal; font-weight: 600; }
 
     .citation {
       font-size: 0.78rem;
@@ -192,11 +193,13 @@
       transform: translateY(-3px);
     }
     .stat-tile-number {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.4rem, 4vw, 3.2rem);
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.9rem, 3.2vw, 2.6rem);
       font-weight: 700;
       color: var(--amber);
-      line-height: 1;
+      line-height: 1.05;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
     }
     .stat-tile-label {
       font-size: 0.85rem;
@@ -269,8 +272,7 @@
     .pull-quote {
       font-family: 'Playfair Display', serif;
       font-size: clamp(1.4rem, 2.4vw, 1.9rem);
-      font-style: italic;
-      font-weight: 400;
+      font-weight: 500;
       line-height: 1.4;
       color: #f8fafc;
       border-left: 3px solid var(--amber);
@@ -292,8 +294,8 @@
 <nav class="fixed top-0 left-0 right-0 z-50" style="background: rgba(2,6,23,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(148,163,184,0.07);">
   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
     <a href="index.html" class="flex items-center gap-2" style="text-decoration:none;">
-      <span style="font-family:'Playfair Display',serif; font-size:1.35rem; font-weight:700; color:#f8fafc; letter-spacing:-0.01em;">
-        Novel<em style="font-style:italic; color:var(--amber);">laire</em>
+      <span style="font-family:'Cormorant Garamond',serif; font-size:1.7rem; font-weight:600; color:var(--amber); letter-spacing:0.01em;">
+        <em style="font-style:italic;">Novellaire</em>
       </span>
     </a>
     <div class="hidden md:flex items-center gap-8">
@@ -342,7 +344,7 @@
 
     <!-- BIG STAT -->
     <div style="text-align:center; margin-bottom:48px;">
-      <div class="hero-stat">53%</div>
+      <div class="hero-stat">51%</div>
     </div>
 
     <div class="text-center" style="max-width:720px; margin:0 auto;">
@@ -359,27 +361,27 @@
     <div class="stat-row" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:20px; margin-top:80px; max-width:1080px; margin-left:auto; margin-right:auto;">
 
       <div class="stat-tile">
-        <div class="stat-tile-number">$2.0B</div>
-        <div class="stat-tile-label">U.S. audiobook revenue in 2023 — the 12th consecutive year of double-digit growth.</div>
-        <div class="stat-tile-source">Audio Publishers Association</div>
+        <div class="stat-tile-number">$2.22B</div>
+        <div class="stat-tile-label"><strong style="color:var(--slate-300);">U.S.</strong> audiobook revenue in 2024 — up 13% year-over-year, the 13th consecutive year of double-digit growth.</div>
+        <div class="stat-tile-source">Audio Publishers Association, 2025 sales survey</div>
       </div>
 
       <div class="stat-tile">
         <div class="stat-tile-number">8+</div>
-        <div class="stat-tile-label">Average books consumed per audiobook listener in a year — roughly double print-only readers.</div>
+        <div class="stat-tile-label">Average books consumed per audiobook listener per year — roughly double print-only readers.</div>
         <div class="stat-tile-source">Audio Publishers Association</div>
       </div>
 
       <div class="stat-tile">
         <div class="stat-tile-number">$35B</div>
-        <div class="stat-tile-label">Projected global audiobook market by 2030 — up from ~$5B in 2020.</div>
+        <div class="stat-tile-label"><strong style="color:var(--slate-300);">Global</strong> audiobook market projection for 2030 — multi-fold growth from current levels.</div>
         <div class="stat-tile-source">Industry analyst consensus</div>
       </div>
 
       <div class="stat-tile">
-        <div class="stat-tile-number">2023</div>
-        <div class="stat-tile-label">The year Spotify launched audiobooks in the U.S. — opening a 600M-user channel that didn't exist before.</div>
-        <div class="stat-tile-source">Spotify Newsroom, Oct 2023</div>
+        <div class="stat-tile-number">600M+</div>
+        <div class="stat-tile-label">Spotify users now have audiobook access — a distribution channel that didn't exist for any prior generation of indie authors.</div>
+        <div class="stat-tile-source">Spotify Newsroom</div>
       </div>
 
     </div>
@@ -415,7 +417,7 @@
       </div>
 
       <p>
-        For traditionally-published authors, this calculus has been blocked by economics — a studio audiobook costs <strong>$3,000–$5,000</strong> for a typical novel, takes months to produce, and is gatekept by acquisition committees. Indie authors have always had two options: pay the studio fee out of pocket and pray for sales, or skip audio entirely.
+        For traditionally-published authors, this calculus has been blocked by economics — a studio audiobook costs <strong>$3,000–$10,000+</strong> for a typical novel, takes months to produce, and is gatekept by acquisition committees. Indie authors have always had two options: pay the studio fee out of pocket and pray for sales, or skip audio entirely.
       </p>
 
       <p>
@@ -432,7 +434,7 @@
   <div class="max-w-6xl mx-auto px-6">
 
     <div class="text-center" style="margin-bottom:64px;">
-      <div class="section-label">The Five Reasons</div>
+      <div class="section-label">Six Reasons</div>
       <h2 class="section-title">Why Every Indie Author Should Publish Audio</h2>
     </div>
 
@@ -442,8 +444,8 @@
         <div class="argument-num">01</div>
         <div class="argument-title">The market is bigger than ebooks were ten years ago — and growing faster.</div>
         <div class="argument-body">
-          U.S. audiobook revenue crossed <strong>$2 billion in 2023</strong>, growing double-digits every year for over a decade. Print and ebook revenue have been flat or declining. Every dollar of growth in fiction publishing is currently flowing into audio.
-          <p class="citation" style="margin-top:14px;">Source: Audio Publishers Association annual sales survey.</p>
+          U.S. audiobook revenue hit <strong>$2.22 billion in 2024</strong>, up 13% year-over-year — the 13th consecutive year of double-digit growth. Print and ebook revenue have been flat or declining. Every dollar of growth in fiction publishing is currently flowing into audio.
+          <p class="citation" style="margin-top:14px;">Source: Audio Publishers Association 2025 sales survey.</p>
         </div>
       </div>
 
@@ -461,7 +463,7 @@
         <div class="argument-title">Audible's algorithm rewards new audio.</div>
         <div class="argument-body">
           Audible's recommendation engine surfaces audiobooks aggressively to listeners who finish books in your genre. A new audiobook in a series can drive <strong>discovery for the entire backlist</strong> — including the ebook and print editions. Authors regularly report ebook sales <em>increasing</em> after their audiobook releases.
-          <p class="citation" style="margin-top:14px;">Pattern reported across indie author publications including Joanna Penn, Kindlepreneur.</p>
+          <p class="citation" style="margin-top:14px;">Pattern reported across indie author publications and APA series-listener studies. Especially pronounced for romance and fantasy series, where backlist binge-reading drives discovery.</p>
         </div>
       </div>
 
@@ -486,7 +488,7 @@
         <div class="argument-num">06</div>
         <div class="argument-title">AI narration finally makes the math work.</div>
         <div class="argument-body">
-          A traditional studio audiobook costs <strong>$3,000–$5,000</strong> and takes 3–6 months. At Novellaire's Studio tier, the same novel costs <strong>~$800 and ships in 3 days</strong>. The breakeven on AI-narrated audio is a fraction of what it used to be — for most indie authors, the first 100 sales pay for the production.
+          A traditional studio audiobook costs <strong>$3,000–$10,000+</strong>, depending on narrator experience and production quality, and takes 3–6 months. At Novellaire, the same novel costs <strong>$400–$800 and ships in 3–7 days</strong>. The breakeven on AI-narrated audio is a small fraction of what studio narration requires — making audio accessible for indie authors testing the format for the first time, with far less downside risk if a launch underperforms.
         </div>
       </div>
 
@@ -495,34 +497,59 @@
 </section>
 
 
-<!-- THE LISTENER ISN'T WHO YOU THINK -->
+<!-- WHO'S LISTENING — DEMOGRAPHICS -->
 <section style="padding:100px 0; background:linear-gradient(180deg, rgba(15,23,42,0.4) 0%, transparent 100%);">
-  <div class="max-w-3xl mx-auto px-6">
+  <div class="max-w-6xl mx-auto px-6">
 
-    <div class="text-center" style="margin-bottom:40px;">
-      <div class="section-label">Common Misconception</div>
-      <h2 class="section-title">"Audiobook listeners are just retirees."</h2>
+    <div class="text-center" style="margin-bottom:48px; max-width:680px; margin-left:auto; margin-right:auto;">
+      <div class="section-label">Who's Listening</div>
+      <h2 class="section-title">The Audience Splits Into Clear Segments.</h2>
+      <p style="color:var(--slate-400); margin-top:18px; font-size:1rem; line-height:1.7;">
+        Audiobook listeners aren't one demographic &mdash; they're four. Matching your genre to the right segment is how indie titles find traction faster in audio than they would in print or ebook.
+      </p>
     </div>
 
-    <div class="body-prose">
-      <p>
-        This was the conventional wisdom in publishing for decades. It is no longer accurate.
-      </p>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:20px;">
 
-      <p>
-        According to Edison Research's most recent <em>Infinite Dial</em> report, the strongest audiobook growth has been in the <strong>18-to-44 demographic</strong>. Younger listeners use audio differently than older ones: as a way to get through a backlog they want to read but don't have time to sit down with. They're consuming fiction on commutes, at the gym, while cooking — slots that print can't fill.
-      </p>
+      <!-- Tile 1: Women 25-44 -->
+      <div class="stat-tile">
+        <div style="font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:10px;">Largest Segment</div>
+        <div style="font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700; color:#f8fafc; margin-bottom:14px; line-height:1.25;">Women, 25&ndash;44</div>
+        <div class="stat-tile-number" style="margin-bottom:12px;">~55%</div>
+        <div class="stat-tile-label" style="margin-top:0;">Of all audiobook listeners. Dominate <strong style="color:var(--slate-300);">romance, romantasy, contemporary, dark romance</strong> &mdash; the highest-LTV genres in audio.</div>
+      </div>
 
-      <p>
-        Your buyer is also more likely to be female (audiobook listenership skews ~55% female), college-educated, and earning above the median income. They're an <strong>active, completion-oriented reader</strong> — exactly the kind of buyer who finishes series, leaves reviews, and tells friends.
-      </p>
+      <!-- Tile 2: 18-44 fastest-growing -->
+      <div class="stat-tile">
+        <div style="font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:10px;">Fastest Growth</div>
+        <div style="font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700; color:#f8fafc; margin-bottom:14px; line-height:1.25;">Adults 18&ndash;44</div>
+        <div class="stat-tile-number" style="margin-bottom:12px;">Top Growth</div>
+        <div class="stat-tile-label" style="margin-top:0;">Audio listenership in this age range is outpacing every other demographic. Preferred: <strong style="color:var(--slate-300);">LitRPG, progression fantasy, BookTok-driven contemporary, sci-fi</strong>.</div>
+      </div>
 
-      <p>
-        If your characters are young, your dialogue is sharp, and your pacing is built for binge-reading, you have an audio audience. Probably a bigger one than your ebook audience.
-      </p>
+      <!-- Tile 3: Active commuters -->
+      <div class="stat-tile">
+        <div style="font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:10px;">Volume Readers</div>
+        <div style="font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700; color:#f8fafc; margin-bottom:14px; line-height:1.25;">Active Commuters &amp; Runners</div>
+        <div class="stat-tile-number" style="margin-bottom:12px;">8+ books/yr</div>
+        <div class="stat-tile-label" style="margin-top:0;">Roughly double print-only readers. Use audio to hit reading goals print can't. Drive completion of <strong style="color:var(--slate-300);">thriller, mystery, fantasy, self-help</strong> series.</div>
+      </div>
 
-      <p class="citation" style="margin-top:22px;">Source: Edison Research, <em>Infinite Dial 2024</em>; APA listener demographics.</p>
+      <!-- Tile 4: College-educated buyers -->
+      <div class="stat-tile">
+        <div style="font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:10px;">Buying Power</div>
+        <div style="font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700; color:#f8fafc; margin-bottom:14px; line-height:1.25;">College-Educated Buyers</div>
+        <div class="stat-tile-number" style="margin-bottom:12px;">Above Median</div>
+        <div class="stat-tile-label" style="margin-top:0;">Listeners skew educated and higher-income. They finish series, leave reviews, and tell friends. Concentrated in <strong style="color:var(--slate-300);">literary fiction, history, biography, business</strong>.</div>
+      </div>
+
     </div>
+
+    <p style="text-align:center; margin-top:48px; font-size:1.1rem; color:var(--slate-300); line-height:1.7; max-width:640px; margin-left:auto; margin-right:auto;">
+      If your characters are young, your dialogue is sharp, or your pacing is built for binge-reading, <strong style="color:#f8fafc;">you have an audio audience</strong> &mdash; probably a bigger one than your ebook audience.
+    </p>
+
+    <p class="citation" style="text-align:center; margin-top:20px;">Sources: Edison Research, <em>Infinite Dial 2024</em>; Audio Publishers Association listener demographic studies; industry analyst reporting.</p>
 
   </div>
 </section>
@@ -544,7 +571,7 @@
           "Won't AI narration sound robotic?"
         </div>
         <p class="body-prose">
-          The state of the art in 2024 is not the state of the art from 2020. Modern voice models — the ones we use — produce output that fools listeners in blind tests when the production pipeline is good. <em>Production matters more than the model.</em> Raw AI output still has artifacts. Validated, properly-spliced AI narration does not. <a href="index.html#sample" style="color:var(--amber); text-decoration:underline; text-underline-offset:3px;">Hear our Starwater sample</a> and decide for yourself before you commit to anything.
+          The state of the art in 2026 is not the state of the art from 2020. Modern voice models — the ones we use — produce output that fools listeners in blind tests when the production pipeline is good. <em>Production matters more than the model.</em> Raw AI output still has artifacts. Validated, properly-spliced AI narration does not. <a href="index.html#sample" style="color:var(--amber); text-decoration:underline; text-underline-offset:3px;">Hear our samples</a> and decide for yourself before you commit to anything.
         </p>
       </div>
 
@@ -553,7 +580,7 @@
           "Will Audible accept it?"
         </div>
         <p class="body-prose">
-          Yes. Audible launched a dedicated AI narration program in 2024 and accepts AI-narrated submissions through ACX as long as they're disclosed. Spotify, Apple Books, Findaway Voices — all open. The distribution doors are not the bottleneck.
+          Yes. Audible launched a dedicated AI narration program in 2024 and now accepts AI-narrated submissions through ACX as long as they're disclosed. Spotify, Apple Books, Findaway Voices — all open. As of 2026, the distribution doors are not the bottleneck.
         </p>
       </div>
 
@@ -562,7 +589,7 @@
           "Will readers know it's AI? Will they care?"
         </div>
         <p class="body-prose">
-          Some will know. Most won't notice if the production is good. Of the ones who do know, opinions are mixed — some genres (LitRPG, prog-fantasy, sci-fi) have audiences that <strong>actively prefer</strong> AI narration because of the speed of release. Other genres are more skeptical. The honest answer: this is changing fast, and being early is an advantage.
+          Some will know. Most won't notice if the production is good. Of the ones who do know, opinions are mixed — some genres (LitRPG, prog-fantasy, sci-fi) have audiences that <strong>actively prefer</strong> AI narration because of the speed of release. Romance audiences in 2026 are increasingly comfortable as well — particularly in dark romance, paranormal, and BookTok-driven contemporary subgenres where rapid backlist completion is part of the genre's culture. Other genres are more skeptical. The honest answer: this is changing fast, and being early is an advantage.
         </p>
       </div>
 
@@ -571,7 +598,7 @@
           "What if my book doesn't sell in audio?"
         </div>
         <p class="body-prose">
-          That's a legitimate concern with traditional audiobook production where the cost is $3,000+. It's a much smaller concern at our pricing. At <strong>~$400-$800 per novel</strong>, your breakeven is on the order of a hundred copies — the kind of number most indie titles clear in their launch month. And with our free first chapter, you can hear the production before you ever pay.
+          That's a legitimate concern with traditional audiobook production where the cost is $3,000+ and a launch flop can wipe out months of revenue. It's a much smaller concern at our pricing. At <strong>$400–$800 per novel</strong>, the downside risk is dramatically reduced — you're testing audio at a price point that doesn't gate your next book or your next month's bills. And with our free first chapter, you can hear the production before you ever pay.
         </p>
       </div>
 
@@ -586,9 +613,9 @@
     <div class="final-cta">
       <div style="position:relative; z-index:2;">
         <div class="section-label" style="margin-bottom:8px;">The Math</div>
-        <h2 class="section-title" style="margin-top:0;">A 10-hour audiobook. Three days. ~$800.</h2>
+        <h2 class="section-title" style="margin-top:0; font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; letter-spacing:-0.02em; font-weight:700;">A 10-hour audiobook. 3&ndash;7 days. $400&ndash;$800.</h2>
         <p style="color:var(--slate-300); margin-top:18px; font-size:1.05rem; max-width:600px; margin-left:auto; margin-right:auto; line-height:1.75;">
-          That's it. That's the new math. The cost of <em>not</em> having an audiobook is now higher than the cost of producing one.
+          That's the new math. The cost of <span style="color:var(--amber); font-weight:600;">not</span> having an audiobook is now higher than the cost of producing one.
         </p>
         <p style="color:var(--slate-400); margin-top:14px; font-size:0.95rem; max-width:600px; margin-left:auto; margin-right:auto; line-height:1.75;">
           And before you commit a dollar, we'll narrate your first chapter free — so you hear the result, not the pitch.
@@ -633,8 +660,8 @@
     <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:24px; margin-bottom:36px;">
       <div>
         <a href="index.html" style="text-decoration:none;">
-          <span style="font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; color:#f8fafc; letter-spacing:-0.01em;">
-            Novel<em style="font-style:italic; color:var(--amber);">laire</em>
+          <span style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:600; color:var(--amber); letter-spacing:0.01em;">
+            <em style="font-style:italic;">Novellaire</em>
           </span>
         </a>
         <p style="color:var(--slate-400); font-size:0.82rem; margin-top:6px;">AI narration with the editorial standards of a real studio.</p>
