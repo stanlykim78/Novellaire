@@ -149,6 +149,40 @@
     .tier-toggle .tier-rate { font-size: 0.78rem; color: var(--slate-400); margin-top: 4px; }
     .tier-toggle button.active .tier-rate { color: var(--amber); }
 
+    /* Word count emphasis when in paid mode */
+    .wc-emphasized {
+      background: rgba(245,158,11,0.05);
+      border: 1px solid rgba(245,158,11,0.32);
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin-bottom: 28px;
+      box-shadow: 0 0 24px rgba(245,158,11,0.08);
+      transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+    .wc-emphasized #wcDisplay {
+      font-size: 1.5rem !important;
+    }
+    .wc-emphasized input[type="range"] {
+      height: 8px;
+    }
+    .wc-emphasized input[type="range"]::-webkit-slider-thumb {
+      width: 22px;
+      height: 22px;
+    }
+    .wc-price-tag {
+      display: none;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(245,158,11,0.25);
+      font-size: 0.82rem;
+      color: var(--amber);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .wc-emphasized .wc-price-tag {
+      display: block;
+    }
+
     /* Price card */
     .price-card {
       background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(245,158,11,0.02));
@@ -286,6 +320,7 @@
         </div>
         <p class="help-text" id="wcHelp">Open your manuscript in Word, Scrivener, Vellum, or Pages &mdash; word count is in the status bar.</p>
         <p class="help-text" id="wcHelpFree" style="display:none;">Approximate is fine for the free chapter sample &mdash; we just need a rough sense of the book's length to scope the right narrator and pacing.</p>
+        <p class="wc-price-tag">This sets your final price.</p>
       </div>
 
       <!-- AUTHOR INFO (always shown) -->
@@ -484,13 +519,19 @@
     tierSection.classList.toggle('hidden', !isPaid);
     priceSection.classList.toggle('hidden', !isPaid);
 
-    // Word count helper text
+    // Word count helper text + paid-mode emphasis
     if (isFree) {
       wcHelp.style.display = 'none';
       wcHelpFree.style.display = 'block';
+      wcSection.classList.remove('wc-emphasized');
+    } else if (isPaid) {
+      wcHelp.style.display = 'block';
+      wcHelpFree.style.display = 'none';
+      wcSection.classList.add('wc-emphasized');
     } else {
       wcHelp.style.display = 'block';
       wcHelpFree.style.display = 'none';
+      wcSection.classList.remove('wc-emphasized');
     }
 
     // Required attribute on conditional fields
@@ -599,42 +640,75 @@
   })();
 
   // ── Submit handler ──
-  document.getElementById('orderForm').addEventListener('submit', (e) => {
+  document.getElementById('orderForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
     errorBox.style.display = 'none';
     errorBox.textContent = '';
 
     if (inquiryType === 'indie' || inquiryType === 'studio') {
-      // Paid: prevent native submit, use Stripe API
-      e.preventDefault();
-      submitPaidOrder();
+      await submitPaidOrder();
       return;
     }
-
-    // Free + Custom: configure form for formsubmit.co and let it submit natively (more reliable than AJAX)
-    const form = e.target;
     if (inquiryType === 'free') {
-      form.action = 'https://formsubmit.co/clinejefferson@gmail.com';
-      setHidden(form, '_subject', 'Novellaire — Free First Chapter Request');
-      setHidden(form, '_captcha', 'false');
-      setHidden(form, '_template', 'table');
-      setHidden(form, '_next', window.location.origin + '/order-confirmed.html?type=free');
-      setHidden(form, 'inquiryType', 'free-first-chapter');
-      setHidden(form, 'declaredWordCount', String(parseInt(wcSlider.value, 10) || 50000));
-      setBusy(true, 'Sending your request...');
-      // Let the form submit naturally → formsubmit.co processes → redirects to /order-confirmed.html?type=free
+      await submitFreeChapter();
       return;
     }
     if (inquiryType === 'custom') {
-      form.action = 'https://formsubmit.co/clinejefferson@gmail.com';
-      setHidden(form, '_subject', 'Novellaire — Custom Inquiry');
-      setHidden(form, '_captcha', 'false');
-      setHidden(form, '_template', 'table');
-      setHidden(form, '_next', window.location.origin + '/order-confirmed.html?type=custom');
-      setHidden(form, 'inquiryType', 'custom');
-      setBusy(true, 'Sending your inquiry...');
+      await submitCustom();
       return;
     }
   });
+
+  // Free chapter via Resend (Vercel Function)
+  async function submitFreeChapter() {
+    const wc = parseInt(wcSlider.value, 10) || 50000;
+    setBusy(true, 'Sending your request...');
+    try {
+      const resp = await fetch('/api/send-inquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'free',
+          authorName: val('authorName'),
+          authorEmail: val('authorEmail'),
+          bookTitle: val('bookTitle'),
+          manuscriptLink: val('manuscriptLink'),
+          narratorChoice: val('narratorChoice'),
+          wordCount: wc,
+          notes: val('notes'),
+        }),
+      });
+      const data = await resp.json();
+      if (!resp.ok || !data.ok) throw new Error(data.error || 'Could not send request. Please try again.');
+      window.location.href = '/order-confirmed.html?type=free';
+    } catch (err) {
+      setBusy(false);
+      showError((err && err.message) || 'Could not send your request. Please try again or email us directly.');
+    }
+  }
+
+  // Custom inquiry via Resend (Vercel Function)
+  async function submitCustom() {
+    setBusy(true, 'Sending your inquiry...');
+    try {
+      const resp = await fetch('/api/send-inquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'custom',
+          authorName: val('authorName'),
+          authorEmail: val('authorEmail'),
+          customMessage: val('customMessage'),
+        }),
+      });
+      const data = await resp.json();
+      if (!resp.ok || !data.ok) throw new Error(data.error || 'Could not send inquiry. Please try again.');
+      window.location.href = '/order-confirmed.html?type=custom';
+    } catch (err) {
+      setBusy(false);
+      showError((err && err.message) || 'Could not send your inquiry. Please try again or email us directly.');
+    }
+  }
 
   // ── Paid order: Stripe Checkout ──
   async function submitPaidOrder() {
@@ -669,16 +743,6 @@
     }
   }
 
-  function setHidden(form, name, value) {
-    let input = form.querySelector('input[type="hidden"][name="' + name + '"]');
-    if (!input) {
-      input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = name;
-      form.appendChild(input);
-    }
-    input.value = value;
-  }
 
   // ── UI helpers ──
   function val(id) { return (document.getElementById(id).value || '').trim(); }

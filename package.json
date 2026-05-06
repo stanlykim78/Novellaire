@@ -4,6 +4,7 @@
   "private": true,
   "description": "Novellaire marketing site + Stripe Checkout integration",
   "dependencies": {
+    "resend": "^4.0.0",
     "stripe": "^14.25.0"
   },
   "engines": {

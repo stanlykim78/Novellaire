@@ -164,7 +164,7 @@
       <div class="section-label" id="confLabel">Order Confirmed</div>
       <h1 class="section-title" id="confTitle">Payment received. Your audiobook is in the queue.</h1>
       <p id="confSub" style="color:var(--slate-300); margin-top:18px; font-size:1.05rem; line-height:1.7;">
-        Thank you. We have everything we need &mdash; your manuscript, narrator choice, and payment. You'll receive your free first chapter within <strong style="color:#f8fafc;">5 business days</strong>, with the full book to follow in <strong style="color:#f8fafc;">3&ndash;7 days</strong> after that.
+        Thank you. We have everything we need &mdash; your manuscript, narrator choice, and payment. Your full audiobook will be delivered within <strong style="color:#f8fafc;">3&ndash;5 business days</strong> &mdash; mastered chapter MP3 files (HD 48kHz), ready to publish anywhere.
       </p>
     </div>
 
@@ -274,14 +274,15 @@
         step(3, "<strong style='color:#f8fafc;'>You take it from there</strong> &mdash; approve a quote, schedule a call, or keep the conversation going by email.");
       orderSummary.style.display = 'none';
     } else {
-      // Paid: existing flow
+      // Paid: tier-aware delivery promise (Studio = 3, Indie = 5)
+      const deliveryDays = tier === 'studio' ? '3 business days' : '5 business days';
       confLabel.textContent = 'Order Confirmed';
       confTitle.textContent = 'Payment received. Your audiobook is in the queue.';
-      confSub.innerHTML = "Thank you. We have everything we need &mdash; your manuscript, narrator choice, and payment. You'll receive your free first chapter within <strong style='color:#f8fafc;'>5 business days</strong>, with the full book to follow in <strong style='color:#f8fafc;'>3&ndash;7 days</strong> after that.";
+      confSub.innerHTML = "Thank you. We have everything we need &mdash; your manuscript, narrator choice, and payment. Your full audiobook will be delivered within <strong style='color:#f8fafc;'>" + deliveryDays + "</strong> &mdash; mastered chapter MP3 files (HD 48kHz), ready to publish anywhere.";
       nextStepsList.innerHTML =
-        step(1, "<strong style='color:#f8fafc;'>We pull your manuscript</strong> from the share link you provided and verify the word count within &plusmn;10%.") +
-        step(2, "<strong style='color:#f8fafc;'>We render your free first chapter</strong> with the narrator you selected. You'll get it via email within 5 business days &mdash; if anything's off (voice, pacing, pronunciation) we adjust before continuing.") +
-        step(3, "<strong style='color:#f8fafc;'>We render the full book</strong> &mdash; mastered chapter MP3 files (HD 48kHz), ready for ACX, Audible, Spotify, or anywhere you distribute. Delivered 3&ndash;7 days after the first chapter.");
+        step(1, "<strong style='color:#f8fafc;'>We pull your manuscript</strong> from the share link you provided.") +
+        step(2, "<strong style='color:#f8fafc;'>We render the full audiobook</strong> with the narrator you selected &mdash; multi-layer validation against your manuscript so what you hear is what you wrote. No raw output ships.") +
+        step(3, "<strong style='color:#f8fafc;'>We deliver in " + deliveryDays + "</strong> &mdash; mastered chapter MP3 files (HD 48kHz), ready for ACX, Audible, Spotify, or anywhere you distribute.");
 
       if (tier && amount) {
         orderSummary.style.display = 'block';
