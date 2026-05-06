@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Place Your Order | Novellaire</title>
-  <meta name="description" content="Configure your Novellaire audiobook order. Share your manuscript and pay only after you've handed it off.">
+  <meta name="description" content="Configure your Novellaire audiobook order. Free first chapter, paid production, or custom inquiry — all in one form.">
   <meta name="robots" content="noindex">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23020617'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='60' font-weight='700' text-anchor='middle' fill='%23f59e0b' font-style='italic'%3EN%3C/text%3E%3C/svg%3E">
@@ -85,42 +85,87 @@
       color: var(--slate-400);
       margin-bottom: 8px;
     }
-    .tier-toggle {
+
+    /* Inquiry type selector */
+    .inquiry-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, 1fr);
       gap: 12px;
     }
+    @media (min-width: 700px) {
+      .inquiry-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .inquiry-card {
+      background: var(--slate-800);
+      border: 1px solid rgba(148,163,184,0.15);
+      border-radius: 12px;
+      padding: 16px 14px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      text-align: left;
+    }
+    .inquiry-card:hover {
+      border-color: rgba(245,158,11,0.4);
+      transform: translateY(-2px);
+    }
+    .inquiry-card.active {
+      background: rgba(245,158,11,0.1);
+      border-color: var(--amber);
+      box-shadow: 0 0 24px rgba(245,158,11,0.12);
+    }
+    .inquiry-card .inq-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #f8fafc;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .inquiry-card .inq-sub {
+      font-size: 0.74rem;
+      color: var(--slate-400);
+      line-height: 1.4;
+    }
+    .inquiry-card.active .inq-sub { color: rgba(245,158,11,0.85); }
+
+    /* Tier toggle (paid only) */
+    .tier-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .tier-toggle button {
       background: var(--slate-800);
       border: 1px solid rgba(148,163,184,0.15);
       border-radius: 12px;
-      padding: 18px 16px;
+      padding: 16px 14px;
       cursor: pointer;
       transition: border-color 0.2s, background 0.2s;
       text-align: left;
     }
-    .tier-toggle button:hover {
-      border-color: rgba(245,158,11,0.4);
-    }
+    .tier-toggle button:hover { border-color: rgba(245,158,11,0.4); }
     .tier-toggle button.active {
       background: rgba(245,158,11,0.1);
       border-color: var(--amber);
       box-shadow: 0 0 24px rgba(245,158,11,0.12);
     }
-    .tier-toggle .tier-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #f8fafc;
+    .tier-toggle .tier-name { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:#f8fafc; }
+    .tier-toggle .tier-rate { font-size: 0.78rem; color: var(--slate-400); margin-top: 4px; }
+    .tier-toggle button.active .tier-rate { color: var(--amber); }
+
+    /* Word count billing warning */
+    .wc-warning {
+      background: rgba(245,158,11,0.08);
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.84rem;
+      color: var(--slate-300);
+      line-height: 1.55;
+      margin-top: 10px;
+      display: none;
+      transition: opacity 0.2s, transform 0.2s;
     }
-    .tier-toggle .tier-rate {
-      font-size: 0.8rem;
-      color: var(--slate-400);
-      margin-top: 4px;
-    }
-    .tier-toggle button.active .tier-rate {
-      color: var(--amber);
-    }
+    .wc-warning.show { display: block; }
+    .wc-warning strong { color: var(--amber); font-weight: 700; }
+
+    /* Price card */
     .price-card {
       background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(245,158,11,0.02));
       border: 1px solid rgba(245,158,11,0.3);
@@ -133,14 +178,7 @@
       justify-content: space-between;
       gap: 16px;
     }
-    .price-label {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 4px;
-    }
+    .price-label { font-size:0.7rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:4px; }
     .price-amount {
       font-family: 'Inter', sans-serif;
       font-size: 2rem;
@@ -150,12 +188,9 @@
       letter-spacing: -0.02em;
       line-height: 1;
     }
-    .price-sub {
-      font-size: 0.82rem;
-      color: var(--slate-400);
-      margin-top: 6px;
-    }
-    .btn-pay {
+    .price-sub { font-size:0.82rem; color:var(--slate-400); margin-top:6px; }
+
+    .btn-primary {
       width: 100%;
       padding: 18px;
       background: var(--amber);
@@ -170,58 +205,22 @@
       transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
       box-shadow: 0 0 30px rgba(245,158,11,0.28);
     }
-    .btn-pay:hover:not(:disabled) {
+    .btn-primary:hover:not(:disabled) {
       background: var(--amber-light);
       transform: translateY(-2px);
       box-shadow: 0 0 50px rgba(245,158,11,0.4);
     }
-    .btn-pay:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
-    .footer-glow { background: radial-gradient(ellipse at 50% 100%, rgba(245,158,11,0.06) 0%, transparent 70%); }
-    .help-text {
-      font-size: 0.74rem;
-      color: var(--slate-400);
-      margin-top: 8px;
-      line-height: 1.6;
-    }
-    .help-text a { color: var(--amber); text-decoration:underline; text-underline-offset:3px; }
-    .step-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 12px 0;
-    }
-    .step-num {
-      flex-shrink: 0;
-      width: 24px; height: 24px;
-      border-radius: 50%;
-      background: rgba(245,158,11,0.12);
-      border: 1px solid rgba(245,158,11,0.3);
-      color: var(--amber);
-      font-size: 0.75rem;
-      font-weight: 700;
-      display: flex; align-items: center; justify-content: center;
-      margin-top: 2px;
-    }
-    .step-text { font-size: 0.88rem; color: var(--slate-300); line-height: 1.6; }
-    .step-text strong { color: #f8fafc; }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; box-shadow: none; }
 
-    input[type="range"] {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 100%;
-      height: 6px;
-      background: var(--slate-700);
-      border-radius: 3px;
-      accent-color: var(--amber);
-      cursor: pointer;
-    }
+    .footer-glow { background: radial-gradient(ellipse at 50% 100%, rgba(245,158,11,0.06) 0%, transparent 70%); }
+
+    .help-text { font-size:0.74rem; color:var(--slate-400); margin-top:8px; line-height:1.6; }
+    .help-text a { color: var(--amber); text-decoration:underline; text-underline-offset:3px; }
+
+    input[type="range"] { -webkit-appearance:none; appearance:none; width:100%; height:6px; background:var(--slate-700); border-radius:3px; accent-color:var(--amber); cursor:pointer; }
 
     .error-msg {
-      margin-top:12px;
+      margin-top:14px;
       font-size:0.85rem;
       color:#f87171;
       display:none;
@@ -230,6 +229,7 @@
       border:1px solid rgba(239,68,68,0.2);
       border-radius:8px;
     }
+    .hidden { display: none !important; }
   </style>
 </head>
 
@@ -248,7 +248,6 @@
       <a href="voices.html" class="nav-link">Voices</a>
       <a href="why-audio-wins.html" class="nav-link">Why Audio</a>
       <a href="index.html#pricing" class="nav-link">Pricing</a>
-      <a href="index.html#contact" class="nav-link">Contact</a>
     </div>
   </div>
 </nav>
@@ -258,49 +257,41 @@
 <section style="min-height:100vh; padding:140px 0 80px;">
   <div class="max-w-3xl mx-auto px-6">
 
-    <div class="text-center" style="margin-bottom:48px;">
-      <div class="section-label">Place Your Order</div>
-      <h1 class="section-title">Configure your audiobook.</h1>
-      <p style="color:var(--slate-300); margin-top:18px; font-size:1rem; line-height:1.7; max-width:540px; margin-left:auto; margin-right:auto;">
-        Share your manuscript, pick a narrator, and confirm your tier. <strong style="color:#f8fafc;">You'll only pay after we've received everything.</strong> Stripe handles the secure payment.
+    <div class="text-center" style="margin-bottom:40px;">
+      <div class="section-label" id="pageLabel">Get Started</div>
+      <h1 class="section-title" id="pageTitle">Tell us what you're looking for.</h1>
+      <p id="pageSub" style="color:var(--slate-300); margin-top:18px; font-size:1rem; line-height:1.7; max-width:540px; margin-left:auto; margin-right:auto;">
+        Pick the option below that fits, then share the details. We'll handle the rest &mdash; whether that's a free first chapter, a full production, or just a question.
       </p>
-    </div>
-
-    <!-- How it goes -->
-    <div style="background:var(--slate-900); border:1px solid rgba(148,163,184,0.08); border-radius:14px; padding:20px 28px; margin-bottom:32px;">
-      <div class="step-row">
-        <div class="step-num">1</div>
-        <div class="step-text"><strong>Fill in this form</strong> &mdash; your details, manuscript link, narrator choice, word count.</div>
-      </div>
-      <div class="step-row">
-        <div class="step-num">2</div>
-        <div class="step-text"><strong>Pay via Stripe</strong> &mdash; secure, one-time charge for the tier you select.</div>
-      </div>
-      <div class="step-row">
-        <div class="step-num">3</div>
-        <div class="step-text"><strong>We render &amp; deliver</strong> &mdash; free first chapter within 5 business days, full book in 3&ndash;7 days after.</div>
-      </div>
     </div>
 
     <form id="orderForm" class="form-card">
 
-      <!-- Tier toggle -->
-      <div style="margin-bottom:28px;">
-        <label class="form-label">Production Tier</label>
-        <div class="tier-toggle" id="tierToggle">
-          <button type="button" data-tier="indie" class="tier-btn">
-            <div class="tier-name">Indie</div>
-            <div class="tier-rate">$40 per finished hour</div>
+      <!-- INQUIRY TYPE SELECTOR -->
+      <div style="margin-bottom:32px;">
+        <label class="form-label">What Are You Here For?</label>
+        <div class="inquiry-grid" id="inquiryGrid">
+          <button type="button" data-type="free" class="inquiry-card">
+            <div class="inq-name">Free First Chapter</div>
+            <div class="inq-sub">Hear our work before you commit. No charge.</div>
           </button>
-          <button type="button" data-tier="studio" class="tier-btn active">
-            <div class="tier-name">Studio</div>
-            <div class="tier-rate">$80 per finished hour &middot; Most Popular</div>
+          <button type="button" data-type="indie" class="inquiry-card">
+            <div class="inq-name">Order Indie</div>
+            <div class="inq-sub">$40 / finished hour. Multi-layer validation.</div>
+          </button>
+          <button type="button" data-type="studio" class="inquiry-card active">
+            <div class="inq-name">Order Studio</div>
+            <div class="inq-sub">$80 / hr. Premium AI render. Most popular.</div>
+          </button>
+          <button type="button" data-type="custom" class="inquiry-card">
+            <div class="inq-name">Custom / Question</div>
+            <div class="inq-sub">Other projects, partnerships, or anything else.</div>
           </button>
         </div>
       </div>
 
-      <!-- Word count -->
-      <div style="margin-bottom:28px;">
+      <!-- WORD COUNT (free + paid) -->
+      <div id="wcSection" style="margin-bottom:28px;">
         <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:12px;">
           <label class="form-label" for="wcSlider" style="margin-bottom:0;">Manuscript Word Count</label>
           <span id="wcDisplay" style="font-family:'Inter',sans-serif; font-size:1.1rem; font-weight:700; color:var(--amber); font-variant-numeric:tabular-nums; letter-spacing:-0.01em;">50,000 words</span>
@@ -309,39 +300,56 @@
         <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:var(--slate-400); letter-spacing:0.06em; margin-top:6px;">
           <span>20k</span><span>200k</span>
         </div>
-        <p class="help-text">Open your manuscript in Word, Scrivener, Vellum, or Pages &mdash; word count is in the status bar. We'll verify within &plusmn;10% on our end. If your manuscript runs significantly over, we'll send a top-up invoice before rendering.</p>
+        <div class="wc-warning" id="wcWarning">
+          <strong>Heads up:</strong> this figure is used for billing. We verify within &plusmn;10% on our end &mdash; if your manuscript runs significantly over, we'll send a top-up invoice before rendering. Open your manuscript in Word, Scrivener, Vellum, or Pages to confirm the count before submitting.
+        </div>
+        <p class="help-text" id="wcHelpFree" style="display:none;">Approximate is fine for the free chapter sample &mdash; we just need a rough sense of the book's length to scope the right narrator and pacing.</p>
       </div>
 
-      <!-- Author Name -->
+      <!-- AUTHOR INFO (always shown) -->
       <div style="margin-bottom:24px;">
         <label class="form-label" for="authorName">Author Name</label>
         <input class="form-input" type="text" id="authorName" name="authorName" placeholder="Your pen name or real name" required>
       </div>
 
-      <!-- Email -->
       <div style="margin-bottom:24px;">
         <label class="form-label" for="authorEmail">Email Address</label>
         <input class="form-input" type="email" id="authorEmail" name="authorEmail" placeholder="you@example.com" required>
-        <p class="help-text">We'll send your audiobook files here.</p>
+        <p class="help-text" id="emailHelp">We'll send your audiobook files here.</p>
       </div>
 
-      <!-- Book Title -->
-      <div style="margin-bottom:24px;">
+      <!-- BOOK TITLE (free + paid) -->
+      <div id="bookTitleSection" style="margin-bottom:24px;">
         <label class="form-label" for="bookTitle">Book Title</label>
-        <input class="form-input" type="text" id="bookTitle" name="bookTitle" placeholder="The title of the book we're producing" required>
+        <input class="form-input" type="text" id="bookTitle" name="bookTitle" placeholder="The title of the book we're producing">
       </div>
 
-      <!-- Manuscript link -->
-      <div style="margin-bottom:24px;">
+      <!-- MANUSCRIPT LINK (free + paid) -->
+      <div id="manuscriptSection" style="margin-bottom:24px;">
         <label class="form-label" for="manuscriptLink">Manuscript Share Link</label>
-        <input class="form-input" type="url" id="manuscriptLink" name="manuscriptLink" placeholder="https://drive.google.com/... or https://www.dropbox.com/..." required>
-        <p class="help-text">Upload your manuscript (.docx, .pdf, .epub, or .txt) to <a href="https://www.dropbox.com" target="_blank" rel="noopener">Dropbox</a>, <a href="https://drive.google.com" target="_blank" rel="noopener">Google Drive</a>, or <a href="https://wetransfer.com" target="_blank" rel="noopener">WeTransfer</a>, then paste the share link here. Make sure the link is set to "anyone with the link can view."</p>
+        <input class="form-input" type="url" id="manuscriptLink" name="manuscriptLink" placeholder="https://drive.google.com/... or https://www.dropbox.com/...">
+        <p class="help-text">Upload your manuscript (.docx, .pdf, .epub, or .txt) to <a href="https://www.dropbox.com" target="_blank" rel="noopener">Dropbox</a>, <a href="https://drive.google.com" target="_blank" rel="noopener">Google Drive</a>, or <a href="https://wetransfer.com" target="_blank" rel="noopener">WeTransfer</a>, then paste the share link here. Make sure it's set to "anyone with the link can view." For the free first chapter, paste a link to just the first chapter file is fine too.</p>
       </div>
 
-      <!-- Narrator -->
-      <div style="margin-bottom:24px;">
+      <!-- TIER TOGGLE (paid only) -->
+      <div id="tierSection" style="margin-bottom:24px;">
+        <label class="form-label">Tier (You Can Switch Here)</label>
+        <div class="tier-toggle" id="tierToggle">
+          <button type="button" data-tier="indie" class="tier-btn">
+            <div class="tier-name">Indie</div>
+            <div class="tier-rate">$40 per finished hour</div>
+          </button>
+          <button type="button" data-tier="studio" class="tier-btn active">
+            <div class="tier-name">Studio</div>
+            <div class="tier-rate">$80 per finished hour</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- NARRATOR (free + paid) -->
+      <div id="narratorSection" style="margin-bottom:24px;">
         <label class="form-label" for="narratorChoice">Preferred Narrator</label>
-        <select class="form-input" id="narratorChoice" name="narratorChoice" required>
+        <select class="form-input" id="narratorChoice" name="narratorChoice">
           <option value="" disabled selected>Choose from our catalog...</option>
           <option value="hugh-atherton">Hugh Atherton &mdash; Male, Deep British (flagship)</option>
           <option value="alaric-stone">Alaric Stone &mdash; Male, Dramatic (epic fantasy)</option>
@@ -360,28 +368,36 @@
         </select>
       </div>
 
-      <!-- Notes -->
-      <div style="margin-bottom:32px;">
+      <!-- CUSTOM PROJECT TEXTAREA (custom only) -->
+      <div id="customSection" style="margin-bottom:24px; display:none;">
+        <label class="form-label" for="customMessage">Tell Us About Your Project</label>
+        <textarea class="form-input" id="customMessage" name="customMessage" rows="6" placeholder="What are you working on? What questions do you have? Anything we should know about pacing, voices, languages, formats, deadlines..." style="resize:vertical; min-height:140px;"></textarea>
+      </div>
+
+      <!-- NOTES (free + paid) -->
+      <div id="notesSection" style="margin-bottom:32px;">
         <label class="form-label" for="notes">Production Notes <span style="color:var(--slate-700);">(optional)</span></label>
         <textarea class="form-input" id="notes" name="notes" rows="4" placeholder="Pronunciation guides for unusual names, character voice notes, accent preferences, anything we should know..." style="resize:vertical; min-height:100px;"></textarea>
       </div>
 
-      <!-- Price summary -->
-      <div class="price-card">
-        <div>
-          <div class="price-label">Your Order</div>
-          <div class="price-amount" id="priceDisplay">$430</div>
-          <div class="price-sub">
-            <span id="tierSummary">Studio tier</span> &middot; <span id="hoursSummary">~5.5 hrs</span> of audio
+      <!-- PRICE CARD (paid only) -->
+      <div id="priceSection" style="margin-bottom:0;">
+        <div class="price-card">
+          <div>
+            <div class="price-label">Your Order</div>
+            <div class="price-amount" id="priceDisplay">$430</div>
+            <div class="price-sub">
+              <span id="tierSummary">Studio tier</span> &middot; <span id="hoursSummary">~5.5 hrs</span> of audio
+            </div>
           </div>
         </div>
       </div>
 
-      <button type="submit" class="btn-pay" id="payBtn" style="margin-top:20px;">
-        Pay <span id="payAmount">$430</span> &amp; Place Order
+      <button type="submit" class="btn-primary" id="submitBtn" style="margin-top:20px;">
+        <span id="submitBtnText">Pay $430 &amp; Place Order</span>
       </button>
 
-      <p style="text-align:center; margin-top:14px; font-size:0.78rem; color:var(--slate-400); line-height:1.6;">
+      <p id="submitFootnote" style="text-align:center; margin-top:14px; font-size:0.78rem; color:var(--slate-400); line-height:1.6;">
         Secure payment by Stripe. Card details never touch our servers.
       </p>
 
@@ -413,44 +429,153 @@
 
 <script>
   // ── State ──
-  let currentTier = 'studio';
+  let inquiryType = 'studio';   // 'free' | 'indie' | 'studio' | 'custom'
+  let currentTier = 'studio';   // active tier when inquiryType is paid (mirrors inquiryType for indie/studio)
+
+  // ── Element refs ──
   const wcSlider = document.getElementById('wcSlider');
   const wcDisplay = document.getElementById('wcDisplay');
+  const wcSection = document.getElementById('wcSection');
+  const wcWarning = document.getElementById('wcWarning');
+  const wcHelpFree = document.getElementById('wcHelpFree');
+  const tierSection = document.getElementById('tierSection');
+  const bookTitleSection = document.getElementById('bookTitleSection');
+  const manuscriptSection = document.getElementById('manuscriptSection');
+  const narratorSection = document.getElementById('narratorSection');
+  const customSection = document.getElementById('customSection');
+  const notesSection = document.getElementById('notesSection');
+  const priceSection = document.getElementById('priceSection');
   const priceDisplay = document.getElementById('priceDisplay');
-  const payAmount = document.getElementById('payAmount');
   const tierSummary = document.getElementById('tierSummary');
   const hoursSummary = document.getElementById('hoursSummary');
+  const submitBtnText = document.getElementById('submitBtnText');
+  const submitFootnote = document.getElementById('submitFootnote');
   const errorBox = document.getElementById('orderError');
+  const pageLabel = document.getElementById('pageLabel');
+  const pageTitle = document.getElementById('pageTitle');
+  const pageSub = document.getElementById('pageSub');
+  const emailHelp = document.getElementById('emailHelp');
 
+  // ── Helpers ──
   function calcPrice(tier, wc) {
     const hourly = tier === 'studio' ? 80 : 40;
     const hours = wc / 9300;
     const raw = hours * hourly;
     return { price: Math.round(raw / 5) * 5, hours };
   }
-
   function fmtHours(h) {
     if (h < 1) return h.toFixed(1) + ' hr';
     return (Math.round(h * 2) / 2).toFixed(1).replace(/\.0$/, '') + ' hrs';
   }
 
+  // ── Page chrome adapts to inquiry type ──
+  function updateChromeForType() {
+    const isFree = inquiryType === 'free';
+    const isPaid = inquiryType === 'indie' || inquiryType === 'studio';
+    const isCustom = inquiryType === 'custom';
+
+    // Header copy
+    if (isFree) {
+      pageLabel.textContent = 'Free First Chapter';
+      pageTitle.textContent = 'Hear your book before you commit.';
+      pageSub.textContent = "Share your manuscript and pick a narrator. We'll render the first chapter at Indie quality and email it to you within 5 business days. No payment, no commitment.";
+      emailHelp.textContent = "We'll send your free chapter here.";
+    } else if (isCustom) {
+      pageLabel.textContent = 'Custom Project / Question';
+      pageTitle.textContent = "Tell us what you're working on.";
+      pageSub.textContent = "Anything that doesn't fit the standard order flow — partnerships, multi-language books, unusual formats, deadlines, or just a question. We'll respond within 24 hours.";
+      emailHelp.textContent = "We'll respond here within 24 hours.";
+    } else {
+      pageLabel.textContent = 'Place Your Order';
+      pageTitle.textContent = 'Configure your audiobook.';
+      pageSub.innerHTML = "Share your manuscript, pick a narrator, and confirm your tier. <strong style='color:#f8fafc;'>You'll only pay after we've received everything.</strong> Stripe handles the secure payment.";
+      emailHelp.textContent = "We'll send your audiobook files here.";
+    }
+
+    // Conditional sections
+    bookTitleSection.classList.toggle('hidden', isCustom);
+    manuscriptSection.classList.toggle('hidden', isCustom);
+    narratorSection.classList.toggle('hidden', isCustom);
+    customSection.classList.toggle('hidden', !isCustom);
+    notesSection.classList.toggle('hidden', isCustom);
+    wcSection.classList.toggle('hidden', isCustom);
+    tierSection.classList.toggle('hidden', !isPaid);
+    priceSection.classList.toggle('hidden', !isPaid);
+
+    // Word count helper text
+    if (isPaid) {
+      wcWarning.classList.remove('show');  // only show on focus
+      wcHelpFree.style.display = 'none';
+    } else if (isFree) {
+      wcWarning.classList.remove('show');
+      wcHelpFree.style.display = 'block';
+    }
+
+    // Required attribute on conditional fields
+    document.getElementById('bookTitle').required = !isCustom;
+    document.getElementById('manuscriptLink').required = !isCustom;
+    document.getElementById('narratorChoice').required = !isCustom;
+    document.getElementById('customMessage').required = isCustom;
+
+    // Submit button
+    if (isFree) {
+      submitBtnText.textContent = 'Send Free First Chapter Request';
+      submitFootnote.textContent = "We'll email your first chapter within 5 business days.";
+    } else if (isCustom) {
+      submitBtnText.textContent = 'Send Inquiry';
+      submitFootnote.textContent = "We'll respond within 24 hours.";
+    } else {
+      // paid — set in updateView
+      submitFootnote.textContent = 'Secure payment by Stripe. Card details never touch our servers.';
+    }
+  }
+
   function updateView() {
     const wc = parseInt(wcSlider.value, 10) || 50000;
     wcDisplay.textContent = wc.toLocaleString() + ' words';
-    const { price, hours } = calcPrice(currentTier, wc);
-    priceDisplay.textContent = '$' + price.toLocaleString();
-    payAmount.textContent = '$' + price.toLocaleString();
-    tierSummary.textContent = currentTier === 'studio' ? 'Studio tier' : 'Indie tier';
-    hoursSummary.textContent = '~' + fmtHours(hours);
+    if (inquiryType === 'indie' || inquiryType === 'studio') {
+      const tier = inquiryType;
+      const { price, hours } = calcPrice(tier, wc);
+      priceDisplay.textContent = '$' + price.toLocaleString();
+      submitBtnText.textContent = 'Pay $' + price.toLocaleString() + ' & Place Order';
+      tierSummary.textContent = tier === 'studio' ? 'Studio tier' : 'Indie tier';
+      hoursSummary.textContent = '~' + fmtHours(hours);
+      // Sync tier toggle highlighting
+      document.querySelectorAll('#tierToggle .tier-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.tier === tier);
+      });
+    }
   }
 
-  // ── Tier toggle ──
+  // ── Inquiry type selector ──
+  document.querySelectorAll('#inquiryGrid .inquiry-card').forEach(btn => {
+    btn.addEventListener('click', () => {
+      inquiryType = btn.dataset.type;
+      if (inquiryType === 'indie' || inquiryType === 'studio') {
+        currentTier = inquiryType;
+      }
+      document.querySelectorAll('#inquiryGrid .inquiry-card').forEach(b => {
+        b.classList.toggle('active', b.dataset.type === inquiryType);
+      });
+      updateChromeForType();
+      updateView();
+    });
+  });
+
+  // ── Tier toggle (paid only) ──
   document.querySelectorAll('#tierToggle .tier-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      currentTier = btn.dataset.tier;
+      const newTier = btn.dataset.tier;
+      currentTier = newTier;
+      inquiryType = newTier;  // tier toggle changes the inquiry type for paid
       document.querySelectorAll('#tierToggle .tier-btn').forEach(b => {
-        b.classList.toggle('active', b.dataset.tier === currentTier);
+        b.classList.toggle('active', b.dataset.tier === newTier);
       });
+      // Sync inquiry card too
+      document.querySelectorAll('#inquiryGrid .inquiry-card').forEach(b => {
+        b.classList.toggle('active', b.dataset.type === newTier);
+      });
+      updateChromeForType();
       updateView();
     });
   });
@@ -458,20 +583,42 @@
   // ── Word count slider ──
   wcSlider.addEventListener('input', updateView);
 
+  // Show billing warning on slider focus (paid tiers only)
+  wcSlider.addEventListener('focus', () => {
+    if (inquiryType === 'indie' || inquiryType === 'studio') {
+      wcWarning.classList.add('show');
+    }
+  });
+
   // ── URL param init ──
   (function initFromUrl() {
     const params = new URLSearchParams(window.location.search);
+    const typeP = params.get('type');
     const tierP = params.get('tier');
     const wcP = parseInt(params.get('wc'), 10);
-    if (tierP === 'indie' || tierP === 'studio') {
+
+    // Resolve initial inquiry type. Priority: explicit ?type=, then ?tier=, else default.
+    if (typeP === 'free' || typeP === 'custom' || typeP === 'indie' || typeP === 'studio') {
+      inquiryType = typeP;
+      if (typeP === 'indie' || typeP === 'studio') currentTier = typeP;
+    } else if (tierP === 'indie' || tierP === 'studio') {
+      inquiryType = tierP;
       currentTier = tierP;
-      document.querySelectorAll('#tierToggle .tier-btn').forEach(b => {
-        b.classList.toggle('active', b.dataset.tier === currentTier);
-      });
     }
+    // Word count
     if (Number.isFinite(wcP) && wcP >= 20000 && wcP <= 200000) {
       wcSlider.value = wcP;
     }
+
+    // Sync UI
+    document.querySelectorAll('#inquiryGrid .inquiry-card').forEach(b => {
+      b.classList.toggle('active', b.dataset.type === inquiryType);
+    });
+    document.querySelectorAll('#tierToggle .tier-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.tier === currentTier);
+    });
+
+    updateChromeForType();
     updateView();
   })();
 
@@ -481,29 +628,33 @@
     errorBox.style.display = 'none';
     errorBox.textContent = '';
 
+    if (inquiryType === 'indie' || inquiryType === 'studio') {
+      await submitPaidOrder();
+    } else if (inquiryType === 'free') {
+      await submitFreeChapter();
+    } else if (inquiryType === 'custom') {
+      await submitCustom();
+    }
+  });
+
+  // ── Paid order: Stripe Checkout ──
+  async function submitPaidOrder() {
     const wc = parseInt(wcSlider.value, 10) || 0;
     if (wc < 5000) {
-      errorBox.textContent = 'Word count must be at least 5,000.';
-      errorBox.style.display = 'block';
+      showError('Word count must be at least 5,000.');
       return;
     }
-
     const payload = {
       tier: currentTier,
       wordCount: wc,
-      authorName: document.getElementById('authorName').value.trim(),
-      authorEmail: document.getElementById('authorEmail').value.trim(),
-      bookTitle: document.getElementById('bookTitle').value.trim(),
-      manuscriptLink: document.getElementById('manuscriptLink').value.trim(),
-      narratorChoice: document.getElementById('narratorChoice').value,
-      notes: document.getElementById('notes').value.trim(),
+      authorName: val('authorName'),
+      authorEmail: val('authorEmail'),
+      bookTitle: val('bookTitle'),
+      manuscriptLink: val('manuscriptLink'),
+      narratorChoice: val('narratorChoice'),
+      notes: val('notes'),
     };
-
-    const btn = document.getElementById('payBtn');
-    btn.disabled = true;
-    const origText = btn.innerHTML;
-    btn.innerHTML = 'Creating order &mdash; redirecting to Stripe...';
-
+    setBusy(true, 'Creating order — redirecting to Stripe...');
     try {
       const resp = await fetch('/api/create-checkout-session', {
         method: 'POST',
@@ -511,17 +662,82 @@
         body: JSON.stringify(payload),
       });
       const data = await resp.json();
-      if (!resp.ok || !data.url) {
-        throw new Error(data.error || 'Could not create order. Please try again.');
-      }
+      if (!resp.ok || !data.url) throw new Error(data.error || 'Could not create order. Please try again.');
       window.location.href = data.url;
     } catch (err) {
-      btn.disabled = false;
-      btn.innerHTML = origText;
-      errorBox.textContent = (err && err.message) || 'Something went wrong. Please try again.';
-      errorBox.style.display = 'block';
+      setBusy(false);
+      showError((err && err.message) || 'Something went wrong. Please try again.');
     }
-  });
+  }
+
+  // ── Free chapter: send via formsubmit.co, redirect to confirmation ──
+  async function submitFreeChapter() {
+    const wc = parseInt(wcSlider.value, 10) || 50000;
+    setBusy(true, 'Sending your request...');
+    const fd = new FormData();
+    fd.append('_subject', 'Novellaire — Free First Chapter Request');
+    fd.append('_captcha', 'false');
+    fd.append('_template', 'table');
+    fd.append('inquiryType', 'free-first-chapter');
+    fd.append('authorName', val('authorName'));
+    fd.append('authorEmail', val('authorEmail'));
+    fd.append('bookTitle', val('bookTitle'));
+    fd.append('manuscriptLink', val('manuscriptLink'));
+    fd.append('narratorChoice', val('narratorChoice'));
+    fd.append('declaredWordCount', String(wc));
+    fd.append('notes', val('notes'));
+    try {
+      const resp = await fetch('https://formsubmit.co/ajax/clinejefferson@gmail.com', {
+        method: 'POST',
+        body: fd,
+      });
+      const data = await resp.json();
+      if (!data.success && data.success !== "true") {
+        // formsubmit returns success:'true' as string
+        if (!resp.ok) throw new Error('Could not send request. Please try again.');
+      }
+      window.location.href = '/order-confirmed.html?type=free';
+    } catch (err) {
+      setBusy(false);
+      showError((err && err.message) || 'Could not send your request. Please try again or email clinejefferson@gmail.com directly.');
+    }
+  }
+
+  // ── Custom inquiry: send via formsubmit.co, redirect to confirmation ──
+  async function submitCustom() {
+    setBusy(true, 'Sending your inquiry...');
+    const fd = new FormData();
+    fd.append('_subject', 'Novellaire — Custom Inquiry');
+    fd.append('_captcha', 'false');
+    fd.append('_template', 'table');
+    fd.append('inquiryType', 'custom');
+    fd.append('authorName', val('authorName'));
+    fd.append('authorEmail', val('authorEmail'));
+    fd.append('message', val('customMessage'));
+    try {
+      const resp = await fetch('https://formsubmit.co/ajax/clinejefferson@gmail.com', {
+        method: 'POST',
+        body: fd,
+      });
+      if (!resp.ok) throw new Error('Could not send inquiry. Please try again.');
+      window.location.href = '/order-confirmed.html?type=custom';
+    } catch (err) {
+      setBusy(false);
+      showError((err && err.message) || 'Could not send your inquiry. Please try again or email clinejefferson@gmail.com directly.');
+    }
+  }
+
+  // ── UI helpers ──
+  function val(id) { return (document.getElementById(id).value || '').trim(); }
+  function setBusy(busy, text) {
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = busy;
+    if (busy && text) submitBtnText.textContent = text;
+  }
+  function showError(msg) {
+    errorBox.textContent = msg;
+    errorBox.style.display = 'block';
+  }
 </script>
 
 </body>

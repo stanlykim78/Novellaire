@@ -161,9 +161,9 @@
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
       </div>
-      <div class="section-label">Order Confirmed</div>
-      <h1 class="section-title">Payment received. Your audiobook is in the queue.</h1>
-      <p style="color:var(--slate-300); margin-top:18px; font-size:1.05rem; line-height:1.7;">
+      <div class="section-label" id="confLabel">Order Confirmed</div>
+      <h1 class="section-title" id="confTitle">Payment received. Your audiobook is in the queue.</h1>
+      <p id="confSub" style="color:var(--slate-300); margin-top:18px; font-size:1.05rem; line-height:1.7;">
         Thank you. We have everything we need &mdash; your manuscript, narrator choice, and payment. You'll receive your free first chapter within <strong style="color:#f8fafc;">5 business days</strong>, with the full book to follow in <strong style="color:#f8fafc;">3&ndash;7 days</strong> after that.
       </p>
     </div>
@@ -192,21 +192,10 @@
     </div>
 
     <!-- What happens next -->
-    <div style="background:var(--slate-900); border:1px solid rgba(148,163,184,0.08); border-radius:14px; padding:24px 28px; margin-bottom:32px;">
+    <div id="nextStepsBox" style="background:var(--slate-900); border:1px solid rgba(148,163,184,0.08); border-radius:14px; padding:24px 28px; margin-bottom:32px;">
       <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:14px;">What Happens Next</div>
-      <ol style="list-style:none; padding:0; margin:0;">
-        <li style="display:flex; gap:14px; padding:8px 0;">
-          <span style="flex-shrink:0; color:var(--amber); font-weight:700;">1.</span>
-          <span style="font-size:0.92rem; color:var(--slate-300); line-height:1.6;"><strong style="color:#f8fafc;">We pull your manuscript</strong> from the share link you provided and verify the word count within &plusmn;10%.</span>
-        </li>
-        <li style="display:flex; gap:14px; padding:8px 0;">
-          <span style="flex-shrink:0; color:var(--amber); font-weight:700;">2.</span>
-          <span style="font-size:0.92rem; color:var(--slate-300); line-height:1.6;"><strong style="color:#f8fafc;">We render your free first chapter</strong> with the narrator you selected. You'll get it via email within 5 business days &mdash; if anything's off (voice, pacing, pronunciation) we adjust before continuing.</span>
-        </li>
-        <li style="display:flex; gap:14px; padding:8px 0;">
-          <span style="flex-shrink:0; color:var(--amber); font-weight:700;">3.</span>
-          <span style="font-size:0.92rem; color:var(--slate-300); line-height:1.6;"><strong style="color:#f8fafc;">We render the full book</strong> &mdash; mastered chapter MP3 files (HD 48kHz), ready for ACX, Audible, Spotify, or anywhere you distribute. Delivered 3&ndash;7 days after the first chapter.</span>
-        </li>
+      <ol id="nextStepsList" style="list-style:none; padding:0; margin:0;">
+        <!-- Populated by JS based on inquiry type -->
       </ol>
     </div>
 
@@ -244,22 +233,64 @@
 
 
 <script>
-  // Read URL params → show the order summary tile
+  // Read URL params and adapt the page to the inquiry type
   (function(){
     const params = new URLSearchParams(window.location.search);
+    const type = params.get('type') || 'paid';   // 'free' | 'custom' | 'paid'
     const tier = params.get('tier') || '';
     const amount = params.get('amount') || '';
     const wc = params.get('wc') || '';
     const hours = params.get('hours') || '';
 
-    if (tier && amount) {
-      const summary = document.getElementById('orderSummary');
-      summary.style.display = 'block';
-      const tierLabel = tier === 'studio' ? 'Studio' : 'Indie';
-      document.getElementById('summaryTier').textContent = tierLabel;
-      document.getElementById('summaryAmount').textContent = '$' + parseInt(amount, 10).toLocaleString();
-      if (wc) document.getElementById('summaryWc').textContent = parseInt(wc, 10).toLocaleString() + ' words';
-      if (hours) document.getElementById('summaryHours').textContent = '~' + hours + ' hrs';
+    const confLabel = document.getElementById('confLabel');
+    const confTitle = document.getElementById('confTitle');
+    const confSub = document.getElementById('confSub');
+    const nextStepsList = document.getElementById('nextStepsList');
+    const orderSummary = document.getElementById('orderSummary');
+
+    function step(num, html) {
+      return '<li style="display:flex; gap:14px; padding:8px 0;">' +
+        '<span style="flex-shrink:0; color:var(--amber); font-weight:700;">' + num + '.</span>' +
+        '<span style="font-size:0.92rem; color:var(--slate-300); line-height:1.6;">' + html + '</span>' +
+        '</li>';
+    }
+
+    if (type === 'free') {
+      confLabel.textContent = 'Free Chapter Requested';
+      confTitle.textContent = "Got it. We'll send your free first chapter soon.";
+      confSub.innerHTML = "Thanks for trying us out. We have your manuscript link and your narrator choice &mdash; we'll render your first chapter at Indie quality and email it to you within <strong style='color:#f8fafc;'>5 business days</strong>. No payment, no commitment, no obligation. If you love it, you can place a paid order from the same email.";
+      nextStepsList.innerHTML =
+        step(1, "<strong style='color:#f8fafc;'>We pull your manuscript</strong> from the share link you provided.") +
+        step(2, "<strong style='color:#f8fafc;'>We render chapter 1</strong> with your selected narrator and email it to you within 5 business days.") +
+        step(3, "<strong style='color:#f8fafc;'>You decide</strong> &mdash; if it's the right fit, place a paid order. If not, no follow-up, no charge.");
+      orderSummary.style.display = 'none';
+    } else if (type === 'custom') {
+      confLabel.textContent = 'Inquiry Received';
+      confTitle.textContent = "Got it. We'll be in touch soon.";
+      confSub.innerHTML = "Thanks for reaching out. We've received your inquiry and will respond within <strong style='color:#f8fafc;'>24 hours</strong>. Watch the email you provided for our reply.";
+      nextStepsList.innerHTML =
+        step(1, "<strong style='color:#f8fafc;'>We read your message</strong> and figure out the best way to help.") +
+        step(2, "<strong style='color:#f8fafc;'>We reply within 24 hours</strong> &mdash; usually with questions to scope the project, or a direct answer if you asked something simple.") +
+        step(3, "<strong style='color:#f8fafc;'>You take it from there</strong> &mdash; approve a quote, schedule a call, or keep the conversation going by email.");
+      orderSummary.style.display = 'none';
+    } else {
+      // Paid: existing flow
+      confLabel.textContent = 'Order Confirmed';
+      confTitle.textContent = 'Payment received. Your audiobook is in the queue.';
+      confSub.innerHTML = "Thank you. We have everything we need &mdash; your manuscript, narrator choice, and payment. You'll receive your free first chapter within <strong style='color:#f8fafc;'>5 business days</strong>, with the full book to follow in <strong style='color:#f8fafc;'>3&ndash;7 days</strong> after that.";
+      nextStepsList.innerHTML =
+        step(1, "<strong style='color:#f8fafc;'>We pull your manuscript</strong> from the share link you provided and verify the word count within &plusmn;10%.") +
+        step(2, "<strong style='color:#f8fafc;'>We render your free first chapter</strong> with the narrator you selected. You'll get it via email within 5 business days &mdash; if anything's off (voice, pacing, pronunciation) we adjust before continuing.") +
+        step(3, "<strong style='color:#f8fafc;'>We render the full book</strong> &mdash; mastered chapter MP3 files (HD 48kHz), ready for ACX, Audible, Spotify, or anywhere you distribute. Delivered 3&ndash;7 days after the first chapter.");
+
+      if (tier && amount) {
+        orderSummary.style.display = 'block';
+        const tierLabel = tier === 'studio' ? 'Studio' : 'Indie';
+        document.getElementById('summaryTier').textContent = tierLabel;
+        document.getElementById('summaryAmount').textContent = '$' + parseInt(amount, 10).toLocaleString();
+        if (wc) document.getElementById('summaryWc').textContent = parseInt(wc, 10).toLocaleString() + ' words';
+        if (hours) document.getElementById('summaryHours').textContent = '~' + hours + ' hrs';
+      }
     }
   })();
 </script>
