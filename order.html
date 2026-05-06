@@ -149,22 +149,6 @@
     .tier-toggle .tier-rate { font-size: 0.78rem; color: var(--slate-400); margin-top: 4px; }
     .tier-toggle button.active .tier-rate { color: var(--amber); }
 
-    /* Word count billing warning */
-    .wc-warning {
-      background: rgba(245,158,11,0.08);
-      border: 1px solid rgba(245,158,11,0.3);
-      border-radius: 10px;
-      padding: 12px 16px;
-      font-size: 0.84rem;
-      color: var(--slate-300);
-      line-height: 1.55;
-      margin-top: 10px;
-      display: none;
-      transition: opacity 0.2s, transform 0.2s;
-    }
-    .wc-warning.show { display: block; }
-    .wc-warning strong { color: var(--amber); font-weight: 700; }
-
     /* Price card */
     .price-card {
       background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(245,158,11,0.02));
@@ -265,7 +249,7 @@
       </p>
     </div>
 
-    <form id="orderForm" class="form-card">
+    <form id="orderForm" class="form-card" method="POST">
 
       <!-- INQUIRY TYPE SELECTOR -->
       <div style="margin-bottom:32px;">
@@ -300,9 +284,7 @@
         <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:var(--slate-400); letter-spacing:0.06em; margin-top:6px;">
           <span>20k</span><span>200k</span>
         </div>
-        <div class="wc-warning" id="wcWarning">
-          <strong>Heads up:</strong> this figure is used for billing. We verify within &plusmn;10% on our end &mdash; if your manuscript runs significantly over, we'll send a top-up invoice before rendering. Open your manuscript in Word, Scrivener, Vellum, or Pages to confirm the count before submitting.
-        </div>
+        <p class="help-text" id="wcHelp">Open your manuscript in Word, Scrivener, Vellum, or Pages &mdash; word count is in the status bar.</p>
         <p class="help-text" id="wcHelpFree" style="display:none;">Approximate is fine for the free chapter sample &mdash; we just need a rough sense of the book's length to scope the right narrator and pacing.</p>
       </div>
 
@@ -436,7 +418,7 @@
   const wcSlider = document.getElementById('wcSlider');
   const wcDisplay = document.getElementById('wcDisplay');
   const wcSection = document.getElementById('wcSection');
-  const wcWarning = document.getElementById('wcWarning');
+  const wcHelp = document.getElementById('wcHelp');
   const wcHelpFree = document.getElementById('wcHelpFree');
   const tierSection = document.getElementById('tierSection');
   const bookTitleSection = document.getElementById('bookTitleSection');
@@ -503,12 +485,12 @@
     priceSection.classList.toggle('hidden', !isPaid);
 
     // Word count helper text
-    if (isPaid) {
-      wcWarning.classList.remove('show');  // only show on focus
-      wcHelpFree.style.display = 'none';
-    } else if (isFree) {
-      wcWarning.classList.remove('show');
+    if (isFree) {
+      wcHelp.style.display = 'none';
       wcHelpFree.style.display = 'block';
+    } else {
+      wcHelp.style.display = 'block';
+      wcHelpFree.style.display = 'none';
     }
 
     // Required attribute on conditional fields
@@ -583,12 +565,6 @@
   // ── Word count slider ──
   wcSlider.addEventListener('input', updateView);
 
-  // Show billing warning on slider focus (paid tiers only)
-  wcSlider.addEventListener('focus', () => {
-    if (inquiryType === 'indie' || inquiryType === 'studio') {
-      wcWarning.classList.add('show');
-    }
-  });
 
   // ── URL param init ──
   (function initFromUrl() {
@@ -623,17 +599,40 @@
   })();
 
   // ── Submit handler ──
-  document.getElementById('orderForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
+  document.getElementById('orderForm').addEventListener('submit', (e) => {
     errorBox.style.display = 'none';
     errorBox.textContent = '';
 
     if (inquiryType === 'indie' || inquiryType === 'studio') {
-      await submitPaidOrder();
-    } else if (inquiryType === 'free') {
-      await submitFreeChapter();
-    } else if (inquiryType === 'custom') {
-      await submitCustom();
+      // Paid: prevent native submit, use Stripe API
+      e.preventDefault();
+      submitPaidOrder();
+      return;
+    }
+
+    // Free + Custom: configure form for formsubmit.co and let it submit natively (more reliable than AJAX)
+    const form = e.target;
+    if (inquiryType === 'free') {
+      form.action = 'https://formsubmit.co/clinejefferson@gmail.com';
+      setHidden(form, '_subject', 'Novellaire — Free First Chapter Request');
+      setHidden(form, '_captcha', 'false');
+      setHidden(form, '_template', 'table');
+      setHidden(form, '_next', window.location.origin + '/order-confirmed.html?type=free');
+      setHidden(form, 'inquiryType', 'free-first-chapter');
+      setHidden(form, 'declaredWordCount', String(parseInt(wcSlider.value, 10) || 50000));
+      setBusy(true, 'Sending your request...');
+      // Let the form submit naturally → formsubmit.co processes → redirects to /order-confirmed.html?type=free
+      return;
+    }
+    if (inquiryType === 'custom') {
+      form.action = 'https://formsubmit.co/clinejefferson@gmail.com';
+      setHidden(form, '_subject', 'Novellaire — Custom Inquiry');
+      setHidden(form, '_captcha', 'false');
+      setHidden(form, '_template', 'table');
+      setHidden(form, '_next', window.location.origin + '/order-confirmed.html?type=custom');
+      setHidden(form, 'inquiryType', 'custom');
+      setBusy(true, 'Sending your inquiry...');
+      return;
     }
   });
 
@@ -670,61 +669,15 @@
     }
   }
 
-  // ── Free chapter: send via formsubmit.co, redirect to confirmation ──
-  async function submitFreeChapter() {
-    const wc = parseInt(wcSlider.value, 10) || 50000;
-    setBusy(true, 'Sending your request...');
-    const fd = new FormData();
-    fd.append('_subject', 'Novellaire — Free First Chapter Request');
-    fd.append('_captcha', 'false');
-    fd.append('_template', 'table');
-    fd.append('inquiryType', 'free-first-chapter');
-    fd.append('authorName', val('authorName'));
-    fd.append('authorEmail', val('authorEmail'));
-    fd.append('bookTitle', val('bookTitle'));
-    fd.append('manuscriptLink', val('manuscriptLink'));
-    fd.append('narratorChoice', val('narratorChoice'));
-    fd.append('declaredWordCount', String(wc));
-    fd.append('notes', val('notes'));
-    try {
-      const resp = await fetch('https://formsubmit.co/ajax/clinejefferson@gmail.com', {
-        method: 'POST',
-        body: fd,
-      });
-      const data = await resp.json();
-      if (!data.success && data.success !== "true") {
-        // formsubmit returns success:'true' as string
-        if (!resp.ok) throw new Error('Could not send request. Please try again.');
-      }
-      window.location.href = '/order-confirmed.html?type=free';
-    } catch (err) {
-      setBusy(false);
-      showError((err && err.message) || 'Could not send your request. Please try again or email clinejefferson@gmail.com directly.');
+  function setHidden(form, name, value) {
+    let input = form.querySelector('input[type="hidden"][name="' + name + '"]');
+    if (!input) {
+      input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = name;
+      form.appendChild(input);
     }
-  }
-
-  // ── Custom inquiry: send via formsubmit.co, redirect to confirmation ──
-  async function submitCustom() {
-    setBusy(true, 'Sending your inquiry...');
-    const fd = new FormData();
-    fd.append('_subject', 'Novellaire — Custom Inquiry');
-    fd.append('_captcha', 'false');
-    fd.append('_template', 'table');
-    fd.append('inquiryType', 'custom');
-    fd.append('authorName', val('authorName'));
-    fd.append('authorEmail', val('authorEmail'));
-    fd.append('message', val('customMessage'));
-    try {
-      const resp = await fetch('https://formsubmit.co/ajax/clinejefferson@gmail.com', {
-        method: 'POST',
-        body: fd,
-      });
-      if (!resp.ok) throw new Error('Could not send inquiry. Please try again.');
-      window.location.href = '/order-confirmed.html?type=custom';
-    } catch (err) {
-      setBusy(false);
-      showError((err && err.message) || 'Could not send your inquiry. Please try again or email clinejefferson@gmail.com directly.');
-    }
+    input.value = value;
   }
 
   // ── UI helpers ──
