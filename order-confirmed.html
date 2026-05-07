@@ -200,7 +200,7 @@
     </div>
 
     <p style="text-align:center; margin-top:24px; font-size:0.85rem; color:var(--slate-400); line-height:1.7;">
-      Questions? Reply to your Stripe receipt email or write to <a href="mailto:clinejefferson@gmail.com" style="color:var(--amber); text-decoration:underline; text-underline-offset:3px;">clinejefferson@gmail.com</a> with your order ID.
+      Questions? Reply to your Stripe receipt email or write to <a href="mailto:support@novellaire.com" style="color:var(--amber); text-decoration:underline; text-underline-offset:3px;">support@novellaire.com</a> with your order ID.
     </p>
 
     <div style="text-align:center; margin-top:36px;">
@@ -241,6 +241,19 @@
     const amount = params.get('amount') || '';
     const wc = params.get('wc') || '';
     const hours = params.get('hours') || '';
+    const sessionId = params.get('session_id') || '';
+
+    // For paid orders, fire-and-forget the notification email to the seller.
+    // Idempotency note: on page reload this fires again — accepted as v1 trade-off.
+    if (sessionId && (type === 'paid' || !params.get('type'))) {
+      fetch('/api/notify-paid-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ session_id: sessionId }),
+      }).then(r => r.json()).then(d => {
+        if (d && d.error) console.warn('Order notification:', d.error, d.detail || '');
+      }).catch(e => console.warn('Order notification network error:', e));
+    }
 
     const confLabel = document.getElementById('confLabel');
     const confTitle = document.getElementById('confTitle');

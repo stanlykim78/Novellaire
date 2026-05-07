@@ -386,9 +386,9 @@
       </div>
 
       <!-- CUSTOM PROJECT TEXTAREA (custom only) -->
-      <div id="customSection" style="margin-bottom:24px; display:none;">
-        <label class="form-label" for="customMessage">Tell Us About Your Project</label>
-        <textarea class="form-input" id="customMessage" name="customMessage" rows="6" placeholder="What are you working on? What questions do you have? Anything we should know about pacing, voices, languages, formats, deadlines..." style="resize:vertical; min-height:140px;"></textarea>
+      <div id="customSection" class="hidden" style="margin-bottom:24px;">
+        <label class="form-label" for="customMessage">Tell Us About Your Project / Question</label>
+        <textarea class="form-input" id="customMessage" name="customMessage" rows="6" placeholder="What are you working on or what would you like to ask? Pacing, voices, languages, formats, deadlines, partnership ideas — anything we should know..." style="resize:vertical; min-height:140px;"></textarea>
       </div>
 
       <!-- NOTES (free + paid) -->
@@ -679,7 +679,10 @@
         }),
       });
       const data = await resp.json();
-      if (!resp.ok || !data.ok) throw new Error(data.error || 'Could not send request. Please try again.');
+      if (!resp.ok || !data.ok) {
+        const detail = data.detail ? ' — ' + data.detail : '';
+        throw new Error((data.error || 'Could not send request') + detail);
+      }
       window.location.href = '/order-confirmed.html?type=free';
     } catch (err) {
       setBusy(false);
@@ -702,7 +705,10 @@
         }),
       });
       const data = await resp.json();
-      if (!resp.ok || !data.ok) throw new Error(data.error || 'Could not send inquiry. Please try again.');
+      if (!resp.ok || !data.ok) {
+        const detail = data.detail ? ' — ' + data.detail : '';
+        throw new Error((data.error || 'Could not send inquiry') + detail);
+      }
       window.location.href = '/order-confirmed.html?type=custom';
     } catch (err) {
       setBusy(false);
