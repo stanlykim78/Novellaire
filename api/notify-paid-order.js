@@ -6,13 +6,15 @@
 // Required env vars:
 //   STRIPE_SECRET_KEY
 //   RESEND_API_KEY
-//   NOTIFICATION_EMAIL  (where notifications land — currently your stanly.kim78@gmail.com)
 //
-// Future-ready: once novellaire.com is verified in Resend, we'll also send a customer
-// confirmation to session.customer_email from support@novellaire.com.
+// Seller notifications are hardcoded to clinejefferson@gmail.com to remove
+// Vercel env-var configuration as a failure mode. Edit the SELLER_NOTIFICATION
+// constant below if the destination ever needs to change.
 
 const Stripe = require('stripe');
 const { Resend } = require('resend');
+
+const SELLER_NOTIFICATION = 'clinejefferson@gmail.com';
 
 function escapeHtml(s) {
   return String(s == null ? '' : s)
@@ -83,7 +85,7 @@ module.exports = async (req, res) => {
   const amountPaidUsd = '$' + (amountPaidCents / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const deliveryDays = tier === 'studio' ? '3 business days' : '5 business days';
 
-  const recipient = process.env.NOTIFICATION_EMAIL || 'clinejefferson@gmail.com';
+  const recipient = SELLER_NOTIFICATION;
   const resend = new Resend(resendKey);
 
   // Notification email to Jeff

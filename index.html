@@ -660,8 +660,9 @@
       cursor: pointer;
     }
     @media (max-width: 700px) {
-      .sample-slide { flex-basis: 92%; max-width: 92%; }
-      .carousel-viewport::before, .carousel-viewport::after { width: 4%; }
+      .sample-slide { flex-basis: 86%; max-width: 86%; }
+      .carousel-viewport::before, .carousel-viewport::after { width: 6%; }
+      .player-card { padding: 18px !important; }
     }
 
     .carousel-arrow {
@@ -948,7 +949,7 @@
         <div class="player-card" style="padding:32px;">
           <div style="display:flex; align-items:flex-start; gap:20px; margin-bottom:28px; flex-wrap:wrap;">
             <div style="width:100px; height:140px; border-radius:10px; overflow:hidden; flex-shrink:0; border:1px solid rgba(245,158,11,0.2);">
-              <img src="the-changeling-cover.png?v=2" alt="The Changeling" style="width:100%; height:100%; object-fit:cover;">
+              <img src="the-changeling-cover.png?v=3" alt="The Changeling" style="width:100%; height:100%; object-fit:cover;">
             </div>
             <div style="flex:1; min-width:160px;">
               <div style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:#f8fafc; margin-bottom:4px;">The Changeling</div>
@@ -1101,7 +1102,7 @@
       <div class="step-card">
         <div class="step-number">2</div>
         <div style="font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:600; color:#f8fafc; margin:8px 0 12px;">Pick a Narrator</div>
-        <p style="font-size:0.88rem; color:var(--slate-400); line-height:1.65;">Browse 12+ named voices. Each one is genre-tuned. Studio tier authors get a custom pronunciation guide.</p>
+        <p style="font-size:0.88rem; color:var(--slate-400); line-height:1.65;">Browse our named voices. Each one is genre-tuned. Studio tier authors get a custom pronunciation guide.</p>
       </div>
 
       <div class="step-card">
@@ -1334,7 +1335,7 @@
     <div class="text-center">
       <a href="voices.html" class="btn-ghost" style="padding:14px 32px;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
-        See All 13 Voices
+        See More Voices
       </a>
     </div>
 
@@ -1925,11 +1926,21 @@
       viewport.addEventListener('touchend', carouselPointerUp);
       viewport.querySelectorAll('img').forEach(img => img.draggable = false);
     }
+    // iOS Safari sometimes finalizes layout AFTER the load event. Re-position
+    // a few times over the next second so the active slide is centered after
+    // any late layout settling (font swap, image decode, etc).
+    setTimeout(() => setTrackTransform(physicalIdx, false), 200);
+    setTimeout(() => setTrackTransform(physicalIdx, false), 600);
+    setTimeout(() => setTrackTransform(physicalIdx, false), 1200);
   });
   let _carouselResizeT;
   window.addEventListener('resize', () => {
     clearTimeout(_carouselResizeT);
     _carouselResizeT = setTimeout(() => setTrackTransform(physicalIdx, false), 100);
+  });
+  // iOS rotate/orientation
+  window.addEventListener('orientationchange', () => {
+    setTimeout(() => setTrackTransform(physicalIdx, false), 250);
   });
 
   function toggleSamplePlay(idx) {

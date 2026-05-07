@@ -1,11 +1,15 @@
 // Vercel serverless function: sends a Novellaire inquiry email via Resend.
 //
 // Required env vars:
-//   RESEND_API_KEY      — from https://resend.com (Settings → API Keys)
-//   NOTIFICATION_EMAIL  — where inquiries land (default: clinejefferson@gmail.com)
-//                         Swap to support@novellaire.com once forwarding is live.
+//   RESEND_API_KEY — from https://resend.com (Settings → API Keys)
+//
+// Seller notifications are hardcoded to clinejefferson@gmail.com to remove
+// Vercel env-var configuration as a failure mode. Edit the SELLER_NOTIFICATION
+// constant below if the destination ever needs to change.
 //
 // Called by /order.html for free-chapter and custom-inquiry submissions.
+
+const SELLER_NOTIFICATION = 'clinejefferson@gmail.com';
 
 const { Resend } = require('resend');
 
@@ -56,7 +60,7 @@ module.exports = async (req, res) => {
     return res.status(500).json({ error: 'Server not configured: missing RESEND_API_KEY env var.' });
   }
 
-  const recipient = process.env.NOTIFICATION_EMAIL || 'clinejefferson@gmail.com';
+  const recipient = SELLER_NOTIFICATION;
   const resend = new Resend(apiKey);
 
   // Build the email
