@@ -660,8 +660,8 @@
       cursor: pointer;
     }
     @media (max-width: 700px) {
-      .sample-slide { flex-basis: calc(100vw - 80px); max-width: calc(100vw - 80px); }
-      .carousel-viewport::before, .carousel-viewport::after { width: 6%; }
+      .sample-slide { flex-basis: 92%; max-width: 92%; }
+      .carousel-viewport::before, .carousel-viewport::after { width: 4%; }
     }
 
     .carousel-arrow {
@@ -748,6 +748,16 @@
       .tier-grid { grid-template-columns: 1fr !important; }
       .steps-grid { grid-template-columns: 1fr !important; }
     }
+
+    @media (max-width: 640px) {
+      .hero-stats {
+        flex-direction: column;
+        gap: 28px !important;
+        align-items: center !important;
+      }
+      /* Hide vertical divider lines between stat blocks on mobile */
+      .hero-stats > div[style*="width:1px"] { display: none; }
+    }
   </style>
 </head>
 
@@ -827,7 +837,7 @@
       </div>
 
       <!-- Mini stats -->
-      <div style="display:flex; flex-wrap:wrap; gap:48px; margin-top:56px; padding-top:40px; border-top:1px solid rgba(148,163,184,0.08); justify-content:center; align-items:flex-start;" class="fade-up-delay-3">
+      <div class="fade-up-delay-3 hero-stats" style="display:flex; flex-wrap:wrap; gap:48px; margin-top:56px; padding-top:40px; border-top:1px solid rgba(148,163,184,0.08); justify-content:center; align-items:flex-start;">
         <div style="text-align:center;">
           <div style="font-size:1.4rem; font-weight:700; color:var(--amber); line-height:1.2;">3&ndash;5 Business Days</div>
           <div style="font-size:0.74rem; color:var(--slate-400); letter-spacing:0.1em; text-transform:uppercase; margin-top:6px;">Delivery</div>
