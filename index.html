@@ -660,9 +660,17 @@
       cursor: pointer;
     }
     @media (max-width: 700px) {
-      .sample-slide { flex-basis: 86%; max-width: 86%; }
-      .carousel-viewport::before, .carousel-viewport::after { width: 6%; }
+      /* On mobile we drop the peek-and-fade carousel behavior entirely.
+         Each slide fills the viewport, neighbors are fully hidden, and
+         users navigate exclusively via the prev/next arrows below. */
+      .sample-slide { flex-basis: 100%; max-width: 100%; opacity: 0; transform: none; pointer-events: none; }
+      .sample-slide.active { opacity: 1; transform: none; pointer-events: auto; }
+      .sample-slide:not(.active):hover { opacity: 0; cursor: default; }
+      .carousel-viewport::before, .carousel-viewport::after { display: none; }
+      .carousel-track { cursor: default; }
       .player-card { padding: 18px !important; }
+      /* Bigger, more obvious arrows on mobile */
+      .carousel-arrow { width: 48px; height: 48px; }
     }
 
     .carousel-arrow {
@@ -760,6 +768,7 @@
       .hero-stats > div[style*="width:1px"] { display: none; }
     }
   </style>
+  <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
 <body>
