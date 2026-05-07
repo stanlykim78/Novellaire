@@ -55,6 +55,11 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html, body {
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
+
     body {
       background-color: var(--slate-950);
       color: var(--slate-300);
@@ -1504,6 +1509,65 @@
 </section>
 
 
+<!-- GET STARTED CTA -->
+<section id="contact" style="padding:100px 0; position:relative; overflow:hidden;">
+  <div style="position:absolute; bottom:-200px; left:50%; transform:translateX(-50%); width:800px; height:800px; background:radial-gradient(circle, rgba(245,158,11,0.05) 0%, transparent 65%); pointer-events:none;"></div>
+
+  <div class="max-w-5xl mx-auto px-6 relative z-10">
+    <div class="text-center" style="margin-bottom:56px;">
+      <div class="section-label">Let's Begin</div>
+      <h2 class="section-title">Start Your Project</h2>
+      <p style="color:var(--slate-400); margin-top:16px; font-size:0.95rem; max-width:560px; margin-left:auto; margin-right:auto; line-height:1.7;">
+        Pick the path that fits. Sample our work first, place a paid order, or send us a question &mdash; everything funnels through one short form.
+      </p>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:20px; max-width:960px; margin:0 auto;">
+
+      <!-- Free First Chapter -->
+      <a href="/order.html?type=free" style="text-decoration:none; display:block;">
+        <div style="background:var(--slate-900); border:1px solid rgba(148,163,184,0.1); border-radius:18px; padding:32px 28px; height:100%; transition:border-color 0.25s, transform 0.25s, box-shadow 0.25s;" onmouseover="this.style.borderColor='rgba(245,158,11,0.4)';this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 40px rgba(0,0,0,0.3), 0 0 30px rgba(245,158,11,0.1)';" onmouseout="this.style.borderColor='rgba(148,163,184,0.1)';this.style.transform='translateY(0)';this.style.boxShadow='none';">
+          <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:14px;">No Commitment</div>
+          <h3 style="font-family:'Playfair Display',serif; font-size:1.35rem; font-weight:700; color:#f8fafc; line-height:1.25; margin-bottom:14px;">Free First Chapter</h3>
+          <p style="font-size:0.92rem; color:var(--slate-400); line-height:1.7; margin-bottom:20px;">Hear our work before you commit. We'll render chapter 1 of your book with the narrator you pick &mdash; no charge, no follow-up.</p>
+          <span style="display:inline-flex; align-items:center; gap:8px; color:var(--amber); font-weight:600; font-size:0.86rem; letter-spacing:0.04em;">
+            Send Your Manuscript
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Place Your Order -->
+      <a href="/order.html" style="text-decoration:none; display:block;">
+        <div style="background:linear-gradient(135deg, rgba(245,158,11,0.08), rgba(245,158,11,0.02)); border:1px solid rgba(245,158,11,0.32); border-radius:18px; padding:32px 28px; height:100%; transition:border-color 0.25s, transform 0.25s, box-shadow 0.25s; box-shadow:0 16px 40px rgba(0,0,0,0.25), 0 0 24px rgba(245,158,11,0.06);" onmouseover="this.style.borderColor='rgba(245,158,11,0.5)';this.style.transform='translateY(-4px)';this.style.boxShadow='0 24px 60px rgba(0,0,0,0.35), 0 0 50px rgba(245,158,11,0.15)';" onmouseout="this.style.borderColor='rgba(245,158,11,0.32)';this.style.transform='translateY(0)';this.style.boxShadow='0 16px 40px rgba(0,0,0,0.25), 0 0 24px rgba(245,158,11,0.06)';">
+          <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:14px;">Most Popular</div>
+          <h3 style="font-family:'Playfair Display',serif; font-size:1.35rem; font-weight:700; color:#f8fafc; line-height:1.25; margin-bottom:14px;">Place Your Order</h3>
+          <p style="font-size:0.92rem; color:var(--slate-300); line-height:1.7; margin-bottom:20px;">Indie ($40/hr) or Studio ($80/hr). Configure your tier, share your manuscript, pay via Stripe. Delivered in 3&ndash;5 business days.</p>
+          <span style="display:inline-flex; align-items:center; gap:8px; color:var(--amber); font-weight:600; font-size:0.86rem; letter-spacing:0.04em;">
+            Configure &amp; Pay
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Custom Project / Question -->
+      <a href="/order.html?type=custom" style="text-decoration:none; display:block;">
+        <div style="background:var(--slate-900); border:1px solid rgba(148,163,184,0.1); border-radius:18px; padding:32px 28px; height:100%; transition:border-color 0.25s, transform 0.25s, box-shadow 0.25s;" onmouseover="this.style.borderColor='rgba(245,158,11,0.4)';this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 40px rgba(0,0,0,0.3), 0 0 30px rgba(245,158,11,0.1)';" onmouseout="this.style.borderColor='rgba(148,163,184,0.1)';this.style.transform='translateY(0)';this.style.boxShadow='none';">
+          <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:14px;">Anything Else</div>
+          <h3 style="font-family:'Playfair Display',serif; font-size:1.35rem; font-weight:700; color:#f8fafc; line-height:1.25; margin-bottom:14px;">Custom Project / Question</h3>
+          <p style="font-size:0.92rem; color:var(--slate-400); line-height:1.7; margin-bottom:20px;">Partnerships, multi-language books, unusual formats, deadlines, or just a question. We respond within 24 hours.</p>
+          <span style="display:inline-flex; align-items:center; gap:8px; color:var(--amber); font-weight:600; font-size:0.86rem; letter-spacing:0.04em;">
+            Send a Note
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+          </span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+
 <!-- FAQ -->
 <section id="faq" style="padding:80px 0; background:linear-gradient(180deg, transparent 0%, rgba(15,23,42,0.4) 100%);">
   <div class="max-w-4xl mx-auto px-6">
@@ -1593,65 +1657,6 @@
           English (US, UK) and Spanish are fully supported and live in our voice catalog. Other languages are available on request — ask in the contact form and we'll let you know.
         </div></div>
       </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- GET STARTED CTA -->
-<section id="contact" style="padding:100px 0; position:relative; overflow:hidden;">
-  <div style="position:absolute; bottom:-200px; left:50%; transform:translateX(-50%); width:800px; height:800px; background:radial-gradient(circle, rgba(245,158,11,0.05) 0%, transparent 65%); pointer-events:none;"></div>
-
-  <div class="max-w-5xl mx-auto px-6 relative z-10">
-    <div class="text-center" style="margin-bottom:56px;">
-      <div class="section-label">Let's Begin</div>
-      <h2 class="section-title">Start Your Project</h2>
-      <p style="color:var(--slate-400); margin-top:16px; font-size:0.95rem; max-width:560px; margin-left:auto; margin-right:auto; line-height:1.7;">
-        Pick the path that fits. Sample our work first, place a paid order, or send us a question &mdash; everything funnels through one short form.
-      </p>
-    </div>
-
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:20px; max-width:960px; margin:0 auto;">
-
-      <!-- Free First Chapter -->
-      <a href="/order.html?type=free" style="text-decoration:none; display:block;">
-        <div style="background:var(--slate-900); border:1px solid rgba(148,163,184,0.1); border-radius:18px; padding:32px 28px; height:100%; transition:border-color 0.25s, transform 0.25s, box-shadow 0.25s;" onmouseover="this.style.borderColor='rgba(245,158,11,0.4)';this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 40px rgba(0,0,0,0.3), 0 0 30px rgba(245,158,11,0.1)';" onmouseout="this.style.borderColor='rgba(148,163,184,0.1)';this.style.transform='translateY(0)';this.style.boxShadow='none';">
-          <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:14px;">No Commitment</div>
-          <h3 style="font-family:'Playfair Display',serif; font-size:1.35rem; font-weight:700; color:#f8fafc; line-height:1.25; margin-bottom:14px;">Free First Chapter</h3>
-          <p style="font-size:0.92rem; color:var(--slate-400); line-height:1.7; margin-bottom:20px;">Hear our work before you commit. We'll render chapter 1 of your book with the narrator you pick &mdash; no charge, no follow-up.</p>
-          <span style="display:inline-flex; align-items:center; gap:8px; color:var(--amber); font-weight:600; font-size:0.86rem; letter-spacing:0.04em;">
-            Send Your Manuscript
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
-          </span>
-        </div>
-      </a>
-
-      <!-- Place Your Order -->
-      <a href="/order.html" style="text-decoration:none; display:block;">
-        <div style="background:linear-gradient(135deg, rgba(245,158,11,0.08), rgba(245,158,11,0.02)); border:1px solid rgba(245,158,11,0.32); border-radius:18px; padding:32px 28px; height:100%; transition:border-color 0.25s, transform 0.25s, box-shadow 0.25s; box-shadow:0 16px 40px rgba(0,0,0,0.25), 0 0 24px rgba(245,158,11,0.06);" onmouseover="this.style.borderColor='rgba(245,158,11,0.5)';this.style.transform='translateY(-4px)';this.style.boxShadow='0 24px 60px rgba(0,0,0,0.35), 0 0 50px rgba(245,158,11,0.15)';" onmouseout="this.style.borderColor='rgba(245,158,11,0.32)';this.style.transform='translateY(0)';this.style.boxShadow='0 16px 40px rgba(0,0,0,0.25), 0 0 24px rgba(245,158,11,0.06)';">
-          <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:14px;">Most Popular</div>
-          <h3 style="font-family:'Playfair Display',serif; font-size:1.35rem; font-weight:700; color:#f8fafc; line-height:1.25; margin-bottom:14px;">Place Your Order</h3>
-          <p style="font-size:0.92rem; color:var(--slate-300); line-height:1.7; margin-bottom:20px;">Indie ($40/hr) or Studio ($80/hr). Configure your tier, share your manuscript, pay via Stripe. Delivered in 3&ndash;5 business days.</p>
-          <span style="display:inline-flex; align-items:center; gap:8px; color:var(--amber); font-weight:600; font-size:0.86rem; letter-spacing:0.04em;">
-            Configure &amp; Pay
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
-          </span>
-        </div>
-      </a>
-
-      <!-- Custom Project / Question -->
-      <a href="/order.html?type=custom" style="text-decoration:none; display:block;">
-        <div style="background:var(--slate-900); border:1px solid rgba(148,163,184,0.1); border-radius:18px; padding:32px 28px; height:100%; transition:border-color 0.25s, transform 0.25s, box-shadow 0.25s;" onmouseover="this.style.borderColor='rgba(245,158,11,0.4)';this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 40px rgba(0,0,0,0.3), 0 0 30px rgba(245,158,11,0.1)';" onmouseout="this.style.borderColor='rgba(148,163,184,0.1)';this.style.transform='translateY(0)';this.style.boxShadow='none';">
-          <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); margin-bottom:14px;">Anything Else</div>
-          <h3 style="font-family:'Playfair Display',serif; font-size:1.35rem; font-weight:700; color:#f8fafc; line-height:1.25; margin-bottom:14px;">Custom Project / Question</h3>
-          <p style="font-size:0.92rem; color:var(--slate-400); line-height:1.7; margin-bottom:20px;">Partnerships, multi-language books, unusual formats, deadlines, or just a question. We respond within 24 hours.</p>
-          <span style="display:inline-flex; align-items:center; gap:8px; color:var(--amber); font-weight:600; font-size:0.86rem; letter-spacing:0.04em;">
-            Send a Note
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
-          </span>
-        </div>
-      </a>
-
     </div>
   </div>
 </section>
