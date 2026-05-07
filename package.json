@@ -4,6 +4,7 @@
   "private": true,
   "description": "Novellaire marketing site + Stripe Checkout integration",
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "resend": "^4.0.0",
     "stripe": "^14.25.0"
   },
