@@ -141,8 +141,7 @@ module.exports = async (req, res) => {
               '<p>Your ' + escapeHtml(tierLabel) + ' audiobook order for ' + escapeHtml(titleLine) + ' is confirmed and in production.</p>' +
               '<p><strong style="color:#f8fafc;">What happens next:</strong></p>' +
               '<ul style="padding-left:20px; line-height:1.8;">' +
-                '<li>Your free first chapter arrives within <strong>5 business days</strong> for your approval.</li>' +
-                '<li>Once approved, the full audiobook follows in <strong>' + escapeHtml(deliveryDays) + '</strong>.</li>' +
+                '<li>Your full audiobook will be delivered within <strong>' + escapeHtml(deliveryDays) + '</strong>.</li>' +
                 '<li>You\'ll receive mastered chapter MP3s, ready for ACX, Audible, Spotify, or anywhere you distribute.</li>' +
               '</ul>' +
               '<p>If anything is unclear or you have additions to make, just reply to this email.</p>' +
